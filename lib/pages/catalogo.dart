@@ -7,6 +7,9 @@ import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
 
+import '../utils/secure_storage.dart';
+import 'login.dart';
+
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
   const Catalogo({super.key});
@@ -229,10 +232,30 @@ class _CatalogoState extends State<Catalogo> {
                             fontSize: 14),
                       ),
                     ),
+                    SizedBox(height: Responsive(context).wp(150)),
+                    _bottonSalir(),
             ],
           ),
         ),
       ),
     );
   }
+   Widget _bottonSalir() => Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          const Text(''),
+          TextButton(
+            child: const Text("SALIR"),
+            onPressed: () {
+                SecureStorage().deleteSecureData('token');
+                SecureStorage().deleteSecureData('username');
+                SecureStorage().deleteSecureData('password');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Login()));
+            },
+          )
+        ],
+  );
 }

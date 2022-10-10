@@ -13,20 +13,19 @@ class LoginProvider extends ChangeNotifier {
   String get token => _token;
   set token(String valuetoken) {
     _token = valuetoken;
-    notifyListeners();
   }
 
   String _email = '';
   String get email => _email;
   set email(String email) {
-    _email = _email;
+    _email = email;
     notifyListeners();
   }
 
   String _password = '';
   String get password => _password;
   set password(String password) {
-    _password = _password;
+    _password = password;
     notifyListeners();
   }
 
@@ -36,10 +35,9 @@ class LoginProvider extends ChangeNotifier {
     _loginPerfil = loginPerfil;
     notifyListeners();
   }
-
-   LoginProvider() {
-    //obtenerToken();
-    //print(saveSession);
+  LoginProvider() {
+    obtenerToken();
+    print(saveSession);
   }
 
   bool get saveSession => _saveSession;
@@ -49,29 +47,23 @@ class LoginProvider extends ChangeNotifier {
   }
 
   obtenerToken() async {
-    try {
-      var _token, email, _password;
+    var _token, _email, _password;
 
     _token = await SecureStorage().readSecureData('token') ?? '';
-    email = await SecureStorage().readSecureData('username') ?? '';
+    _email = await SecureStorage().readSecureData('username') ?? '';
     _password = await SecureStorage().readSecureData('password') ?? '';
 
     if (_token == '') {
       saveSession = false;
     } else {
       saveSession = true;
+      email = _email;
       password = _password;
-      email = email;
 
       AutService()
           .updateToken(email, password)
           .then((value) => {token = value!});
     }
-      
-    } catch (e) {
-     print(e); 
-    }
-    
   }
 
   Future<String> readToken() async {
@@ -82,7 +74,4 @@ class LoginProvider extends ChangeNotifier {
       return token;
     }
   }
-
-  Future <String> 
-
 }

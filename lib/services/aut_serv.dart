@@ -48,6 +48,10 @@ class AutService {
         // almacenar flutter secure storage
 
         if (saveSession) {
+
+          print(loginPerfil.token);
+          print(email);
+          print(password);
           SecureStorage().writeSecureData('token', loginPerfil.token);
           SecureStorage().writeSecureData('username', email);
           SecureStorage().writeSecureData('password', password);
@@ -64,9 +68,12 @@ class AutService {
         print(e.response?.data);
         Message.dissmiss(context);
         Errores().showErrorMessage(e, context);
+
+        return null;
       }
     }
     return null;
+    
   }
 
   Future<String?> updateToken(String email, String password) async {
@@ -74,10 +81,10 @@ class AutService {
       final response = await _dio.request('login',
           data: {"username": email, "password": password},
           options: Options(method: 'POST'));
-      final userlog = jsonDecode(response.data);
+      final loginPerfil = jsonDecode(response.data);
 
-      SecureStorage().writeSecureData('token', userlog['token']);
-      return userlog['token'];
+      SecureStorage().writeSecureData('token', loginPerfil['token']);
+      return loginPerfil['token'];
     } catch (e) {
       print(e.toString());
     }

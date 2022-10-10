@@ -158,9 +158,8 @@ class _LoginState extends State<Login> {
               .emailLogin(context, email, password, _saveSession)
               .then((value) {
             if (value!.isActive == true) {
-              Navigator.pushReplacementNamed(context, Catalogo.routeName);
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => const Catalogo()));
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                            Catalogo.routeName, (route) => false);
             } else {
               Message.msgNotActive;
             }
