@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telemetria/data/di/service_locator.dart';
-import 'package:telemetria/data/models/medidor_model.dart';
+import 'package:telemetria/models/medidor_model.dart';
 import 'package:telemetria/data/network/repository/user_repository.dart';
 
 class HomeController {

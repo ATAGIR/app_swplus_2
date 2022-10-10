@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:telemetria/data/models/medidor_model.dart';
+import 'package:telemetria/models/medidor_model.dart';
 import 'package:telemetria/data/network/api/dio_exception.dart';
 import 'package:telemetria/data/network/api/user_api.dart';
 

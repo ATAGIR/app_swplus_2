@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemetria/data/models/perfil.dart';
+import 'package:telemetria/models/perfil.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/errores.dart';
 

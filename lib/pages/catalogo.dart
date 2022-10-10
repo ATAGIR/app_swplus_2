@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telemetria/data/models/models.dart';
+import 'package:telemetria/models/models.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/widget/label_text.dart';

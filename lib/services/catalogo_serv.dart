@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:telemetria/data/models/medidor_model.dart';
+import 'package:telemetria/models/medidor_model.dart';
 
 class CatalogoService with ChangeNotifier {
   late MedidorModel _medidorDeUsuario;
