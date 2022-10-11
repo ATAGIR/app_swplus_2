@@ -23,6 +23,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+    setState(() {});
   }
 
   bool _saveSession = false;
@@ -32,7 +33,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
-    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    final loginProvider = Provider.of<LoginProvider>(context, listen: true);
 
     return SafeArea(
       child: Scaffold(
@@ -157,9 +158,10 @@ class _LoginState extends State<Login> {
           AutService()
               .emailLogin(context, email, password, _saveSession)
               .then((value) {
+            print(value);
             if (value!.isActive == true) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                            Catalogo.routeName, (route) => false);
+                  Catalogo.routeName, (route) => false);
             } else {
               Message.msgNotActive;
             }

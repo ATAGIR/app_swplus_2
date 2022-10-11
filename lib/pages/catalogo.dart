@@ -38,6 +38,13 @@ class _CatalogoState extends State<Catalogo> {
     final responsive = Responsive(context);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                print('salir');
+              },
+              icon: Icon(Icons.exit_to_app))
+        ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         title: Row(

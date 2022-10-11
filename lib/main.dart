@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: Login.id,
+      initialRoute: AuthScreen.routeName,
       routes: {
         Login.routeName: (context) => const Login(),
         Catalogo.routeName: ((context) => const Catalogo()),

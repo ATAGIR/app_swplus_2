@@ -42,13 +42,9 @@ class AutService {
       print(response.data);
 
       if (response.statusCode == 200) {
-        
-
         final LoginPerfil loginPerfil = LoginPerfil.fromJson(response.data);
-        // almacenar flutter secure storage
 
         if (saveSession) {
-
           print(loginPerfil.token);
           print(email);
           print(password);
@@ -73,7 +69,6 @@ class AutService {
       }
     }
     return null;
-    
   }
 
   Future<String?> updateToken(String email, String password) async {
@@ -90,6 +85,7 @@ class AutService {
     }
     return null;
   }
+
   final url = "http://infopro-api.swplus.com.mx";
 
   Future<MedidorUser?> getLast(BuildContext context, String token) async {
