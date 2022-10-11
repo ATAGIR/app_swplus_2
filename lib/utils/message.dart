@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../data/ui/notifications_serv.dart';
+import '../ui/notifications_serv.dart';
 
 class Message {
   static final Message _message = Message._internal();

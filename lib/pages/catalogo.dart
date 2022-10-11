@@ -19,8 +19,8 @@ class Catalogo extends StatefulWidget {
 }
 
 int? ordens;
-Future<List<MedidorModel>?>? _medidorModel;
-List<MedidorModel>? listMedidoresModel;
+Future<List<MedidorUser>?>? _medidorModel;
+List<MedidorUser>? listMedidoresModel;
 
 bool emptyArray = false;
 String? itemMarcado;
@@ -174,10 +174,10 @@ class _CatalogoState extends State<Catalogo> {
                       child: SizedBox(
                         height: responsive.hp(60),
                         width: responsive.wp(97),
-                        child: FutureBuilder<List<MedidorModel>?>(
+                        child: FutureBuilder<List<MedidorUser>?>(
                           future: _medidorModel,
                           builder: (context,
-                              AsyncSnapshot<List<MedidorModel>?> snapshot) {
+                              AsyncSnapshot<List<MedidorUser>?> snapshot) {
                             if (!snapshot.hasData) {
                               return const Center(
                                   child: CircularProgressIndicator());
@@ -232,30 +232,29 @@ class _CatalogoState extends State<Catalogo> {
                             fontSize: 14),
                       ),
                     ),
-                    SizedBox(height: Responsive(context).wp(150)),
-                    _bottonSalir(),
+              SizedBox(height: Responsive(context).wp(150)),
+              _bottonSalir(),
             ],
           ),
         ),
       ),
     );
   }
-   Widget _bottonSalir() => Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+  Widget _bottonSalir() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           const Text(''),
           TextButton(
             child: const Text("SALIR"),
             onPressed: () {
-                SecureStorage().deleteSecureData('token');
-                SecureStorage().deleteSecureData('username');
-                SecureStorage().deleteSecureData('password');
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Login()));
+              SecureStorage().deleteSecureData('token');
+              SecureStorage().deleteSecureData('username');
+              SecureStorage().deleteSecureData('password');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
             },
           )
         ],
-  );
+      );
 }

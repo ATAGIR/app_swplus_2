@@ -6,8 +6,8 @@
 
 import 'dart:convert';
 
-class MedidorModel {
-  MedidorModel({
+class MedidorUser {
+  MedidorUser({
     required this.psiId,
     required this.psi,
     required this.concesionId,
@@ -25,12 +25,12 @@ class MedidorModel {
   String razonSocial;
   List<Log> logs;
 
-  factory MedidorModel.fromJson(String str) =>
-      MedidorModel.fromMap(json.decode(str));
+  factory MedidorUser.fromJson(String str) =>
+      MedidorUser.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory MedidorModel.fromMap(Map<String, dynamic> json) => MedidorModel(
+  factory MedidorUser.fromMap(Map<String, dynamic> json) => MedidorUser(
         psiId: json["psi_id"],
         psi: json["psi"],
         concesionId: json["concesion_id"],

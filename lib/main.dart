@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/catalogo.dart';
 import 'package:telemetria/providers/login_prov.dart';
-import 'package:telemetria/services/catalogo_serv.dart';
 import 'pages/login.dart';
 
 void main() {
@@ -19,24 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(lazy: false,create: (_) => CatalogoService(),
-
-        )
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Material App',
-          theme: ThemeData(
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          initialRoute: Login.id,
-          routes: {
-            Login.routeName: (context) => const Login(),
-            Catalogo.routeName: ((context) => const Catalogo()),
-            AuthScreen.routeName: ((context) => const AuthScreen()),
-          }),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Material App',
+      theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      initialRoute: Login.id,
+      routes: {
+        Login.routeName: (context) => const Login(),
+        Catalogo.routeName: ((context) => const Catalogo()),
+        AuthScreen.routeName: ((context) => const AuthScreen()),
+      },
     );
   }
 }

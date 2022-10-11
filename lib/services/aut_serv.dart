@@ -1,16 +1,16 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telemetria/models/medidor_model.dart';
 import 'package:telemetria/models/perfil.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/errores.dart';
-
 import '../utils/message.dart';
 import '../utils/secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 class AutService {
   static final AutService _autService = AutService._internal();
@@ -85,6 +85,21 @@ class AutService {
 
       SecureStorage().writeSecureData('token', loginPerfil['token']);
       return loginPerfil['token'];
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+  final url = "http://infopro-api.swplus.com.mx";
+
+  Future<MedidorUser?> getLast(BuildContext context, String token) async {
+    try {
+      var response = await http.get(Uri.parse('$url/api/log/get_last'));
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e.toString());
     }
