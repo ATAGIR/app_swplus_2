@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/theme/theme.dart';
@@ -40,10 +42,11 @@ class _CatalogoState extends State<Catalogo> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                print('salir');
-              },
-              icon: Icon(Icons.exit_to_app))
+            onPressed: () {
+              print('salir');
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
         ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -57,7 +60,7 @@ class _CatalogoState extends State<Catalogo> {
               width: responsive.wp(3),
             ),
             SearchTextForm(
-                width: responsive.wp(63),
+                width: responsive.wp(51.4),
                 height: responsive.hp(5),
                 borderColor: ColorTheme.iconsColor,
                 backgroundColor: ColorTheme.thetextBackgroundColor,
