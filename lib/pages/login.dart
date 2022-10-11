@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/imagenes/logo.png',
+                      'assets/imagenes/logo.jpeg',
                       height: responsive.hp(45),
                       width: responsive.wp(80),
                     ),
