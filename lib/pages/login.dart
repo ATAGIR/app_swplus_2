@@ -53,9 +53,9 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/imagenes/logo.jpeg',
-                      height: responsive.hp(40),
-                      width: responsive.wp(75),
+                      'assets/imagenes/logo.png',
+                      height: responsive.hp(45),
+                      width: responsive.wp(80),
                     ),
                     _userTextField(),
                     SizedBox(height: Responsive(context).wp(7)),
