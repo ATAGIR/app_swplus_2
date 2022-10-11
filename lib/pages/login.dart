@@ -54,8 +54,8 @@ class _LoginState extends State<Login> {
                   children: [
                     Image.asset(
                       'assets/imagenes/logo.jpeg',
-                      height: responsive.hp(45),
-                      width: responsive.wp(80),
+                      height: responsive.hp(40),
+                      width: responsive.wp(75),
                     ),
                     _userTextField(),
                     SizedBox(height: Responsive(context).wp(7)),

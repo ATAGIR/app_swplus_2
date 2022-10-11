@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:telemetria/theme/theme.dart';
 
@@ -25,8 +27,7 @@ class WidButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          primary:
-              isBorder ? ColorTheme.backgroudColor : ColorTheme.thebuttonsColor,
+          backgroundColor: isBorder ? ColorTheme.backgroudColor : ColorTheme.thebuttonsColor,
           shape: isBorder
               ? RoundedRectangleBorder(
                   side: BorderSide(

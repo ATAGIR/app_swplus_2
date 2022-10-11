@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_typing_uninitialized_variables, avoid_print, unnecessary_getters_setters
 
 import 'package:flutter/material.dart';
 import 'package:telemetria/models/models.dart';

@@ -10,7 +10,6 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> frmKeyAuth = GlobalKey<FormState>();
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 

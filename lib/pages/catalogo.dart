@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
@@ -9,6 +10,7 @@ import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
 
+import '../providers/login_prov.dart';
 import '../utils/secure_storage.dart';
 import 'login.dart';
 
@@ -36,6 +38,16 @@ const Map<String, int> itemOrdens = {
 
 class _CatalogoState extends State<Catalogo> {
   @override
+  void initState() {
+    // TODO: implement initState
+
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    print(loginProvider.token);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
     return Scaffold(
@@ -43,7 +55,11 @@ class _CatalogoState extends State<Catalogo> {
         actions: [
           IconButton(
             onPressed: () {
-              print('salir');
+              SecureStorage().deleteSecureData('token');
+              SecureStorage().deleteSecureData('username');
+              SecureStorage().deleteSecureData('password');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
             },
             icon: const Icon(Icons.exit_to_app),
           ),
@@ -53,7 +69,7 @@ class _CatalogoState extends State<Catalogo> {
         title: Row(
           children: [
             Image.asset(
-              "assets/imagenes/logo_sw.jpeg",
+              "assets/imagenes/logo_sw.png",
               height: 40.0,
             ),
             SizedBox(
@@ -243,28 +259,10 @@ class _CatalogoState extends State<Catalogo> {
                       ),
                     ),
               SizedBox(height: Responsive(context).wp(150)),
-              _bottonSalir(),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget _bottonSalir() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          const Text(''),
-          TextButton(
-            child: const Text("SALIR"),
-            onPressed: () {
-              SecureStorage().deleteSecureData('token');
-              SecureStorage().deleteSecureData('username');
-              SecureStorage().deleteSecureData('password');
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Login()));
-            },
-          )
-        ],
-      );
 }

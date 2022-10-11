@@ -35,7 +35,7 @@ class SearchTextForm extends StatelessWidget {
           color: ColorTheme.thetextBackgroundColor,
           borderRadius: const BorderRadius.all(Radius.circular(100))),
       child: Padding(
-        padding: const EdgeInsets.only(left: 30),
+        padding: const EdgeInsets.only(left: 10),
         child: TextFormField(
           enableSuggestions: false,
           onChanged: onChanged,
