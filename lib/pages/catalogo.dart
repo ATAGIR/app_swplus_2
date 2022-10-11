@@ -53,7 +53,7 @@ class _CatalogoState extends State<Catalogo> {
         title: Row(
           children: [
             Image.asset(
-              "assets/imagenes/logo_sw.png",
+              "assets/imagenes/logo_sw.jpeg",
               height: 40.0,
             ),
             SizedBox(
