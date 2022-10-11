@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
+import 'package:telemetria/services/catalogo_serv.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/widget/label_text.dart';
@@ -39,11 +40,11 @@ const Map<String, int> itemOrdens = {
 class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
-    // TODO: implement initState
-
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     print(loginProvider.token);
-
+    CatService().getLast(context, loginProvider.token).then((value) => {
+          print(value),
+        });
     super.initState();
   }
 
