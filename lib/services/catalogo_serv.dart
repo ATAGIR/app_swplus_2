@@ -2,10 +2,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/services/errores.dart';
-import '../utils/message.dart';
 
 class CatService {
   static final CatService _catService = CatService._internal();
@@ -45,8 +43,6 @@ class CatService {
         print(e.response?.statusCode);
         print(e.response?.data);
         //Message.dissmiss(context);
-        Errores().showErrorMessage(e, context);
-
         return null;
       }
     }
