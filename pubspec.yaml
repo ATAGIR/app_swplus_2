@@ -96,6 +96,7 @@ flutter:
   assets:
     - data/sw_plus_info.json
     - assets/imagenes/logo.jpeg
+    - assets/imagenes/InfoPro.png
     - assets/imagenes/
     #- images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
