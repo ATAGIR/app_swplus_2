@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
-import 'package:telemetria/services/catalogo_serv.dart';
+import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/widget/label_text.dart';
