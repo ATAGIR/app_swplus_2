@@ -70,22 +70,23 @@ class _CatalogoState extends State<Catalogo> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               "assets/imagenes/logo_sw.png",
               height: 40.0,
             ),
-            SizedBox(
-              width: responsive.wp(3),
-            ),
+            // SizedBox(
+            //   width: responsive.wp(3),
+            // ),
             SearchTextForm(
-                width: responsive.wp(51.4),
+                width: responsive.wp(45),
                 height: responsive.hp(5),
                 borderColor: ColorTheme.iconsColor,
                 backgroundColor: ColorTheme.thetextBackgroundColor,
                 labelText: 'Buscar',
                 onPressed: () {},
-                iconSize: responsive.dp(1.8),
+                iconSize: responsive.dp(.2),
                 onChanged: (value) {
                   setState(() {
                     if (value.isEmpty) {
@@ -96,10 +97,10 @@ class _CatalogoState extends State<Catalogo> {
                     }
                   });
                 }),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-            ),
+            // Container(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
+            // ),
           ],
         ),
         // ignore: prefer_const_literals_to_create_immutables
