@@ -86,7 +86,7 @@ class _CatalogoState extends State<Catalogo> {
                 backgroundColor: ColorTheme.thetextBackgroundColor,
                 labelText: 'Buscar',
                 onPressed: () {},
-                iconSize: responsive.dp(.2),
+                iconSize: responsive.dp(2),
                 onChanged: (value) {
                   setState(() {
                     if (value.isEmpty) {
