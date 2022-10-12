@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:telemetria/models/models.dart';
-import 'package:telemetria/services/errores.dart';
+
 
 class CatService {
   static final CatService _catService = CatService._internal();
@@ -23,7 +23,7 @@ class CatService {
 
   Future<MedidorUser?> getLast(BuildContext context, String token) async {
     try {
-      _dio.options.headers["Autorization"] = "Bearer $token";
+      _dio.options.headers["Authorization"] = "Bearer $token";
       // final medidoruser = Provider.of<MedidorUser>(context, listen: false);
       //Message.show(context);
       print(token);
