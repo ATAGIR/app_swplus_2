@@ -16,7 +16,7 @@ class CatService {
     return _catService;
   }
   CatService._internal() {
-    _dio.options.baseUrl = 'http://infopro-api.swplus.com.mx/api/log/get_last';
+    _dio.options.baseUrl = 'http://infopro-api.swplus.com.mx/api/log/';
     _dio.options.connectTimeout = 120000;
     _dio.options.receiveTimeout = 120000;
     _dio.options.receiveDataWhenStatusError = false;
@@ -25,27 +25,26 @@ class CatService {
 
   Future<MedidorUser?> getLast(BuildContext context, String token) async {
     try {
-      final medidoruser = Provider.of<MedidorUser>(context, listen: false);
-      Message.show(context);
-      final response = await _dio.request('medidor',
-          data: {"token": token}, options: Options(method: 'GET'));
-      print(response.data);
+      _dio.options.headers["Autorization"] = "Bearer $token";
+      // final medidoruser = Provider.of<MedidorUser>(context, listen: false);
+      //Message.show(context);
+      print(token);
+      final response =
+          await _dio.request('get_last', options: Options(method: 'GET'));
+
       if (response.statusCode == 200) {
         final MedidorUser medidorUser = MedidorUser.fromJson(response.data);
-        if (token == token) {
-          print(response.data);
-        }
-        Message.dissmiss(context);
-        medidoruser.concesion = medidorUser as String;
+        print(medidorUser.razonSocial);
+        // Message.dissmiss(context);
+
         return medidorUser;
       } else {}
-    } catch (e) {
-      return null;
     } on DioError catch (e) {
+      print(e);
       if (e.response != null) {
         print(e.response?.statusCode);
         print(e.response?.data);
-        Message.dissmiss(context);
+        //Message.dissmiss(context);
         Errores().showErrorMessage(e, context);
 
         return null;

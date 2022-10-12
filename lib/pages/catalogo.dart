@@ -41,10 +41,12 @@ class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    print(loginProvider.token);
-    CatService().getLast(context, loginProvider.token).then((value) => {
-          print(value),
-        });
+    print(loginProvider.loginPerfil.token);
+    CatService()
+        .getLast(context, loginProvider.loginPerfil.token)
+        .then((value) => {
+              print(value),
+            });
     super.initState();
   }
 
