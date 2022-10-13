@@ -27,12 +27,12 @@ class MedidorUser {
   String razonSocial;
   List<Log>? logs;
 
-  factory MedidorUser.fromJson(String str) =>
-      MedidorUser.fromMap(json.decode(str));
+  // factory MedidorUser.fromJson(String str) =>
+  //     MedidorUser.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory MedidorUser.fromMap(Map<String, dynamic> json) => MedidorUser(
+  factory MedidorUser.fromJson(Map<String, dynamic> json) => MedidorUser(
         psiId: json["psi_id"],
         psi: json["psi"],
         concesionId: json["concesion_id"],
@@ -42,7 +42,7 @@ class MedidorUser {
         logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x))),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "psi_id": psiId,
         "psi": psi,
         "concesion_id": concesionId,
@@ -52,8 +52,6 @@ class MedidorUser {
         "logs": List<dynamic>.from(logs!.map((x) => x.toMap())),
       };
 }
-
-
 
 class Log {
   Log({
@@ -88,9 +86,9 @@ class Log {
   DateTime fecha;
   dynamic history;
 
-  factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
+  // factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
   factory Log.fromMap(Map<String, dynamic> json) => Log(
         rfc: rfcValues.map[json["rfc"]],
@@ -126,6 +124,7 @@ class Log {
         "history": history,
       };
 }
+
 enum Rfc { OCM200110_QR3, STE130213445 }
 
 final rfcValues = EnumValues({
