@@ -1,12 +1,11 @@
-// ignore_for_file: constant_identifier_names, unnecessary_null_comparison, file_names
+// ignore_for_file: constant_identifier_names, unnecessary_null_comparison, file_names, prefer_if_null_operators, prefer_conditional_assignment, unnecessary_new
 
 import 'dart:convert';
-
 
 List<MedidorUser> getMedidorUserFromJson(String str) => List<MedidorUser>.from(
     json.decode(str).map((x) => MedidorUser.fromJson(x)));
 
-dynamic getMedidorUserToJson(List<MedidorUser> data) =>
+String getMedidorUserToJson(List<MedidorUser> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MedidorUser {
@@ -54,12 +53,7 @@ class MedidorUser {
       };
 }
 
-enum Rfc { OCM200110_QR3, STE130213445 }
 
-final rfcValues = EnumValues({
-  "OCM200110QR3": Rfc.OCM200110_QR3,
-  "STE130213445": Rfc.STE130213445,
-});
 
 class Log {
   Log({
@@ -132,6 +126,12 @@ class Log {
         "history": history,
       };
 }
+enum Rfc { OCM200110_QR3, STE130213445 }
+
+final rfcValues = EnumValues({
+  "OCM200110QR3": Rfc.OCM200110_QR3,
+  "STE130213445": Rfc.STE130213445,
+});
 
 class EnumValues<T> {
   Map<String, T> map;
