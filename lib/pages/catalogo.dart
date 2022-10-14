@@ -26,7 +26,7 @@ int? ordens;
 Future<List<MedidorUser>?>? _medidorModel;
 List<MedidorUser>? listaMedidoresUser;
 
-bool emptyArray = false;
+bool emptyArray = true;
 String? itemMarcado;
 
 const Map<String, int> itemOrdens = {
@@ -295,7 +295,7 @@ class _CatalogoState extends State<Catalogo> {
                                           nameMedidor: listaMedidoresUser?[
                                                           index]
                                                       .concesion !=
-                                                  null
+                                                  ""
                                               ? subtitle
                                               : 'Id ${listaMedidoresUser?[index].psi} #',
                                           responsive: responsive);
