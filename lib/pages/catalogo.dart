@@ -55,60 +55,59 @@ class _CatalogoState extends State<Catalogo> {
       child: Scaffold(
         drawer: Drawer(
           child: SingleChildScrollView(
-            child: Container(
-                child: Column(
+            child: Column(
               children: [
-                Container(
-                  width: responsive.wp(100), //500.0,
-                  height: responsive.hp(30),
-                  color: Colors.white60,
-                  alignment: Alignment.center,
-                  transformAlignment: Alignment.center,
-                  child: Container(
-                    color: Colors.white60,
-                    child: Container(
-                      width: responsive.wp(50),
-                      height: responsive.wp(50),
-                      child: Image.asset(
-                        "assets/imagenes/logo_sw.png",
-                        height: responsive.hp(5),
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffecf0f3),
-                        borderRadius: BorderRadius.circular(150),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            (Colors.white60),
-                            Color(0xffced2d5),
-                          ],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white60,
-                            offset: Offset(-16.3, -16.3),
-                            blurRadius: responsive.dp(2),
-                            spreadRadius: 0.0,
-                          ),
-                          BoxShadow(
-                            color: Color(0xffced2d5),
-                            offset: Offset(16.3, 16.3),
-                            blurRadius: responsive.dp(2),
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                      ),
+            Container(
+              width: responsive.wp(100), //500.0,
+              height: responsive.hp(30),
+              color: Colors.white60,
+              alignment: Alignment.center,
+              transformAlignment: Alignment.center,
+              child: Container(
+                color: Colors.white60,
+                child: Container(
+                  width: responsive.wp(50),
+                  height: responsive.wp(50),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffecf0f3),
+                    borderRadius: BorderRadius.circular(150),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        (Colors.white60),
+                        Color(0xffced2d5),
+                      ],
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white60,
+                        offset: const Offset(-16.3, -16.3),
+                        blurRadius: responsive.dp(2),
+                        spreadRadius: 0.0,
+                      ),
+                      BoxShadow(
+                        color: const Color(0xffced2d5),
+                        offset: const Offset(16.3, 16.3),
+                        blurRadius: responsive.dp(2),
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    "assets/imagenes/logo_sw.png",
+                    height: responsive.hp(5),
                   ),
                 ),
-                // ListView.builder(
-                //   scrollDirection: Axis.vertical,
-                //   shrinkWrap: true,
-                //   itemCount: ,
-                //   itemBuilder: )
+              ),
+            ),
+            // ListView.builder(
+            //   scrollDirection: Axis.vertical,
+            //   shrinkWrap: true,
+            //   itemCount: ,
+            //   itemBuilder: )
               ],
-            )),
+            ),
           ),
         ),
         appBar: AppBar(

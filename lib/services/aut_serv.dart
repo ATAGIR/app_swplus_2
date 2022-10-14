@@ -66,6 +66,7 @@ class AutService {
         return null;
       }
     }
+    return null;
   }
 
   Future<String?> updateToken(String email, String password) async {
