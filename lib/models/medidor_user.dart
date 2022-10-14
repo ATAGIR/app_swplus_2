@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names, unnecessary_null_comparison, file_names, prefer_if_null_operators, prefer_conditional_assignment, unnecessary_new
-
 import 'dart:convert';
 
 List<MedidorUser> getMedidorUserFromJson(String str) => List<MedidorUser>.from(
@@ -10,35 +8,30 @@ String getMedidorUserToJson(List<MedidorUser> data) =>
 
 class MedidorUser {
   MedidorUser({
-    required this.psiId,
-    required this.psi,
-    required this.concesionId,
-    required this.concesion,
-    required this.rfc,
-    required this.razonSocial,
+    this.psiId,
+    this.psi,
+    this.concesionId,
+    this.concesion,
+    this.rfc,
+    this.razonSocial,
     this.logs,
   });
 
-  int psiId;
-  String psi;
-  int concesionId;
-  String concesion;
-  String rfc;
-  String razonSocial;
+  int? psiId;
+  String? psi;
+  int? concesionId;
+  String? concesion;
+  String? rfc;
+  String? razonSocial;
   List<Log>? logs;
 
-  // factory MedidorUser.fromJson(String str) =>
-  //     MedidorUser.fromMap(json.decode(str));
-
-  // String toJson() => json.encode(toMap());
-
   factory MedidorUser.fromJson(Map<String, dynamic> json) => MedidorUser(
-        psiId: json["psi_id"],
-        psi: json["psi"],
-        concesionId: json["concesion_id"],
-        concesion: json["concesion"] == null ? null : json["concesion"],
-        rfc: json["rfc"],
-        razonSocial: json["razon_social"],
+        psiId: json["psi_id"] ?? 0,
+        psi: json["psi"] ?? "",
+        concesionId: json["concesion_id"] ?? 0,
+        concesion: json["concesion"] ?? "",
+        rfc: json["rfc"] ?? "",
+        razonSocial: json["razon_social"] ?? "",
         logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x))),
       );
 
@@ -46,7 +39,7 @@ class MedidorUser {
         "psi_id": psiId,
         "psi": psi,
         "concesion_id": concesionId,
-        "concesion": concesion == null ? null : concesion,
+        "concesion": concesion,
         "rfc": rfc,
         "razon_social": razonSocial,
         "logs": List<dynamic>.from(logs!.map((x) => x.toMap())),
@@ -56,34 +49,32 @@ class MedidorUser {
 class Log {
   Log({
     this.rfc,
-    required this.nsm,
-    required this.nsue,
-    required this.lat,
-    required this.long,
-    required this.modeloId,
-    required this.modelo,
-    required this.ccid,
-    required this.imei,
-    required this.nsut,
-    required this.etiqueta,
-    this.ker,
-    required this.fecha,
+    this.nsm,
+    this.nsue,
+    this.lat,
+    this.long,
+    this.modeloId,
+    this.modelo,
+    this.ccid,
+    this.imei,
+    this.nsut,
+    this.etiqueta,
+    this.fecha,
     this.history,
   });
 
   Rfc? rfc;
-  String nsm;
-  String nsue;
-  double lat;
-  double long;
-  int modeloId;
-  String modelo;
-  String ccid;
-  String imei;
-  String nsut;
-  String etiqueta;
-  dynamic ker;
-  DateTime fecha;
+  String? nsm;
+  String? nsue;
+  double? lat;
+  double? long;
+  int? modeloId;
+  String? modelo;
+  String? ccid;
+  String? imei;
+  String? nsut;
+  String? etiqueta;
+  DateTime? fecha;
   dynamic history;
 
   // factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
@@ -92,17 +83,16 @@ class Log {
 
   factory Log.fromMap(Map<String, dynamic> json) => Log(
         rfc: rfcValues.map[json["rfc"]],
-        nsm: json["nsm"],
-        nsue: json["nsue"],
+        nsm: json["nsm"] ?? "",
+        nsue: json["nsue"] ?? "",
         lat: json["lat"].toDouble(),
         long: json["long"].toDouble(),
-        modeloId: json["modelo_id"],
-        modelo: json["modelo"],
-        ccid: json["ccid"],
-        imei: json["imei"],
-        nsut: json["nsut"],
-        etiqueta: json["etiqueta"],
-        ker: json["ker"],
+        modeloId: json["modelo_id"] ?? 0,
+        modelo: json["modelo"] ?? "",
+        ccid: json["ccid"] ?? 0,
+        imei: json["imei"] ?? 0,
+        nsut: json["nsut"] ?? "",
+        etiqueta: json["etiqueta"] ?? "",
         fecha: DateTime.parse(json["fecha"]),
         history: json["history"],
       );
@@ -119,12 +109,12 @@ class Log {
         "imei": imei,
         "nsut": nsut,
         "etiqueta": etiqueta,
-        "ker": ker,
-        "fecha": fecha.toIso8601String(),
+        "fecha": fecha!.toIso8601String(),
         "history": history,
       };
 }
 
+// ignore: constant_identifier_names
 enum Rfc { OCM200110_QR3, STE130213445 }
 
 final rfcValues = EnumValues({
@@ -139,8 +129,9 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
+    // ignore: prefer_conditional_assignment
     if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
+      reverseMap = map.map((k, v) => MapEntry(v, k));
     }
     return reverseMap!;
   }

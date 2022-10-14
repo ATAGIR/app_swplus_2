@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -209,7 +209,7 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listMedidoresModel!.sort(
-                                  (a, b) => a.psiId.compareTo(b.psiId),
+                                  (a, b) => a.psiId!.compareTo(b.psiId!),
                                 );
                               },
                             );
@@ -219,7 +219,7 @@ class _CatalogoState extends State<Catalogo> {
                               () {
                                 listMedidoresModel!.sort(
                                   //(a, b) => b.soNumero.compareTo(a.soNumero),
-                                  (a, b) => b.psiId.compareTo(a.psiId),
+                                  (a, b) => b.psiId!.compareTo(a.psiId!),
                                 );
                               },
                             );
@@ -270,9 +270,9 @@ class _CatalogoState extends State<Catalogo> {
                                         listMedidoresModel = snapshot.data,
                                       }
                                     : {
-                                        listMedidoresModel = listMedidoresModel!
-                                            .where((element) => element
-                                                .razonSocial
+                                        listMedidoresModel = listMedidoresModel
+                                            ?.where((element) => element
+                                                .razonSocial!
                                                 .toLowerCase()
                                                 .contains(
                                                     itemMarcado!.toLowerCase()))
@@ -282,8 +282,9 @@ class _CatalogoState extends State<Catalogo> {
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    itemCount: listMedidoresModel!.length,
+                                    itemCount: listMedidoresModel?.length,
                                     itemBuilder: (context, index) {
+                                      var subtitle;
                                       return ListTileTelemetria.listTileTELEMETRIA(
                                           buttonText: true,
                                           circleColor:
@@ -295,10 +296,10 @@ class _CatalogoState extends State<Catalogo> {
                                           onPressButton2: () {},
                                           textButton: 'DownLoad',
                                           nameMedidor:
-                                              listMedidoresModel![index]
-                                                  .concesion,
+                                              listMedidoresModel?[index]
+                                                  .concesion != null?
                                           subtitle:
-                                              'Folio ${listMedidoresModel![index].concesion} Fecha Alta',
+                                              'Folio ${listMedidoresModel?[index].concesion} Fecha Alta',
                                           responsive: responsive);
                                     },
                                   ),
