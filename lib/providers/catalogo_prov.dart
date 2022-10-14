@@ -5,7 +5,6 @@ import 'package:telemetria/utils/secure_storage.dart';
 
 class CatalogoProvider extends ChangeNotifier {
   String _token = '';
-
   static final GlobalKey<FormState> toKey = GlobalKey<FormState>();
   String get token => _token;
   set token(String valueToken) {
@@ -16,7 +15,7 @@ class CatalogoProvider extends ChangeNotifier {
     var token = await SecureStorage().readSecureData('token');
     if (token == null) {
       return '';
-    }else{
+    } else {
       return token;
     }
   }
