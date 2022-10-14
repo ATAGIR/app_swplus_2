@@ -10,7 +10,6 @@ import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
-
 import '../providers/login_prov.dart';
 import '../utils/secure_storage.dart';
 import 'login.dart';
@@ -25,7 +24,7 @@ class Catalogo extends StatefulWidget {
 
 int? ordens;
 Future<List<MedidorUser>?>? _medidorModel;
-List<MedidorUser>? listMedidoresModel;
+List<MedidorUser>? listaMedidoresUser;
 
 bool emptyArray = false;
 String? itemMarcado;
@@ -42,9 +41,9 @@ class _CatalogoState extends State<Catalogo> {
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     print(loginProvider.loginPerfil.token);
-    _medidorModel = CatService()
-        .getLast(context, loginProvider.loginPerfil.token);
-        
+    _medidorModel =
+        CatService().getLast(context, loginProvider.loginPerfil.token);
+
     super.initState();
   }
 
@@ -57,55 +56,55 @@ class _CatalogoState extends State<Catalogo> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-            Container(
-              width: responsive.wp(100), //500.0,
-              height: responsive.hp(30),
-              color: Colors.white60,
-              alignment: Alignment.center,
-              transformAlignment: Alignment.center,
-              child: Container(
-                color: Colors.white60,
-                child: Container(
-                  width: responsive.wp(50),
-                  height: responsive.wp(50),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffecf0f3),
-                    borderRadius: BorderRadius.circular(150),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        (Colors.white60),
-                        Color(0xffced2d5),
-                      ],
+                Container(
+                  width: responsive.wp(100), //500.0,
+                  height: responsive.hp(30),
+                  color: Colors.white60,
+                  alignment: Alignment.center,
+                  transformAlignment: Alignment.center,
+                  child: Container(
+                    color: Colors.white60,
+                    child: Container(
+                      width: responsive.wp(50),
+                      height: responsive.wp(50),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffecf0f3),
+                        borderRadius: BorderRadius.circular(150),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            (Colors.white60),
+                            Color(0xffced2d5),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white60,
+                            offset: const Offset(-16.3, -16.3),
+                            blurRadius: responsive.dp(2),
+                            spreadRadius: 0.0,
+                          ),
+                          BoxShadow(
+                            color: const Color(0xffced2d5),
+                            offset: const Offset(16.3, 16.3),
+                            blurRadius: responsive.dp(2),
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        "assets/imagenes/logo_sw.png",
+                        height: responsive.hp(5),
+                      ),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white60,
-                        offset: const Offset(-16.3, -16.3),
-                        blurRadius: responsive.dp(2),
-                        spreadRadius: 0.0,
-                      ),
-                      BoxShadow(
-                        color: const Color(0xffced2d5),
-                        offset: const Offset(16.3, 16.3),
-                        blurRadius: responsive.dp(2),
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                  ),
-                  child: Image.asset(
-                    "assets/imagenes/logo_sw.png",
-                    height: responsive.hp(5),
                   ),
                 ),
-              ),
-            ),
-            // ListView.builder(
-            //   scrollDirection: Axis.vertical,
-            //   shrinkWrap: true,
-            //   itemCount: ,
-            //   itemBuilder: )
+                // ListView.builder(
+                //   scrollDirection: Axis.vertical,
+                //   shrinkWrap: true,
+                //   itemCount: ,
+                //   itemBuilder: )
               ],
             ),
           ),
@@ -207,7 +206,7 @@ class _CatalogoState extends State<Catalogo> {
                           case 1:
                             setState(
                               () {
-                                listMedidoresModel!.sort(
+                                listaMedidoresUser!.sort(
                                   (a, b) => a.psiId!.compareTo(b.psiId!),
                                 );
                               },
@@ -216,7 +215,7 @@ class _CatalogoState extends State<Catalogo> {
                           case 2:
                             setState(
                               () {
-                                listMedidoresModel!.sort(
+                                listaMedidoresUser!.sort(
                                   //(a, b) => b.soNumero.compareTo(a.soNumero),
                                   (a, b) => b.psiId!.compareTo(a.psiId!),
                                 );
@@ -226,7 +225,7 @@ class _CatalogoState extends State<Catalogo> {
                           case 3:
                             setState(
                               () {
-                                listMedidoresModel!.sort(
+                                listaMedidoresUser!.sort(
                                   (a, b) => a.concesion
                                       .toString()
                                       .compareTo(b.concesion.toString()),
@@ -237,7 +236,7 @@ class _CatalogoState extends State<Catalogo> {
                           case 4:
                             setState(
                               () {
-                                listMedidoresModel!.sort(
+                                listaMedidoresUser!.sort(
                                   (a, b) => b.concesion
                                       .toString()
                                       .compareTo(a.concesion.toString()),
@@ -266,12 +265,11 @@ class _CatalogoState extends State<Catalogo> {
                               } else {
                                 emptyArray
                                     ? {
-                                        listMedidoresModel = snapshot.data,
+                                        listaMedidoresUser = snapshot.data,
                                       }
                                     : {
-                                        listMedidoresModel = listMedidoresModel
-                                            ?.where((element) => element
-                                                .razonSocial!
+                                        listaMedidoresUser = listaMedidoresUser
+                                            ?.where((element) => element.psi!
                                                 .toLowerCase()
                                                 .contains(
                                                     itemMarcado!.toLowerCase()))
@@ -281,7 +279,7 @@ class _CatalogoState extends State<Catalogo> {
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    itemCount: listMedidoresModel?.length,
+                                    itemCount: listaMedidoresUser?.length,
                                     itemBuilder: (context, index) {
                                       var subtitle;
                                       return ListTileTelemetria.listTileTELEMETRIA(
@@ -293,12 +291,13 @@ class _CatalogoState extends State<Catalogo> {
                                           onPressarrowButton: () {},
                                           onPressButton1: () {},
                                           onPressButton2: () {},
-                                          textButton: 'DownLoad',
-                                          nameMedidor:
-                                              listMedidoresModel?[index]
-                                                  .concesion != null?
-                                          subtitle:
-                                              'Folio ${listMedidoresModel?[index].concesion} Fecha Alta',
+                                          textButton: 'Opción',
+                                          nameMedidor: listaMedidoresUser?[
+                                                          index]
+                                                      .concesion !=
+                                                  null
+                                              ? subtitle
+                                              : 'Id ${listaMedidoresUser?[index].psi} #',
                                           responsive: responsive);
                                     },
                                   ),
