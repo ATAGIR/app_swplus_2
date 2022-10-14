@@ -23,7 +23,6 @@ class Ubicacion extends StatelessWidget {
               center: LatLng(latitud,longitud),
               minZoom: minZoom,
               maxZoom: maxZoom,
-              //location: location,
             ),
             layers: [
               TileLayerOptions(
