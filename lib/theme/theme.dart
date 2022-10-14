@@ -23,7 +23,7 @@ class ColorTheme {
 
 // Color Button
 
-  static Color thebuttonsColor = const Color(0xff98363A);
+  static Color thebuttonsColor = const Color.fromARGB(255, 20, 152, 196);
   static Color buttonsBorderColor = const Color(0xffA85255);
   static Color buttonbackgroudColor = const Color.fromARGB(255, 30, 30, 30);
   static Color menuButtonsColor = const Color(0xff303030);
