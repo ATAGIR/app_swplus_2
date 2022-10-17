@@ -42,7 +42,7 @@ class ListTileTelemetria {
                     child: Text(
                       nameMedidor,
                       style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontFamily: ColorTheme.fontFamily,
                           fontSize: 14),
                     ),

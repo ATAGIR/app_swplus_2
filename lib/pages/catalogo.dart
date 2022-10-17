@@ -31,20 +31,16 @@ bool emptyArray = true;
 String? itemSeleccionado;
 
 const Map<String, int> itemOrdens = {
-  "Folio, Ascendente": 1,
-  "Folio, Descendente": 2,
+  "Consecion, Ascendente": 1,
+  "Consecion, Descendente": 2,
   "Nombre, A-Z": 3,
   "Nombre, Z-A": 4,
-  "Ordenar, por RFC": 5,
 };
 
 class _CatalogoState extends State<Catalogo> {
-  
-
   @override
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    print(loginProvider.loginPerfil.token);
     _medidorUser =
         CatService().getLast(context, loginProvider.loginPerfil.token);
 
@@ -201,8 +197,7 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  (a, b) =>
-                                      a.concesion!.compareTo(b.concesion!),
+                                  (a, b) => a.rfc!.compareTo(b.rfc!),
                                 );
                               },
                             );
@@ -211,8 +206,7 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  (a, b) =>
-                                      b.concesion!.compareTo(a.concesion!),
+                                  (a, b) => b.rfc!.compareTo(a.rfc!),
                                 );
                               },
                             );
@@ -221,9 +215,9 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  (a, b) => a.concesion
+                                  (a, b) => a.rfc
                                       .toString()
-                                      .compareTo(b.concesion.toString()),
+                                      .compareTo(b.rfc.toString()),
                                 );
                               },
                             );
@@ -232,19 +226,12 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  (a, b) => b.concesion
+                                  (a, b) => b.rfc
                                       .toString()
-                                      .compareTo(a.concesion.toString()),
+                                      .compareTo(a.rfc.toString()),
                                 );
                               },
                             );
-                            break;
-                          case 5:
-                            setState(() {
-                              listaMedidoresUser!.sort(
-                                (a, b) => a.rfc!.compareTo(b.rfc!),
-                              );
-                            });
                             break;
                           default:
                         }
@@ -284,26 +271,27 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      
-                                      
-                                      return ListTileTelemetria.listTileTELEMETRIA(
-                                          buttonText: true,
-                                          circleColor:
-                                              ColorTheme.indicatorColor,
-                                          iconButton1: Icons.abc,
-                                          iconButton2: Icons.arrow_forward_ios,
-                                          onPressarrowButton: () {},
-                                          onPressButton1: () {},
-                                          onPressButton2: () {},
-                                          textButton: 'Ver',
-                                          nameMedidor: listaMedidoresUser![index].concesion!,
-                                          subtitle: 'test',
+                                      return ListTileTelemetria
+                                          .listTileTELEMETRIA(
+                                              buttonText: true,
+                                              circleColor:
+                                                  ColorTheme.indicatorColor,
+                                              iconButton1: Icons.abc,
+                                              iconButton2:
+                                                  Icons.arrow_forward_ios,
+                                              onPressarrowButton: () {},
+                                              onPressButton1: () {},
+                                              onPressButton2: () {},
+                                              textButton: 'Ver',
+                                              nameMedidor:
+                                                  listaMedidoresUser![index]
+                                                      .rfc!,
+                                              subtitle:
+                                                  'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
 
-
-                                                           
                                               // ? subtitle
                                               // : 'Conseción:  ${listaMedidoresUser?[index].concesion}',
-                                          responsive: responsive);
+                                              responsive: responsive);
                                     },
                                     itemCount: listaMedidoresUser!.length,
                                   ),
