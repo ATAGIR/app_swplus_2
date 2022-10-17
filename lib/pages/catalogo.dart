@@ -16,6 +16,7 @@ import 'login.dart';
 
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
+
   const Catalogo({super.key});
 
   @override
@@ -23,17 +24,18 @@ class Catalogo extends StatefulWidget {
 }
 
 int? ordens;
-Future<List<MedidorUser>?>? _medidorModel;
+Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
 
 bool emptyArray = true;
-String? itemMarcado;
+String? itemSeleccionado;
 
 const Map<String, int> itemOrdens = {
   "Folio, Ascendente": 1,
   "Folio, Descendente": 2,
   "Nombre, A-Z": 3,
   "Nombre, Z-A": 4,
+  "Ordenar, por RFC": 5,
 };
 
 class _CatalogoState extends State<Catalogo> {
@@ -41,7 +43,7 @@ class _CatalogoState extends State<Catalogo> {
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     print(loginProvider.loginPerfil.token);
-    _medidorModel =
+    _medidorUser =
         CatService().getLast(context, loginProvider.loginPerfil.token);
 
     super.initState();
@@ -124,37 +126,9 @@ class _CatalogoState extends State<Catalogo> {
           ],
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          title: Row(
+          title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // SizedBox(
-              //   width: responsive.wp(3),
-              // ),
-              SearchTextForm(
-                  width: responsive.wp(60),
-                  height: responsive.hp(5),
-                  borderColor: ColorTheme.iconsColor,
-                  backgroundColor: ColorTheme.thetextBackgroundColor,
-                  labelText: 'Buscar',
-                  onPressed: () {},
-                  iconSize: responsive.dp(2.1),
-                  onChanged: (value) {
-                    setState(() {
-                      if (value.isEmpty) {
-                        emptyArray = true;
-                      } else {
-                        emptyArray = false;
-                        itemMarcado = value.trim();
-                      }
-                    });
-                  }),
-              // Container(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-              // ),
-            ],
           ),
-          // ignore: prefer_const_literals_to_create_immutables
         ),
         body: GestureDetector(
           onTap: () {
@@ -170,13 +144,37 @@ class _CatalogoState extends State<Catalogo> {
                 SizedBox(
                   height: responsive.hp(2),
                 ),
+                SizedBox(
+                  height: responsive.hp(2),
+                ),
+                SearchTextForm(
+                  width: responsive.wp(60),
+                  height: responsive.hp(5),
+                  borderColor: ColorTheme.iconsColor,
+                  backgroundColor: ColorTheme.thetextBackgroundColor,
+                  labelText: 'Buscar',
+                  onPressed: () {},
+                  iconSize: responsive.dp(2.1),
+                  onChanged: (value) {
+                    setState(
+                      () {
+                        if (value.isEmpty) {
+                          emptyArray = true;
+                        } else {
+                          emptyArray = false;
+                          itemSeleccionado = value.trim();
+                        }
+                      },
+                    );
+                  },
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LabelText(
                       txtValor: 'Concecion',
                       fontSize: responsive.dp(1.8),
-                      colorText: const Color.fromARGB(255, 0, 0, 0),
+                      colorText: Colors.black54,
                     ),
                     DropdownButton<int>(
                       hint: Text(
@@ -201,13 +199,13 @@ class _CatalogoState extends State<Catalogo> {
                       value: ordens,
                       onChanged: (int? value) {
                         ordens = value!;
-                        //print(ordens);
                         switch (ordens) {
                           case 1:
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  (a, b) => a.psiId!.compareTo(b.psiId!),
+                                  (a, b) =>
+                                      a.concesion!.compareTo(b.concesion!),
                                 );
                               },
                             );
@@ -216,8 +214,8 @@ class _CatalogoState extends State<Catalogo> {
                             setState(
                               () {
                                 listaMedidoresUser!.sort(
-                                  //(a, b) => b.soNumero.compareTo(a.soNumero),
-                                  (a, b) => b.psiId!.compareTo(a.psiId!),
+                                  (a, b) =>
+                                      b.concesion!.compareTo(a.concesion!),
                                 );
                               },
                             );
@@ -244,44 +242,53 @@ class _CatalogoState extends State<Catalogo> {
                               },
                             );
                             break;
+                          case 5:
+                            setState(() {
+                              listaMedidoresUser!.sort(
+                                (a, b) => a.rfc!.compareTo(b.rfc!),
+                              );
+                            });
+                            break;
                           default:
                         }
                       },
-                    )
+                    ),
                   ],
                 ),
-                _medidorModel != null
+                _medidorUser != null
                     ? SingleChildScrollView(
                         child: SizedBox(
                           height: responsive.hp(60),
                           width: responsive.wp(97),
                           child: FutureBuilder<List<MedidorUser>?>(
-                            future: _medidorModel,
+                            future: _medidorUser,
                             builder: (context,
                                 AsyncSnapshot<List<MedidorUser>?> snapshot) {
                               if (!snapshot.hasData) {
                                 return const Center(
-                                    child: CircularProgressIndicator());
+                                  child: CircularProgressIndicator(),
+                                );
                               } else {
                                 emptyArray
                                     ? {
                                         listaMedidoresUser = snapshot.data,
                                       }
                                     : {
-                                        listaMedidoresUser = listaMedidoresUser
-                                            ?.where((element) => element.psi!
+                                        listaMedidoresUser = listaMedidoresUser!
+                                            .where((element) => element
+                                                .concesion!
                                                 .toLowerCase()
-                                                .contains(
-                                                    itemMarcado!.toLowerCase()))
+                                                .contains(itemSeleccionado!
+                                                    .toLowerCase()))
                                             .toList(),
                                       };
                                 return SlideInLeft(
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    itemCount: listaMedidoresUser?.length,
+                                    itemCount: listaMedidoresUser!.length,
                                     itemBuilder: (context, index) {
-                                      var subtitle;
+                                      var subtitulo;
                                       return ListTileTelemetria.listTileTELEMETRIA(
                                           buttonText: true,
                                           circleColor:
@@ -292,12 +299,12 @@ class _CatalogoState extends State<Catalogo> {
                                           onPressButton1: () {},
                                           onPressButton2: () {},
                                           textButton: 'Opción',
-                                          nameMedidor: listaMedidoresUser?[
+                                          nameMedidor: listaMedidoresUser![
                                                           index]
                                                       .concesion !=
                                                   ""
-                                              ? subtitle
-                                              : 'RFC:  ${listaMedidoresUser?[index].rfc} ',
+                                              ? subtitulo
+                                              : 'Razon Social:  ${listaMedidoresUser?[index].razonSocial} Nro RFC ${listaMedidoresUser?[index].rfc}',
                                           responsive: responsive);
                                     },
                                   ),
