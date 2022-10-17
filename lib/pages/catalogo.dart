@@ -288,9 +288,6 @@ class _CatalogoState extends State<Catalogo> {
                                                       .rfc!,
                                               subtitle:
                                                   'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-
-                                              // ? subtitle
-                                              // : 'Conseción:  ${listaMedidoresUser?[index].concesion}',
                                               responsive: responsive);
                                     },
                                     itemCount: listaMedidoresUser!.length,
