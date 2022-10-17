@@ -25,7 +25,7 @@ class Catalogo extends StatefulWidget {
 
 int? ordens;
 Future<List<MedidorUser>?>? _medidorUser;
-List<MedidorUser>? listaMedidoresUser;
+List<MedidorUser>? listaMedidoresUser = [];
 
 bool emptyArray = true;
 String? itemSeleccionado;
@@ -39,6 +39,8 @@ const Map<String, int> itemOrdens = {
 };
 
 class _CatalogoState extends State<Catalogo> {
+  
+
   @override
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
@@ -102,11 +104,6 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ),
                 ),
-                // ListView.builder(
-                //   scrollDirection: Axis.vertical,
-                //   shrinkWrap: true,
-                //   itemCount: ,
-                //   itemBuilder: )
               ],
             ),
           ),
@@ -286,9 +283,9 @@ class _CatalogoState extends State<Catalogo> {
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    itemCount: listaMedidoresUser!.length,
                                     itemBuilder: (context, index) {
-                                      var subtitulo;
+                                      
+                                      
                                       return ListTileTelemetria.listTileTELEMETRIA(
                                           buttonText: true,
                                           circleColor:
@@ -298,15 +295,17 @@ class _CatalogoState extends State<Catalogo> {
                                           onPressarrowButton: () {},
                                           onPressButton1: () {},
                                           onPressButton2: () {},
-                                          textButton: 'Opción',
-                                          nameMedidor: listaMedidoresUser![
-                                                          index]
-                                                      .concesion !=
-                                                  ""
-                                              ? subtitulo
-                                              : 'Razon Social:  ${listaMedidoresUser?[index].razonSocial} Nro RFC ${listaMedidoresUser?[index].rfc}',
+                                          textButton: 'Ver',
+                                          nameMedidor: listaMedidoresUser![index].concesion!,
+                                          subtitle: 'test',
+
+
+                                                           
+                                              // ? subtitle
+                                              // : 'Conseción:  ${listaMedidoresUser?[index].concesion}',
                                           responsive: responsive);
                                     },
+                                    itemCount: listaMedidoresUser!.length,
                                   ),
                                 );
                               }

@@ -4,6 +4,12 @@
 
 import 'dart:convert';
 
+List<DetalleMedidor> detalleMedidorFromJson(String str) =>
+    List<DetalleMedidor>.from(
+        json.decode(str).map((x) => DetalleMedidor.fromJson(x)));
+
+String detalleMedidorToJson(List<DetalleMedidor> data)=> json.encode(List<dynamic>.from(data.map((x)=>x.toJson())));
+
 class DetalleMedidor {
   DetalleMedidor({
     required this.logId,

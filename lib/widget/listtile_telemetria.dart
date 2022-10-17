@@ -13,7 +13,7 @@ class ListTileTelemetria {
     required String nameMedidor,
     required bool buttonText,
     bool arrowButton = true,
-    String subtitle = "",
+    String subtitle = '',
     required Function() onPressButton1,
     required Function() onPressButton2,
     required Function() onPressarrowButton,
@@ -66,7 +66,7 @@ class ListTileTelemetria {
                           onPressed: onPressButton2,
                           icon: Icon(
                             iconButton1,
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 0, 0, 0),
                             size: responsive.dp(3.5),
                           ),
                         ),
@@ -76,7 +76,7 @@ class ListTileTelemetria {
                         onPressed: onPressarrowButton,
                         icon: Icon(
                           iconButton2,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 22, 110, 243),
                         ))
                     : SizedBox(
                         width: responsive.wp(.5),

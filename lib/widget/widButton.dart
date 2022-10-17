@@ -24,7 +24,7 @@ class WidButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return ElevatedButton(      
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: isBorder ? ColorTheme.backgroudColor : ColorTheme.thebuttonsColor,
@@ -32,7 +32,7 @@ class WidButton extends StatelessWidget {
               ? RoundedRectangleBorder(
                   side: BorderSide(
                       color: ColorTheme.buttonsBorderColor, width: 1.0),
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(10),
                 )
               : const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           padding: EdgeInsets.symmetric(vertical: height, horizontal: width)),
