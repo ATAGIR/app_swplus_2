@@ -297,7 +297,7 @@ class _CatalogoState extends State<Catalogo> {
                                                       .concesion !=
                                                   ""
                                               ? subtitle
-                                              : 'Id ${listaMedidoresUser?[index].psi} #',
+                                              : 'RFC:  ${listaMedidoresUser?[index].rfc} ',
                                           responsive: responsive);
                                     },
                                   ),
