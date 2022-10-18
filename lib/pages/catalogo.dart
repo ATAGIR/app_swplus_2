@@ -27,24 +27,31 @@ int? ordens;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser = [];
 
+Future<List<Log>?>? detalleLog;
+List<Log?>? listaDetalleLog;
+
 bool emptyArray = true;
 String? itemSeleccionado;
 
 const Map<String, int> itemOrdens = {
-  "Consecion, Ascendente": 1,
-  "Consecion, Descendente": 2,
-  "Nombre, A-Z": 3,
-  "Nombre, Z-A": 4,
+  "Conseción, A-Z": 1,
+  "Conseción, Z-A": 2,
+};
+
+const Map<String, int> itemOrdens2 = {
+  "Modelo, A-Z": 1,
+  "Modelo, Z-A": 2,
 };
 
 class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
+    super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     _medidorUser =
         CatService().getLast(context, loginProvider.loginPerfil.token);
-
-    super.initState();
+    listaDetalleLog = [];
+    detalleLog = CatService().log(context, loginProvider.loginPerfil.token);
   }
 
   @override
@@ -235,20 +242,18 @@ class _CatalogoState extends State<Catalogo> {
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return ListTileTelemetria.listTileTELEMETRIA(
-                                          buttonText: true,
+                                          buttonText: false,
                                           circleColor:
                                               ColorTheme.indicatorColor,
-                                          iconButton1: Icons.abc,
                                           iconButton2: Icons.arrow_forward_ios,
                                           onPressarrowButton: () {},
                                           onPressButton1: () {},
                                           onPressButton2: () {},
-                                          textButton: 'Ver',
                                           nameMedidor:
                                               listaMedidoresUser![index].rfc!,
                                           subtitle:
                                               'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-                                          responsive: responsive);
+                                          responsive: responsive, iconButton1: Icons.abc, textButton: '');
                                     },
                                     itemCount: listaMedidoresUser!.length,
                                   ),
@@ -340,7 +345,7 @@ class _CatalogoState extends State<Catalogo> {
                         style: TextStyle(color: ColorTheme.textGray),
                       ),
                       style: TextStyle(color: ColorTheme.textGray),
-                      items: itemOrdens
+                      items: itemOrdens2
                           .map(
                             (descripcion, value) {
                               return MapEntry(

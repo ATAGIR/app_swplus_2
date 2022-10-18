@@ -32,7 +32,7 @@ class MedidorUser {
         concesion: json["concesion"] ?? "",
         rfc: json["rfc"] ?? "",
         razonSocial: json["razon_social"] ?? "",
-        logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x))),
+        logs: List<Log>.from(json["logs"].map((x) => Log.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,9 +42,16 @@ class MedidorUser {
         "concesion": concesion,
         "rfc": rfc,
         "razon_social": razonSocial,
-        "logs": List<dynamic>.from(logs!.map((x) => x.toMap())),
+        "logs": List<dynamic>.from(logs!.map((x) => x.toJson())),
       };
 }
+
+
+List<Log> getLogFromJson(String str) => List<Log>.from(
+    json.decode(str).map((x) => MedidorUser.fromJson(x)));
+
+String getLogsToJson(List<Log> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Log {
   Log({
@@ -81,7 +88,7 @@ class Log {
 
   // String toJson() => json.encode(toMap());
 
-  factory Log.fromMap(Map<String, dynamic> json) => Log(
+  factory Log.fromJson(Map<String, dynamic> json) => Log(
         rfc: rfcValues.map[json["rfc"]],
         nsm: json["nsm"] ?? "",
         nsue: json["nsue"] ?? "",
@@ -97,7 +104,7 @@ class Log {
         history: json["history"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "rfc": rfcValues.reverse[rfc],
         "nsm": nsm,
         "nsue": nsue,
