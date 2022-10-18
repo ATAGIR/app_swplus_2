@@ -46,9 +46,8 @@ class MedidorUser {
       };
 }
 
-
-List<Log> getLogFromJson(String str) => List<Log>.from(
-    json.decode(str).map((x) => MedidorUser.fromJson(x)));
+List<Log> getLogFromJson(String str) =>
+    List<Log>.from(json.decode(str).map((x) => Log.fromJson(x)));
 
 String getLogsToJson(List<Log> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -66,7 +65,7 @@ class Log {
     this.imei,
     this.nsut,
     this.etiqueta,
-    this.fecha,
+    required this.fecha,
     this.history,
   });
 
@@ -92,15 +91,15 @@ class Log {
         rfc: rfcValues.map[json["rfc"]],
         nsm: json["nsm"] ?? "",
         nsue: json["nsue"] ?? "",
-        lat: json["lat"].toDouble(),
-        long: json["long"].toDouble(),
+        lat: json["lat"] ?? 0.0.toDouble(),
+        long: json["long"] ?? 0.0.toDouble(),
         modeloId: json["modelo_id"] ?? 0,
         modelo: json["modelo"] ?? "",
-        ccid: json["ccid"] ?? 0,
-        imei: json["imei"] ?? 0,
+        ccid: json["ccid"] ?? "",
+        imei: json["imei"] ?? "",
         nsut: json["nsut"] ?? "",
         etiqueta: json["etiqueta"] ?? "",
-        fecha: DateTime.parse(json["fecha"]),
+        fecha: json["fecha"] == null ? null: DateTime.parse(json["fecha"]),
         history: json["history"],
       );
 
@@ -116,7 +115,7 @@ class Log {
         "imei": imei,
         "nsut": nsut,
         "etiqueta": etiqueta,
-        "fecha": fecha!.toIso8601String(),
+        "fecha": fecha == null ? null: fecha!.toIso8601String(),
         "history": history,
       };
 }
