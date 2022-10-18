@@ -100,43 +100,6 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                SecureStorage().deleteSecureData('token');
-                SecureStorage().deleteSecureData('username');
-                SecureStorage().deleteSecureData('password');
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Login()));
-              },
-              icon: const Icon(Icons.exit_to_app),
-            ),
-          ],
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
-        ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          //diseño pagina
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: responsive.hp(2),
-                ),
                 SizedBox(
                   height: responsive.hp(2),
                 ),
@@ -271,24 +234,223 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return ListTileTelemetria
-                                          .listTileTELEMETRIA(
-                                              buttonText: true,
-                                              circleColor:
-                                                  ColorTheme.indicatorColor,
-                                              iconButton1: Icons.abc,
-                                              iconButton2:
-                                                  Icons.arrow_forward_ios,
-                                              onPressarrowButton: () {},
-                                              onPressButton1: () {},
-                                              onPressButton2: () {},
-                                              textButton: 'Ver',
-                                              nameMedidor:
-                                                  listaMedidoresUser![index]
-                                                      .rfc!,
-                                              subtitle:
-                                                  'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-                                              responsive: responsive);
+                                      return ListTileTelemetria.listTileTELEMETRIA(
+                                          buttonText: true,
+                                          circleColor:
+                                              ColorTheme.indicatorColor,
+                                          iconButton1: Icons.abc,
+                                          iconButton2: Icons.arrow_forward_ios,
+                                          onPressarrowButton: () {},
+                                          onPressButton1: () {},
+                                          onPressButton2: () {},
+                                          textButton: 'Ver',
+                                          nameMedidor:
+                                              listaMedidoresUser![index].rfc!,
+                                          subtitle:
+                                              'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
+                                          responsive: responsive);
+                                    },
+                                    itemCount: listaMedidoresUser!.length,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          'Sin Archivos',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: ColorTheme.fontFamily,
+                              fontSize: 14),
+                        ),
+                      ),
+                SizedBox(height: Responsive(context).wp(150)),
+              ],
+            ),
+          ),
+        ),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                SecureStorage().deleteSecureData('token');
+                SecureStorage().deleteSecureData('username');
+                SecureStorage().deleteSecureData('password');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Login()));
+              },
+              icon: const Icon(Icons.exit_to_app),
+            ),
+          ],
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          //diseño pagina
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: responsive.hp(2),
+                ),
+                SearchTextForm(
+                  width: responsive.wp(60),
+                  height: responsive.hp(5),
+                  borderColor: ColorTheme.iconsColor,
+                  backgroundColor: ColorTheme.thetextBackgroundColor,
+                  labelText: 'Buscar',
+                  onPressed: () {},
+                  iconSize: responsive.dp(2.1),
+                  onChanged: (value) {
+                    setState(
+                      () {
+                        if (value.isEmpty) {
+                          emptyArray = true;
+                        } else {
+                          emptyArray = false;
+                          itemSeleccionado = value.trim();
+                        }
+                      },
+                    );
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    LabelText(
+                      txtValor: 'Concecion',
+                      fontSize: responsive.dp(1.8),
+                      colorText: Colors.black54,
+                    ),
+                    DropdownButton<int>(
+                      hint: Text(
+                        'Ordenar por',
+                        style: TextStyle(color: ColorTheme.textGray),
+                      ),
+                      style: TextStyle(color: ColorTheme.textGray),
+                      items: itemOrdens
+                          .map(
+                            (descripcion, value) {
+                              return MapEntry(
+                                descripcion,
+                                DropdownMenuItem<int>(
+                                  value: value,
+                                  child: Text(descripcion),
+                                ),
+                              );
+                            },
+                          )
+                          .values
+                          .toList(),
+                      value: ordens,
+                      onChanged: (int? value) {
+                        ordens = value!;
+                        switch (ordens) {
+                          case 1:
+                            setState(
+                              () {
+                                listaMedidoresUser!.sort(
+                                  (a, b) => a.rfc!.compareTo(b.rfc!),
+                                );
+                              },
+                            );
+                            break;
+                          case 2:
+                            setState(
+                              () {
+                                listaMedidoresUser!.sort(
+                                  (a, b) => b.rfc!.compareTo(a.rfc!),
+                                );
+                              },
+                            );
+                            break;
+                          case 3:
+                            setState(
+                              () {
+                                listaMedidoresUser!.sort(
+                                  (a, b) => a.rfc
+                                      .toString()
+                                      .compareTo(b.rfc.toString()),
+                                );
+                              },
+                            );
+                            break;
+                          case 4:
+                            setState(
+                              () {
+                                listaMedidoresUser!.sort(
+                                  (a, b) => b.rfc
+                                      .toString()
+                                      .compareTo(a.rfc.toString()),
+                                );
+                              },
+                            );
+                            break;
+                          default:
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                _medidorUser != null
+                    ? SingleChildScrollView(
+                        child: SizedBox(
+                          height: responsive.hp(60),
+                          width: responsive.wp(97),
+                          child: FutureBuilder<List<MedidorUser>?>(
+                            future: _medidorUser,
+                            builder: (context,
+                                AsyncSnapshot<List<MedidorUser>?> snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                emptyArray
+                                    ? {
+                                        listaMedidoresUser = snapshot.data,
+                                      }
+                                    : {
+                                        listaMedidoresUser = listaMedidoresUser!
+                                            .where((element) => element
+                                                .concesion!
+                                                .toLowerCase()
+                                                .contains(itemSeleccionado!
+                                                    .toLowerCase()))
+                                            .toList(),
+                                      };
+                                return SlideInLeft(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return ListTileTelemetria.listTileTELEMETRIA(
+                                          buttonText: true,
+                                          circleColor:
+                                              ColorTheme.indicatorColor,
+                                          iconButton1: Icons.abc,
+                                          iconButton2: Icons.arrow_forward_ios,
+                                          onPressarrowButton: () {},
+                                          onPressButton1: () {},
+                                          onPressButton2: () {},
+                                          textButton: 'Ver',
+                                          nameMedidor:
+                                              listaMedidoresUser![index].rfc!,
+                                          subtitle:
+                                              'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
+                                          responsive: responsive);
                                     },
                                     itemCount: listaMedidoresUser!.length,
                                   ),

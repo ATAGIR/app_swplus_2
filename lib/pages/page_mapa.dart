@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widget/ubicacion.dart';
 
 class PageMapa extends StatelessWidget {
+  static const routeName = 'PageMapa';
   const PageMapa({super.key});
 
   @override
