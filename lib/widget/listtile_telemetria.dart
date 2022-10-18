@@ -34,7 +34,7 @@ class ListTileTelemetria {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Icon(Icons.circle,
-                      size: responsive.dp(1.2), color: circleColor),
+                      size: responsive.dp(1.2), color:const Color.fromARGB(255, 20, 61, 133)),
                 ),
                 Expanded(
                   child: Padding(

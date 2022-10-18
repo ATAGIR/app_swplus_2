@@ -330,7 +330,7 @@ class _CatalogoState extends State<Catalogo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LabelText(
-                      txtValor: 'Concecion',
+                      txtValor: 'Conseciones',
                       fontSize: responsive.dp(1.8),
                       colorText: Colors.black54,
                     ),
