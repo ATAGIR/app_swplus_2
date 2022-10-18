@@ -83,9 +83,6 @@ class Log {
   DateTime? fecha;
   dynamic history;
 
-  // factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
-
-  // String toJson() => json.encode(toMap());
 
   factory Log.fromJson(Map<String, dynamic> json) => Log(
         rfc: rfcValues.map[json["rfc"]],

@@ -49,15 +49,9 @@ class ListTileTelemetria {
                   ),
                 ),
                 buttonText
-                    ? Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: WidButton(
-                            textButton: textButton,
-                            height: responsive.hp(1.5),
-                            width: responsive.wp(3),
-                            onPressed: onPressButton1,
-                            isBorder: false,
-                            fontsizeText: 13),
+                    ? const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        
                       )
                     : Container(
                         height: responsive.hp(6),
