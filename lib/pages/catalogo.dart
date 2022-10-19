@@ -412,10 +412,9 @@ class _CatalogoState extends State<Catalogo> {
                                               onPressButton1: () {},
                                               onPressButton2: () {},
                                               nameMedidor:
-                                                  listaDetalleLog![index]!
-                                                      .modelo!,
+                                                  'Id:  ${listaDetalleLog?[index]!.modeloId}',
                                               subtitle:
-                                                  'Modelo:  ${listaDetalleLog?[index]!.modelo}',
+                                                  '${listaDetalleLog?[index]!.nsue}',
                                               // 'Folio ${listFileStatus![index].soNumero}  Fecha Alta ' + DateFormat('dd-MM-yyyy HH:mm:ss').format(listFileStatus![index].soFecAlta!),
                                               responsive: responsive);
                                     },
