@@ -49,7 +49,7 @@ class MedidorUser {
 List<Log> getLogFromJson(String str) =>
     List<Log>.from(json.decode(str).map((x) => Log.fromJson(x)));
 
-String getLogsToJson(List<Log> data) =>
+String getLogToJson(List<Log> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Log {
@@ -65,7 +65,7 @@ class Log {
     this.imei,
     this.nsut,
     this.etiqueta,
-    required this.fecha,
+    this.fecha,
     this.history,
   });
 

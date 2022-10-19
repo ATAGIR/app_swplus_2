@@ -144,9 +144,9 @@ class _CatalogoState extends State<Catalogo> {
                     DropdownButton<int>(
                       hint: Text(
                         'Ordenar por',
-                        style: TextStyle(color: ColorTheme.textGray),
+                        style: TextStyle(color: ColorTheme.thetextColor),
                       ),
-                      style: TextStyle(color: ColorTheme.textGray),
+                      style: TextStyle(color: ColorTheme.thetextColor),
                       items: itemOrdens
                           .map(
                             (descripcion, value) {
@@ -324,9 +324,9 @@ class _CatalogoState extends State<Catalogo> {
                     DropdownButton<int>(
                       hint: Text(
                         'Ordenar por',
-                        style: TextStyle(color: ColorTheme.textGray),
+                        style: TextStyle(color: ColorTheme.thetextColor),
                       ),
-                      style: TextStyle(color: ColorTheme.textGray),
+                      style: TextStyle(color: ColorTheme.thetextColor),
                       items: itemOrdens2
                           .map(
                             (descripcion, value) {
@@ -411,7 +411,6 @@ class _CatalogoState extends State<Catalogo> {
                                               onPressarrowButton: () {},
                                               onPressButton1: () {},
                                               onPressButton2: () {},
-                                              textButton: 'Ver',
                                               nameMedidor:
                                                   listaDetalleLog![index]!
                                                       .modelo!,
