@@ -221,21 +221,28 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return ListTileTelemetria.listTileTELEMETRIA(
-                                          buttonText: true,
-                                          circleColor:
-                                              ColorTheme.indicatorColor,
-                                          iconButton2: Icons.arrow_forward_ios,
-                                          onPressarrowButton: () {},
-                                          onPressButton1: () {},
-                                          onPressButton2: () {},
-                                          nameMedidor:
-                                              listaMedidoresUser![index].rfc!,
-                                          subtitle:
-                                              'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-                                          responsive: responsive,
-                                          iconButton1: Icons.abc,
-                                          textButton: 'Ver');
+                                      return ListTileTelemetria
+                                          .listTileTELEMETRIA(
+                                              buttonText: true,
+                                              circleColor:
+                                                  ColorTheme.indicatorColor,
+                                              iconButton2:
+                                                  Icons.arrow_forward_ios,
+                                              onPressarrowButton: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const Catalogo()));
+                                              },
+                                              nameMedidor:
+                                                  listaMedidoresUser![index]
+                                                      .rfc!,
+                                              subtitle:
+                                                  'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
+                                              responsive: responsive,
+                                              iconButton1: Icons.abc,
+                                              textButton: 'Ver');
                                     },
                                     itemCount: listaMedidoresUser!.length,
                                   ),
