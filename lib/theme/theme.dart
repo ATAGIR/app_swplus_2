@@ -10,11 +10,12 @@ class ColorTheme {
   // Fuente
 
   //Color Font InputText
-  static Color textGray = const Color(0xff7B7B7B);
+  static Color textos = const Color.fromARGB(255, 22, 110, 243);
   static Color iconBackgroundColor = const Color(0xff98363A);
-  static Color iconsColor = const Color.fromARGB(255, 51, 128, 6);
+  static Color iconsColor = const Color.fromARGB(255, 22, 110, 243);
   static Color textButtonColor = const Color(0xffE15E63);
   static Color thetextColor = Colors.black;
+  static Color thetextColor2 = Colors.white;
   static Color thetextBackgroundColor = Colors.grey.shade200;
   static Color textCircularFimados = const Color.fromARGB(255, 86, 226, 184);
 
@@ -75,7 +76,7 @@ class ColorTheme {
 //DashBoard
 
   static Color backgroundDashBoard = const Color(0xff171717);
-  static Color indicatorColor = const Color(0xff56E2B8);
+  static Color indicatorColor = const Color.fromARGB(255, 22, 110, 243);
   static Color indicatorColorFirmadosBack = Colors.white24;
   //static Color indicatorColorFirmadosBack = Color.fromARGB(247, 218, 244, 237);
   static Color indicatorColorporFirmar = const Color(0xffFFD77E);

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
-import 'package:telemetria/widget/widButton.dart';
+
 
 class ListTileTelemetria {
   static ClipRRect listTileTELEMETRIA({
     required Responsive responsive,
     required Color circleColor,
-    required IconData iconButton1,
-    required IconData iconButton2,
-    required String textButton,
+    IconData? iconButton1,
+    IconData? iconButton2,
+    String? textButton,
     required String nameMedidor,
     required bool buttonText,
     bool arrowButton = true,
     String subtitle = '',
-    required Function() onPressButton1,
-    required Function() onPressButton2,
-    required Function() onPressarrowButton,
+    Function()? onPressButton1,
+    Function()? onPressButton2,
+    Function()? onPressarrowButton,
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -49,15 +49,9 @@ class ListTileTelemetria {
                   ),
                 ),
                 buttonText
-                    ? Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: WidButton(
-                            textButton: textButton,
-                            height: responsive.hp(1.5),
-                            width: responsive.wp(3),
-                            onPressed: onPressButton1,
-                            isBorder: false,
-                            fontsizeText: 13),
+                    ? const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        
                       )
                     : Container(
                         height: responsive.hp(6),

@@ -32,7 +32,7 @@ class MedidorUser {
         concesion: json["concesion"] ?? "",
         rfc: json["rfc"] ?? "",
         razonSocial: json["razon_social"] ?? "",
-        logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x))),
+        logs: List<Log>.from(json["logs"].map((x) => Log.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,9 +42,15 @@ class MedidorUser {
         "concesion": concesion,
         "rfc": rfc,
         "razon_social": razonSocial,
-        "logs": List<dynamic>.from(logs!.map((x) => x.toMap())),
+        "logs": List<dynamic>.from(logs!.map((x) => x.toJson())),
       };
 }
+
+List<Log> getLogFromJson(String str) =>
+    List<Log>.from(json.decode(str).map((x) => Log.fromJson(x)));
+
+String getLogToJson(List<Log> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Log {
   Log({
@@ -77,27 +83,24 @@ class Log {
   DateTime? fecha;
   dynamic history;
 
-  // factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
 
-  // String toJson() => json.encode(toMap());
-
-  factory Log.fromMap(Map<String, dynamic> json) => Log(
+  factory Log.fromJson(Map<String, dynamic> json) => Log(
         rfc: rfcValues.map[json["rfc"]],
         nsm: json["nsm"] ?? "",
         nsue: json["nsue"] ?? "",
-        lat: json["lat"].toDouble(),
-        long: json["long"].toDouble(),
+        lat: json["lat"] ?? 0.0.toDouble(),
+        long: json["long"] ?? 0.0.toDouble(),
         modeloId: json["modelo_id"] ?? 0,
         modelo: json["modelo"] ?? "",
-        ccid: json["ccid"] ?? 0,
-        imei: json["imei"] ?? 0,
+        ccid: json["ccid"] ?? "",
+        imei: json["imei"] ?? "",
         nsut: json["nsut"] ?? "",
         etiqueta: json["etiqueta"] ?? "",
-        fecha: DateTime.parse(json["fecha"]),
+        fecha: json["fecha"] == null ? null: DateTime.parse(json["fecha"]),
         history: json["history"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "rfc": rfcValues.reverse[rfc],
         "nsm": nsm,
         "nsue": nsue,
@@ -109,7 +112,7 @@ class Log {
         "imei": imei,
         "nsut": nsut,
         "etiqueta": etiqueta,
-        "fecha": fecha!.toIso8601String(),
+        "fecha": fecha == null ? null: fecha!.toIso8601String(),
         "history": history,
       };
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, unused_import, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +13,7 @@ import 'package:animate_do/animate_do.dart';
 import '../providers/login_prov.dart';
 import '../utils/secure_storage.dart';
 import 'login.dart';
+import 'package:intl/intl.dart';
 
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
@@ -27,24 +28,32 @@ int? ordens;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser = [];
 
+Future<List<Log>?>? detalleLog;
+List<Log?>? listaDetalleLog;
+
 bool emptyArray = true;
 String? itemSeleccionado;
+String? itemSeleccionado2;
 
 const Map<String, int> itemOrdens = {
-  "Consecion, Ascendente": 1,
-  "Consecion, Descendente": 2,
-  "Nombre, A-Z": 3,
-  "Nombre, Z-A": 4,
+  "Conseción, A-Z": 1,
+  "Conseción, Z-A": 2,
+};
+
+const Map<String, int> itemOrdens2 = {
+  "Modelo, A-Z": 1,
+  "Modelo, Z-A": 2,
 };
 
 class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
+    super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     _medidorUser =
         CatService().getLast(context, loginProvider.loginPerfil.token);
-
-    super.initState();
+    listaDetalleLog = [];
+    detalleLog = CatService().log(context, loginProvider.loginPerfil.token);
   }
 
   @override
@@ -128,16 +137,16 @@ class _CatalogoState extends State<Catalogo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LabelText(
-                      txtValor: 'Concecion',
+                      txtValor: 'Conseción',
                       fontSize: responsive.dp(1.8),
                       colorText: Colors.black54,
                     ),
                     DropdownButton<int>(
                       hint: Text(
                         'Ordenar por',
-                        style: TextStyle(color: ColorTheme.textGray),
+                        style: TextStyle(color: ColorTheme.thetextColor),
                       ),
-                      style: TextStyle(color: ColorTheme.textGray),
+                      style: TextStyle(color: ColorTheme.thetextColor),
                       items: itemOrdens
                           .map(
                             (descripcion, value) {
@@ -170,28 +179,6 @@ class _CatalogoState extends State<Catalogo> {
                               () {
                                 listaMedidoresUser!.sort(
                                   (a, b) => b.rfc!.compareTo(a.rfc!),
-                                );
-                              },
-                            );
-                            break;
-                          case 3:
-                            setState(
-                              () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => a.rfc
-                                      .toString()
-                                      .compareTo(b.rfc.toString()),
-                                );
-                              },
-                            );
-                            break;
-                          case 4:
-                            setState(
-                              () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => b.rfc
-                                      .toString()
-                                      .compareTo(a.rfc.toString()),
                                 );
                               },
                             );
@@ -234,21 +221,28 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return ListTileTelemetria.listTileTELEMETRIA(
-                                          buttonText: true,
-                                          circleColor:
-                                              ColorTheme.indicatorColor,
-                                          iconButton1: Icons.abc,
-                                          iconButton2: Icons.arrow_forward_ios,
-                                          onPressarrowButton: () {},
-                                          onPressButton1: () {},
-                                          onPressButton2: () {},
-                                          textButton: 'Ver',
-                                          nameMedidor:
-                                              listaMedidoresUser![index].rfc!,
-                                          subtitle:
-                                              'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-                                          responsive: responsive);
+                                      return ListTileTelemetria
+                                          .listTileTELEMETRIA(
+                                              buttonText: true,
+                                              circleColor:
+                                                  ColorTheme.indicatorColor,
+                                              iconButton2:
+                                                  Icons.arrow_forward_ios,
+                                              onPressarrowButton: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const Catalogo()));
+                                              },
+                                              nameMedidor:
+                                                  listaMedidoresUser![index]
+                                                      .rfc!,
+                                              subtitle:
+                                                  'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
+                                              responsive: responsive,
+                                              iconButton1: Icons.abc,
+                                              textButton: 'Ver');
                                     },
                                     itemCount: listaMedidoresUser!.length,
                                   ),
@@ -282,7 +276,7 @@ class _CatalogoState extends State<Catalogo> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Login()));
               },
-              icon: const Icon(Icons.exit_to_app),
+              icon: const Icon(Icons.exit_to_app_rounded),
             ),
           ],
           backgroundColor: Colors.white,
@@ -320,7 +314,7 @@ class _CatalogoState extends State<Catalogo> {
                           emptyArray = true;
                         } else {
                           emptyArray = false;
-                          itemSeleccionado = value.trim();
+                          itemSeleccionado2 = value.trim();
                         }
                       },
                     );
@@ -330,17 +324,17 @@ class _CatalogoState extends State<Catalogo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LabelText(
-                      txtValor: 'Conseciones',
+                      txtValor: 'Modelo',
                       fontSize: responsive.dp(1.8),
                       colorText: Colors.black54,
                     ),
                     DropdownButton<int>(
                       hint: Text(
                         'Ordenar por',
-                        style: TextStyle(color: ColorTheme.textGray),
+                        style: TextStyle(color: ColorTheme.thetextColor),
                       ),
-                      style: TextStyle(color: ColorTheme.textGray),
-                      items: itemOrdens
+                      style: TextStyle(color: ColorTheme.thetextColor),
+                      items: itemOrdens2
                           .map(
                             (descripcion, value) {
                               return MapEntry(
@@ -361,8 +355,8 @@ class _CatalogoState extends State<Catalogo> {
                           case 1:
                             setState(
                               () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => a.rfc!.compareTo(b.rfc!),
+                                listaDetalleLog!.sort(
+                                  (a, b) => a!.modelo!.compareTo(b!.modelo!),
                                 );
                               },
                             );
@@ -370,30 +364,8 @@ class _CatalogoState extends State<Catalogo> {
                           case 2:
                             setState(
                               () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => b.rfc!.compareTo(a.rfc!),
-                                );
-                              },
-                            );
-                            break;
-                          case 3:
-                            setState(
-                              () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => a.rfc
-                                      .toString()
-                                      .compareTo(b.rfc.toString()),
-                                );
-                              },
-                            );
-                            break;
-                          case 4:
-                            setState(
-                              () {
-                                listaMedidoresUser!.sort(
-                                  (a, b) => b.rfc
-                                      .toString()
-                                      .compareTo(a.rfc.toString()),
+                                listaDetalleLog!.sort(
+                                  (a, b) => b!.modelo!.compareTo(a!.modelo!),
                                 );
                               },
                             );
@@ -404,15 +376,15 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ],
                 ),
-                _medidorUser != null
+                detalleLog != null
                     ? SingleChildScrollView(
                         child: SizedBox(
                           height: responsive.hp(60),
                           width: responsive.wp(97),
-                          child: FutureBuilder<List<MedidorUser>?>(
-                            future: _medidorUser,
-                            builder: (context,
-                                AsyncSnapshot<List<MedidorUser>?> snapshot) {
+                          child: FutureBuilder<List<Log>?>(
+                            future: detalleLog,
+                            builder:
+                                (context, AsyncSnapshot<List<Log>?> snapshot) {
                               if (!snapshot.hasData) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
@@ -420,14 +392,13 @@ class _CatalogoState extends State<Catalogo> {
                               } else {
                                 emptyArray
                                     ? {
-                                        listaMedidoresUser = snapshot.data,
+                                        listaDetalleLog = snapshot.data,
                                       }
                                     : {
-                                        listaMedidoresUser = listaMedidoresUser!
-                                            .where((element) => element
-                                                .concesion!
+                                        listaDetalleLog = listaDetalleLog!
+                                            .where((element) => element!.modelo!
                                                 .toLowerCase()
-                                                .contains(itemSeleccionado!
+                                                .contains(itemSeleccionado2!
                                                     .toLowerCase()))
                                             .toList(),
                                       };
@@ -436,23 +407,25 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return ListTileTelemetria.listTileTELEMETRIA(
-                                          buttonText: true,
-                                          circleColor:
-                                              ColorTheme.indicatorColor,
-                                          iconButton1: Icons.abc,
-                                          iconButton2: Icons.arrow_forward_ios,
-                                          onPressarrowButton: () {},
-                                          onPressButton1: () {},
-                                          onPressButton2: () {},
-                                          textButton: 'Ver',
-                                          nameMedidor:
-                                              listaMedidoresUser![index].rfc!,
-                                          subtitle:
-                                              'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
-                                          responsive: responsive);
+                                      return ListTileTelemetria
+                                          .listTileTELEMETRIA(
+                                              buttonText: true,
+                                              circleColor:
+                                                  ColorTheme.indicatorColor,
+                                              iconButton1: Icons.abc,
+                                              iconButton2:
+                                                  Icons.arrow_forward_ios,
+                                              onPressarrowButton: () {},
+                                              onPressButton1: () {},
+                                              onPressButton2: () {},
+                                              nameMedidor:
+                                                  'Id:  ${listaDetalleLog?[index]!.modeloId}',
+                                              subtitle:
+                                                  '${listaDetalleLog?[index]!.nsue}',
+                                              // 'Folio ${listFileStatus![index].soNumero}  Fecha Alta ' + DateFormat('dd-MM-yyyy HH:mm:ss').format(listFileStatus![index].soFecAlta!),
+                                              responsive: responsive);
                                     },
-                                    itemCount: listaMedidoresUser!.length,
+                                    itemCount: listaDetalleLog!.length,
                                   ),
                                 );
                               }
