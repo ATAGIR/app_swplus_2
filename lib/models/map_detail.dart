@@ -46,7 +46,7 @@ class DetalleMedidor {
   String? modelo;
   String? ccid;
   String? imei;
-  dynamic? ker;
+  dynamic ker;
 
   factory DetalleMedidor.fromJson(Map<String, dynamic> json) => DetalleMedidor(
         logId: json["log_id"],
