@@ -69,7 +69,7 @@ class Log {
     this.history,
   });
 
-  Rfc? rfc;
+  String? rfc;
   String? nsm;
   String? nsue;
   double? lat;
@@ -83,9 +83,8 @@ class Log {
   DateTime? fecha;
   dynamic history;
 
-
   factory Log.fromJson(Map<String, dynamic> json) => Log(
-        rfc: rfcValues.map[json["rfc"]],
+        rfc: json["rfc"] ?? "",
         nsm: json["nsm"] ?? "",
         nsue: json["nsue"] ?? "",
         lat: json["lat"] ?? 0.0.toDouble(),
@@ -96,12 +95,12 @@ class Log {
         imei: json["imei"] ?? "",
         nsut: json["nsut"] ?? "",
         etiqueta: json["etiqueta"] ?? "",
-        fecha: json["fecha"] == null ? null: DateTime.parse(json["fecha"]),
+        fecha: json["fecha"] == null ? null : DateTime.parse(json["fecha"]),
         history: json["history"],
       );
 
   Map<String, dynamic> toJson() => {
-        "rfc": rfcValues.reverse[rfc],
+        "rfc": rfc,
         "nsm": nsm,
         "nsue": nsue,
         "lat": lat,
@@ -112,30 +111,7 @@ class Log {
         "imei": imei,
         "nsut": nsut,
         "etiqueta": etiqueta,
-        "fecha": fecha == null ? null: fecha!.toIso8601String(),
+        "fecha": fecha == null ? null : fecha!.toIso8601String(),
         "history": history,
       };
-}
-
-// ignore: constant_identifier_names
-enum Rfc { OCM200110_QR3, STE130213445 }
-
-final rfcValues = EnumValues({
-  "OCM200110QR3": Rfc.OCM200110_QR3,
-  "STE130213445": Rfc.STE130213445,
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String>? reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    // ignore: prefer_conditional_assignment
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => MapEntry(v, k));
-    }
-    return reverseMap!;
-  }
 }

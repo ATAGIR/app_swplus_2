@@ -10,7 +10,7 @@ class ListTileTelemetria {
     IconData? iconButton1,
     IconData? iconButton2,
     String? textButton,
-    required String nameMedidor,
+    required String? nameMedidor,
     required bool buttonText,
     bool arrowButton = true,
     String subtitle = '',
@@ -40,7 +40,7 @@ class ListTileTelemetria {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      nameMedidor,
+                      nameMedidor!,
                       style: TextStyle(
                           color: Colors.black87,
                           fontFamily: ColorTheme.fontFamily,

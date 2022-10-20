@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
+import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
@@ -415,13 +416,17 @@ class _CatalogoState extends State<Catalogo> {
                                               iconButton1: Icons.abc,
                                               iconButton2:
                                                   Icons.arrow_forward_ios,
-                                              onPressarrowButton: () {},
-                                              onPressButton1: () {},
-                                              onPressButton2: () {},
+                                              onPressarrowButton: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const PageMapa()));
+                                              },
                                               nameMedidor:
-                                                  'Id:  ${listaDetalleLog?[index]!.modeloId}',
+                                                  listaDetalleLog![index]!.rfc,
                                               subtitle:
-                                                  '${listaDetalleLog?[index]!.nsue}',
+                                                  '${listaDetalleLog?[index]!.modeloId}',
                                               // 'Folio ${listFileStatus![index].soNumero}  Fecha Alta ' + DateFormat('dd-MM-yyyy HH:mm:ss').format(listFileStatus![index].soFecAlta!),
                                               responsive: responsive);
                                     },
