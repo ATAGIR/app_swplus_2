@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/pages/page_mapa.dart';
+import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
+import 'package:telemetria/utils/secure_storage.dart';
 import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
-import '../providers/login_prov.dart';
-import '../utils/secure_storage.dart';
 import 'login.dart';
 import 'package:intl/intl.dart';
 
@@ -60,7 +60,7 @@ class _CatalogoState extends State<Catalogo> {
 
   @override
   Widget build(BuildContext context) {
-    print('build---------------------------------');
+    //print('build---------------------------------');
     final responsive = Responsive(context);
     return SafeArea(
       child: Scaffold(
@@ -180,7 +180,7 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ],
                 ),
-                /////---------------------------------
+                //----------------------------------------------------------
                 Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
                 SlideInLeft(
                   child: ListView.builder(
