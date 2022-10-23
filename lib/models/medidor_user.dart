@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-List<MedidorUser> getMedidorUserFromJson(String str) => List<MedidorUser>.from(
+List<MedidorUser> medidorUserFromJson(String str) => List<MedidorUser>.from(
     json.decode(str).map((x) => MedidorUser.fromJson(x)));
 
-String getMedidorUserToJson(List<MedidorUser> data) =>
+String medidorUserToJson(List<MedidorUser> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MedidorUser {
@@ -26,12 +26,12 @@ class MedidorUser {
   List<Log>? logs;
 
   factory MedidorUser.fromJson(Map<String, dynamic> json) => MedidorUser(
-        psiId: json["psi_id"] ?? 0,
-        psi: json["psi"] ?? "",
-        concesionId: json["concesion_id"] ?? 0,
+        psiId: json["psi_id"] ,
+        psi: json["psi"] ,
+        concesionId: json["concesion_id"] ,
         concesion: json["concesion"] ?? "",
-        rfc: json["rfc"] ?? "",
-        razonSocial: json["razon_social"] ?? "",
+        rfc: json["rfc"] ,
+        razonSocial: json["razon_social"] ,
         logs: List<Log>.from(json["logs"].map((x) => Log.fromJson(x))),
       );
 
@@ -46,11 +46,7 @@ class MedidorUser {
       };
 }
 
-List<Log> getLogFromJson(String str) =>
-    List<Log>.from(json.decode(str).map((x) => Log.fromJson(x)));
 
-String getLogToJson(List<Log> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Log {
   Log({
@@ -84,17 +80,17 @@ class Log {
   dynamic history;
 
   factory Log.fromJson(Map<String, dynamic> json) => Log(
-        rfc: json["rfc"] ?? "",
-        nsm: json["nsm"] ?? "",
-        nsue: json["nsue"] ?? "",
-        lat: json["lat"] ?? 0.0.toDouble(),
-        long: json["long"] ?? 0.0.toDouble(),
-        modeloId: json["modelo_id"] ?? 0,
-        modelo: json["modelo"] ?? "",
-        ccid: json["ccid"] ?? "",
-        imei: json["imei"] ?? "",
-        nsut: json["nsut"] ?? "",
-        etiqueta: json["etiqueta"] ?? "",
+        rfc: json["rfc"] ,
+        nsm: json["nsm"] ,
+        nsue: json["nsue"] ,
+        lat: json["lat"] ,
+        long: json["long"] ,
+        modeloId: json["modelo_id"] ,
+        modelo: json["modelo"] ,
+        ccid: json["ccid"] ,
+        imei: json["imei"] ,
+        nsut: json["nsut"] ,
+        etiqueta: json["etiqueta"] ,
         fecha: json["fecha"] == null ? null : DateTime.parse(json["fecha"]),
         history: json["history"],
       );

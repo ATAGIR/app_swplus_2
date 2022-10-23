@@ -23,33 +23,9 @@ class CatService {
 
       if (response.statusCode == 200) {
         List<MedidorUser> responseMedidorUser =
-            getMedidorUserFromJson(response.data).toList();
+            medidorUserFromJson(response.data).toList();
         print(response.data);
         return responseMedidorUser;
-      } else {}
-    } on DioError catch (e) {
-      print(e);
-      if (e.response != null) {
-        print(e.response?.statusCode);
-        print(e.response?.data);
-        //Message.dissmiss(context);
-        return null;
-      }
-    }
-    return null;
-  }
-
-  Future<List<Log>?> log(BuildContext context, String token) async {
-    try {
-      _dio.options.headers["Authorization"] = "Bearer $token";
-
-      final response =
-          await _dio.request('get_last', options: Options(method: 'GET'));
-
-      if (response.statusCode == 200) {
-        List<Log> responseLog = getLogFromJson(response.data).toList();
-        print(response.data);
-        return responseLog;
       } else {}
     } on DioError catch (e) {
       print(e);
