@@ -10,7 +10,7 @@ class PageMapa extends StatelessWidget {
     return Scaffold(
       // ignore: avoid_unnecessary_containers
       body: Container(
-        child:  const Ubicacion(minZoom: 5, maxZoom: 20, latitud: 20.564383, longitud: -100.30756,),
+        child:  const Ubicacion(minZoom: 5, maxZoom: 20, latitud: 20.56439, longitud: -100.3075),
       ),
     );
   }
