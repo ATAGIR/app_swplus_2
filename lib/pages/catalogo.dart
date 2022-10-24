@@ -283,7 +283,7 @@ class _CatalogoState extends State<Catalogo> {
                               fontSize: 14),
                         ),
                       ),
-                SizedBox(height: Responsive(context).wp(150)),
+                SizedBox(height: Responsive(context).wp(0.1)),
               ],
             ),
           ),
