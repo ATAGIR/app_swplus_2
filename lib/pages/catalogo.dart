@@ -181,47 +181,55 @@ class _CatalogoState extends State<Catalogo> {
                 ),
                 Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
                 SlideInLeft(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        child: Card(
-                          color: Colors.grey.shade100,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                  child: Column(
+                    children: [
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Column(
                             children: [
-                              ListTile(
-                                leading: const Icon(Icons.abc),
-                                title:
-                                    Text('${logActual!.logs![index].modelo}'),
-                                subtitle:
-                                    Text('${logActual!.logs![index].long}'),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PageMapa()),
-                                      );
-                                    },
-                                    icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                        color: Colors.blue),
-                                  ),
-                                ],
+                              Card(
+                                elevation: 10,
+                                color: Colors.grey.shade100,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ListTile(
+                                      leading: const Icon(Icons.abc),
+                                      title: Text(
+                                          '${logActual!.logs![index].modelo}'),
+                                      subtitle: Text(
+                                          '${logActual!.logs![index].long}'),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const PageMapa()),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              color: Colors.blue),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: logActual?.logs?.length ?? 0,
+                          );
+                        },
+                        itemCount: logActual?.logs?.length ?? 0,
+                      ),
+                    ],
                   ),
                 ),
                 detalleLog != null
@@ -268,7 +276,7 @@ class _CatalogoState extends State<Catalogo> {
                       )
                     : Center(
                         child: Text(
-                          'Sin Archivos',
+                          '',
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: ColorTheme.fontFamily,
