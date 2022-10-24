@@ -60,7 +60,6 @@ class _CatalogoState extends State<Catalogo> {
 
   @override
   Widget build(BuildContext context) {
-    //print('build---------------------------------');
     final responsive = Responsive(context);
     return SafeArea(
       child: Scaffold(
@@ -180,14 +179,40 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ],
                 ),
-                //----------------------------------------------------------
                 Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
                 SlideInLeft(
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Text('${logActual!.logs![index].modelo}');
+                      return Center(
+                        child: Card(
+                          color: Colors.grey.shade100,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                leading: const Icon(Icons.abc),
+                                title:
+                                    Text('${logActual!.logs![index].modelo}'),
+                                subtitle:
+                                    Text('${logActual!.logs![index].etiqueta}'),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        color: Colors.blue),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                     itemCount: logActual?.logs?.length ?? 0,
                   ),
@@ -223,32 +248,8 @@ class _CatalogoState extends State<Catalogo> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      print(
-                                          '========================================');
-                                      print(logActual);
                                       return Text(
                                           '${logActual!.logs![index].modelo}');
-                                      // ListTileTelemetria
-                                      //     .listTileTELEMETRIA(
-                                      //         buttonText: true,
-                                      //         circleColor:
-                                      //             ColorTheme.indicatorColor,
-                                      //         iconButton1: Icons.abc,
-                                      //         iconButton2:
-                                      //             Icons.arrow_forward_ios,
-                                      //         onPressarrowButton: () {
-                                      //           Navigator.push(
-                                      //               context,
-                                      //               MaterialPageRoute(
-                                      //                   builder: (context) =>
-                                      //                       const PageMapa()));
-                                      //         },
-                                      //         nameMedidor:
-                                      //             listaDetalleLog![index]!.rfc,
-                                      //         subtitle:
-                                      //             '${listaDetalleLog?[index]!.modeloId}',
-                                      //         // 'Folio ${listFileStatus![index].soNumero}  Fecha Alta ' + DateFormat('dd-MM-yyyy HH:mm:ss').format(listFileStatus![index].soFecAlta!),
-                                      //         responsive: responsive);
                                     },
                                     itemCount: logActual?.logs?.length ?? 0,
                                   ),
@@ -442,12 +443,6 @@ class _CatalogoState extends State<Catalogo> {
                                       iconButton2: Icons.arrow_forward_ios,
                                       onPressarrowButton: () {
                                         logActual = listaMedidoresUser![index];
-
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             const Catalogo()));
                                         Navigator.pop(context);
                                       },
                                       nameMedidor:
