@@ -34,7 +34,8 @@ List<Log?>? listaDetalleLog;
 
 bool emptyArray = true;
 String? itemSeleccionado;
-String? itemSeleccionado2;
+
+
 
 const Map<String, int> itemOrdens = {
   "Conseción, A-Z": 1,
@@ -60,6 +61,7 @@ class _CatalogoState extends State<Catalogo> {
 
   @override
   Widget build(BuildContext context) {
+    
     final responsive = Responsive(context);
     return SafeArea(
       child: Scaffold(
@@ -117,7 +119,7 @@ class _CatalogoState extends State<Catalogo> {
                           emptyArray = true;
                         } else {
                           emptyArray = false;
-                          itemSeleccionado2 = value.trim();
+                          itemSeleccionado = value.trim();
                         }
                       },
                     );
@@ -254,7 +256,7 @@ class _CatalogoState extends State<Catalogo> {
                                         listaDetalleLog = listaDetalleLog!
                                             .where((element) => element!.modelo!
                                                 .toLowerCase()
-                                                .contains(itemSeleccionado2!
+                                                .contains(itemSeleccionado!
                                                     .toLowerCase()))
                                             .toList(),
                                       };
