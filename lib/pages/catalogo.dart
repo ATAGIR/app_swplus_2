@@ -196,13 +196,20 @@ class _CatalogoState extends State<Catalogo> {
                                 title:
                                     Text('${logActual!.logs![index].modelo}'),
                                 subtitle:
-                                    Text('${logActual!.logs![index].etiqueta}'),
+                                    Text('${logActual!.logs![index].long}'),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PageMapa()),
+                                      );
+                                    },
                                     icon: const Icon(
                                         Icons.remove_red_eye_outlined,
                                         color: Colors.blue),
