@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:telemetria/api/configure_api.dart';
+import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/models/models.dart';
 
 class CatService {
@@ -38,4 +39,24 @@ class CatService {
     }
     return null;
   }
-}
+  Future<MapDetail?> getMapDetail(
+    {
+      required String token,
+      required double latitud,
+      required double longitud,}) async{
+    try{
+      _dio.options.headers["Authorization"] = "Bearer $token";
+      final response = await _dio.request('get_detail?nsut=&etiqueta=&dias=',
+      options: Options(method: 'GET'));
+
+      if (response.statusCode == 200){
+        final MapDetail responseMapDetail = MapDetail.fromJson(response.data);
+        print(response.data);
+        return responseMapDetail;
+      } 
+    } on DioError catch (e){
+      print(e);
+      }
+      return null;
+    }
+  }

@@ -4,15 +4,15 @@
 
 import 'dart:convert';
 
-List<DetalleMedidor> getMedidorDetalleFromJson(String str) =>
-    List<DetalleMedidor>.from(
-        json.decode(str).map((x) => DetalleMedidor.fromJson(x)));
+List<MapDetail> getMedidorDetalleFromJson(String str) =>
+    List<MapDetail>.from(
+        json.decode(str).map((x) => MapDetail.fromJson(x)));
 
-String getMedidorDetalleToJson(List<DetalleMedidor> data) =>
+String getMedidorDetalleToJson(List<MapDetail> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class DetalleMedidor {
-  DetalleMedidor({
+class MapDetail {
+  MapDetail({
     this.logId,
     this.tipoId,
     this.sistema,
@@ -48,7 +48,7 @@ class DetalleMedidor {
   String? imei;
   dynamic ker;
 
-  factory DetalleMedidor.fromJson(Map<String, dynamic> json) => DetalleMedidor(
+  factory MapDetail.fromJson(Map<String, dynamic> json) => MapDetail(
         logId: json["log_id"],
         tipoId: json["tipo_id"],
         sistema: json["sistema"],
