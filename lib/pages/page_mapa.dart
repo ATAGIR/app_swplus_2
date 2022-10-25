@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telemetria/utils/responsive.dart';
 import '../widget/ubicacion.dart';
 
 class PageMapa extends StatefulWidget {
@@ -15,14 +16,18 @@ class PageMapa extends StatefulWidget {
 class _PageMapaState extends State<PageMapa> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // ignore: avoid_unnecessary_containers
-      body: Container(
-        child: Ubicacion(
-            minZoom: 5,
-            maxZoom: 20,
-            latitud: widget.latitud!,
-            longitud: widget.longitud!),
+    final responsive = Responsive(context);
+    return SafeArea(
+      child: Scaffold(
+        // ignore: avoid_unnecessary_containers
+        body: Container(
+          height: responsive.hp(45),
+          child: Ubicacion(
+              minZoom: 5,
+              maxZoom: 20,
+              latitud: widget.latitud!,
+              longitud: widget.longitud!),
+        ),
       ),
     );
   }
