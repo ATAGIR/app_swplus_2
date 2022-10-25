@@ -35,8 +35,6 @@ List<Log?>? listaDetalleLog;
 bool emptyArray = true;
 String? itemSeleccionado;
 
-
-
 const Map<String, int> itemOrdens = {
   "Conseción, A-Z": 1,
   "Conseción, Z-A": 2,
@@ -61,233 +59,235 @@ class _CatalogoState extends State<Catalogo> {
 
   @override
   Widget build(BuildContext context) {
-    
     final responsive = Responsive(context);
-    return SafeArea(
-      child: Scaffold(
-        drawer: drawer(responsive, context),
-        onDrawerChanged: (isOpen) {
-          if (!isOpen) {
-            setState(() {});
+    return Scaffold(
+      drawer: drawer(responsive, context),
+      onDrawerChanged: (isOpen) {
+        if (!isOpen) {
+          setState(() {});
+        }
+      },
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              SecureStorage().deleteSecureData('token');
+              SecureStorage().deleteSecureData('username');
+              SecureStorage().deleteSecureData('password');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
+            },
+            icon: const Icon(Icons.exit_to_app_rounded),
+          ),
+        ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
           }
         },
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                SecureStorage().deleteSecureData('token');
-                SecureStorage().deleteSecureData('username');
-                SecureStorage().deleteSecureData('password');
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Login()));
-              },
-              icon: const Icon(Icons.exit_to_app_rounded),
-            ),
-          ],
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
-        ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          //diseño pagina
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: responsive.hp(2),
-                ),
-                SearchTextForm(
-                  width: responsive.wp(60),
-                  height: responsive.hp(5),
-                  borderColor: ColorTheme.iconsColor,
-                  backgroundColor: ColorTheme.thetextBackgroundColor,
-                  labelText: 'Buscar',
-                  onPressed: () {},
-                  iconSize: responsive.dp(2.1),
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        if (value.isEmpty) {
-                          emptyArray = true;
-                        } else {
-                          emptyArray = false;
-                          itemSeleccionado = value.trim();
-                        }
-                      },
-                    );
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    LabelText(
-                      txtValor: 'Modelo',
-                      fontSize: responsive.dp(1.8),
-                      colorText: Colors.black54,
-                    ),
-                    DropdownButton<int>(
-                      hint: Text(
-                        'Ordenar por',
-                        style: TextStyle(color: ColorTheme.thetextColor),
-                      ),
+        //diseño pagina
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: responsive.hp(2),
+              ),
+              SearchTextForm(
+                width: responsive.wp(60),
+                height: responsive.hp(5),
+                borderColor: ColorTheme.iconsColor,
+                backgroundColor: ColorTheme.thetextBackgroundColor,
+                labelText: 'Buscar',
+                onPressed: () {},
+                iconSize: responsive.dp(2.1),
+                onChanged: (value) {
+                  setState(
+                    () {
+                      if (value.isEmpty) {
+                        emptyArray = true;
+                      } else {
+                        emptyArray = false;
+                        itemSeleccionado = value.trim();
+                      }
+                    },
+                  );
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  LabelText(
+                    txtValor: 'Modelo',
+                    fontSize: responsive.dp(1.8),
+                    colorText: Colors.black54,
+                  ),
+                  DropdownButton<int>(
+                    hint: Text(
+                      'Ordenar por',
                       style: TextStyle(color: ColorTheme.thetextColor),
-                      items: itemOrdens2
-                          .map(
-                            (descripcion, value) {
-                              return MapEntry(
-                                descripcion,
-                                DropdownMenuItem<int>(
-                                  value: value,
-                                  child: Text(descripcion),
-                                ),
+                    ),
+                    style: TextStyle(color: ColorTheme.thetextColor),
+                    items: itemOrdens2
+                        .map(
+                          (descripcion, value) {
+                            return MapEntry(
+                              descripcion,
+                              DropdownMenuItem<int>(
+                                value: value,
+                                child: Text(descripcion),
+                              ),
+                            );
+                          },
+                        )
+                        .values
+                        .toList(),
+                    value: ordens,
+                    onChanged: (int? value) {
+                      ordens = value!;
+                      switch (ordens) {
+                        case 1:
+                          setState(
+                            () {
+                              listaDetalleLog!.sort(
+                                (a, b) => a!.modelo!.compareTo(b!.modelo!),
                               );
                             },
-                          )
-                          .values
-                          .toList(),
-                      value: ordens,
-                      onChanged: (int? value) {
-                        ordens = value!;
-                        switch (ordens) {
-                          case 1:
-                            setState(
-                              () {
-                                listaDetalleLog!.sort(
-                                  (a, b) => a!.modelo!.compareTo(b!.modelo!),
-                                );
-                              },
-                            );
-                            break;
-                          case 2:
-                            setState(
-                              () {
-                                listaDetalleLog!.sort(
-                                  (a, b) => b!.modelo!.compareTo(a!.modelo!),
-                                );
-                              },
-                            );
-                            break;
-                          default:
-                        }
+                          );
+                          break;
+                        case 2:
+                          setState(
+                            () {
+                              listaDetalleLog!.sort(
+                                (a, b) => b!.modelo!.compareTo(a!.modelo!),
+                              );
+                            },
+                          );
+                          break;
+                        default:
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
+              SlideInLeft(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Card(
+                              elevation: 10,
+                              color: Colors.grey.shade100,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    leading: const Icon(Icons.abc),
+                                    title: Text(
+                                        '${logActual!.logs![index].lat}'),
+                                    subtitle:
+                                        Text('${logActual!.logs![index].long}'),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          double? latitud =
+                                              logActual!.logs![index].lat;
+                                          double? longitud =
+                                              logActual!.logs![index].long;
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PageMapa(latitud, longitud),
+                                            ),
+                                          );
+                                        },
+                                        icon: const Icon(
+                                            Icons.remove_red_eye_outlined,
+                                            color: Colors.blue),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
                       },
+                      itemCount: logActual?.logs?.length ?? 0,
                     ),
                   ],
                 ),
-                Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
-                SlideInLeft(
-                  child: Column(
-                    children: [
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Card(
-                                elevation: 10,
-                                color: Colors.grey.shade100,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ListTile(
-                                      leading: const Icon(Icons.abc),
-                                      title: Text(
-                                          '${logActual!.logs![index].modelo}'),
-                                      subtitle: Text(
-                                          '${logActual!.logs![index].long}'),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const PageMapa()),
-                                            );
-                                          },
-                                          icon: const Icon(
-                                              Icons.remove_red_eye_outlined,
-                                              color: Colors.blue),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+              ),
+              detalleLog != null
+                  ? SingleChildScrollView(
+                      child: SizedBox(
+                        height: responsive.hp(60),
+                        width: responsive.wp(97),
+                        child: FutureBuilder<List<Log>?>(
+                          future: detalleLog,
+                          builder:
+                              (context, AsyncSnapshot<List<Log>?> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              emptyArray
+                                  ? {
+                                      listaDetalleLog = snapshot.data,
+                                    }
+                                  : {
+                                      listaDetalleLog = listaDetalleLog!
+                                          .where((element) => element!.modelo!
+                                              .toLowerCase()
+                                              .contains(itemSeleccionado!
+                                                  .toLowerCase()))
+                                          .toList(),
+                                    };
+                              return SlideInLeft(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Text(
+                                        '${logActual!.logs![index].modelo}');
+                                  },
+                                  itemCount: logActual?.logs?.length ?? 0,
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                        itemCount: logActual?.logs?.length ?? 0,
-                      ),
-                    ],
-                  ),
-                ),
-                detalleLog != null
-                    ? SingleChildScrollView(
-                        child: SizedBox(
-                          height: responsive.hp(60),
-                          width: responsive.wp(97),
-                          child: FutureBuilder<List<Log>?>(
-                            future: detalleLog,
-                            builder:
-                                (context, AsyncSnapshot<List<Log>?> snapshot) {
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else {
-                                emptyArray
-                                    ? {
-                                        listaDetalleLog = snapshot.data,
-                                      }
-                                    : {
-                                        listaDetalleLog = listaDetalleLog!
-                                            .where((element) => element!.modelo!
-                                                .toLowerCase()
-                                                .contains(itemSeleccionado!
-                                                    .toLowerCase()))
-                                            .toList(),
-                                      };
-                                return SlideInLeft(
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Text(
-                                          '${logActual!.logs![index].modelo}');
-                                    },
-                                    itemCount: logActual?.logs?.length ?? 0,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          '',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: ColorTheme.fontFamily,
-                              fontSize: 14),
+                              );
+                            }
+                          },
                         ),
                       ),
-                SizedBox(height: Responsive(context).wp(0.1)),
-              ],
-            ),
+                    )
+                  : Center(
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: ColorTheme.fontFamily,
+                            fontSize: 14),
+                      ),
+                    ),
+              SizedBox(height: Responsive(context).wp(0.1)),
+            ],
           ),
         ),
       ),
