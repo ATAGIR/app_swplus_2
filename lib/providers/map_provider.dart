@@ -24,6 +24,13 @@ class MapProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _dias = 0;
+  int get dias => _dias;
+  set dias(int dias){
+    _dias = dias;
+    notifyListeners();
+  }
+
   Future<String>readToken() async{
     var token = await SecureStorage().readSecureData('token');
     if (token == null) {
