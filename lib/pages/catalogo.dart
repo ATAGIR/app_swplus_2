@@ -203,7 +203,7 @@ class _CatalogoState extends State<Catalogo> {
                                                 BorderRadius.circular(10),
                                           ),
                                           child: SizedBox(
-                                            height: responsive.hp(35),
+                                            height: responsive.hp(25),
                                             width: responsive.wp(95),
                                             child: Column(
                                               children: [
