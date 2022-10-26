@@ -213,7 +213,7 @@ class _CatalogoState extends State<Catalogo> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PageMapa(latitud, longitud,nsut,etiqueta),
+                                                    PageMapa(latitud:latitud, longitud:longitud,nsut:nsut,etiqueta:etiqueta),
                                               ),
                                             );
                                           },

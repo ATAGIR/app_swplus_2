@@ -5,8 +5,7 @@
 import 'dart:convert';
 
 List<MapDetail> getMedidorDetalleFromJson(String str) =>
-    List<MapDetail>.from(
-        json.decode(str).map((x) => MapDetail.fromJson(x)));
+    List<MapDetail>.from(json.decode(str).map((x) => MapDetail.fromJson(x)));
 
 String getMedidorDetalleToJson(List<MapDetail> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

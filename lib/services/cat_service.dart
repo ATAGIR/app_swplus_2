@@ -39,8 +39,10 @@ class CatService {
     }
     return null;
   }
-  Future<MapDetail?> getMapDetail(BuildContext context, String token,
-      String nsut, String etiqueta, int dias) async{
+
+  
+  Future<List<MapDetail>?> getMapDetail(BuildContext context, String token,
+      String? nsut, String? etiqueta, int? dias) async{
     try{
       _dio.options.headers["Authorization"] = "Bearer $token";
       final response = await _dio.request('get_detail?nsut=&etiqueta=&dias=',
@@ -48,7 +50,7 @@ class CatService {
       options: Options(method: 'GET'));
 
       if (response.statusCode == 200){
-        final MapDetail responseMapDetail = MapDetail.fromJson(response.data);
+        final List<MapDetail> responseMapDetail = getMedidorDetalleFromJson(response.data);
         print(response.data);
         return responseMapDetail;
       } 

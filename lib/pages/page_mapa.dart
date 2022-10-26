@@ -1,18 +1,23 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/providers/login_prov.dart';
+import 'package:telemetria/services/cat_service.dart';
+import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
+import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/ubicacion.dart';
 
-Future<MapDetail>? _detalleMap;
+Future<List<MapDetail>?>? _detalleMap;
 List<MapDetail>? listaDetalleMap;
 bool emptyArray = true;
 String? itemSelected;
 
 class PageMapa extends StatefulWidget {
   static const routeName = 'PageMapa';
-  const PageMapa(this.latitud, this.longitud, this.nsut, this.etiqueta, {super.key});
+  const PageMapa({this.latitud, this.longitud, this.nsut, this.etiqueta,
+      super.key});
   final double? latitud;
   final double? longitud;
   final String? nsut;
@@ -30,7 +35,12 @@ class _PageMapaState extends State<PageMapa> {
   void initState() {
     super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    
+    _detalleMap = CatService().getMapDetail(
+        context,
+        loginProvider.loginPerfil.token,
+        widget.nsut,
+        widget.etiqueta,
+        999);
   }
 
   @override
@@ -40,27 +50,100 @@ class _PageMapaState extends State<PageMapa> {
       child: Scaffold(
         // ignore: avoid_unnecessary_containers
         body: GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: responsive.hp(45),
-                  child: Ubicacion(
-                      minZoom: 5,
-                      maxZoom: 20,
-                      latitud: widget.latitud!,
-                      longitud: widget.longitud!),
-                ),
-              ],
-            ),
-          ),
-        ),
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: responsive.hp(45),
+                    child: Ubicacion(
+                        minZoom: 5,
+                        maxZoom: 20,
+                        latitud: widget.latitud!,
+                        longitud: widget.longitud!),
+                  ),
+                  _detalleMap != null
+                      ? SingleChildScrollView(
+                          child: SizedBox(
+                            height: responsive.hp(50),
+                            width: responsive.wp(97),
+                            child: FutureBuilder<List<MapDetail>?>(
+                              future: _detalleMap,
+                              builder: (context,
+                                  AsyncSnapshot<List<MapDetail>?> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  emptyArray
+                                      ? {
+                                          listaDetalleMap = snapshot.data,
+                                        }
+                                      : {
+                                          listaDetalleMap =
+                                              listaDetalleMap!
+                                                  .where((element) => element
+                                                      .modelo!
+                                                      .toLowerCase()
+                                                      .contains(
+                                                          itemSelected!
+                                                              .toLowerCase()))
+                                                  .toList(),
+                                        };
+                                  return SlideInLeft(
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return ListTileTelemetria
+                                            .listTileTELEMETRIA(
+                                                buttonText: true,
+                                                circleColor:
+                                                    ColorTheme.indicatorColor,
+                                                iconButton2:
+                                                    Icons.arrow_forward_ios,
+                                                onPressarrowButton: () {
+                                                  detalleActual =
+                                                      listaDetalleMap![
+                                                          index];
+                                                  Navigator.pop(context);
+                                                },
+                                                nameMedidor:
+                                                    listaDetalleMap![index]
+                                                        .modelo!,
+                                                subtitle:
+                                                    'Fecha:  ${listaDetalleMap?[index].fecha}',
+                                                responsive: responsive,
+                                                iconButton1: Icons.abc,
+                                                textButton: 'Ver');
+                                      },
+                                      itemCount: listaDetalleMap!.length,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            'Sin Archivos',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: ColorTheme.fontFamily,
+                                fontSize: 14),
+                          ),
+                        ),
+                  SizedBox(height: Responsive(context).wp(150)),
+                ],
+              ),
+            )),
       ),
     );
   }

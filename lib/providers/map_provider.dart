@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:flutter/cupertino.dart';
 import '../utils/secure_storage.dart';
 
@@ -24,7 +26,7 @@ class MapProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _dias = 0;
+  int _dias = 999;
   int get dias => _dias;
   set dias(int dias){
     _dias = dias;
