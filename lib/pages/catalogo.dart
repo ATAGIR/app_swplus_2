@@ -188,53 +188,217 @@ class _CatalogoState extends State<Catalogo> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            Card(
-                              elevation: 5,
-                              color: Colors.grey.shade100,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListTile(
-                                    //leading: const Icon(Icons.abc),
-                                    title: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text('${logActual!.logs![index].nsut}'),
-                                        const Spacer(),
-                                        IconButton(
-                                          onPressed: () {
-                                            double? latitud =
-                                                logActual!.logs![index].lat;
-                                            double? longitud =
-                                                logActual!.logs![index].long;
-                                            String? nsut = logActual!.logs![index].nsut;
-                                            String? etiqueta = logActual!.logs![index].etiqueta;
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PageMapa(latitud:latitud, longitud:longitud,nsut:nsut,etiqueta:etiqueta),
-                                              ),
-                                            );
-                                          },
-                                          icon: const Icon(
-                                              Icons.remove_red_eye_outlined,
-                                              color: Colors.blue),
+                            GestureDetector(
+                              onTap: () {
+                                print('pica');
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.blue, width: 1.2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: SizedBox(
+                                            height: responsive.hp(35),
+                                            width: responsive.wp(95),
+                                            child: Column(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: responsive.hp(1),
+                                                    ),
+                                                    Table(
+                                                      columnWidths: {
+                                                        0: FixedColumnWidth(
+                                                          responsive.wp(3),
+                                                        ),
+                                                        1: FixedColumnWidth(
+                                                          responsive.wp(31),
+                                                        )
+                                                      },
+                                                      children: [
+                                                        TableRow(
+                                                          children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'Etiqueta: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].etiqueta}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ]),
+                                                        TableRow(children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'NSUT: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].nsut}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ]),
+                                                        TableRow(children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'Fecha ultimo Registro: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].fecha}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ]),
+                                                        TableRow(children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'Modelo: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].modelo}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ]),
+                                                        TableRow(children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'NSM: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].nsm}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ]),
+                                                        TableRow(children: [
+                                                          SizedBox(
+                                                            width: responsive
+                                                                .wp(2),
+                                                          ),
+                                                          const Text(
+                                                            'NSUE: ',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                              '${logActual!.logs![index].nsue}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white)) //
+                                                        ])
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                      );
+                                    });
+                              },
+                              child: Card(
+                                elevation: 5,
+                                color: Colors.grey.shade100,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ListTile(
+                                      //leading: const Icon(Icons.abc),
+                                      title: Row(
+                                        // mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            'NSUT: ${logActual!.logs![index].nsut}',
+                                            style: TextStyle(
+                                                fontSize: responsive.dp(1.5)),
+                                          ),
+                                          const Spacer(),
+                                          IconButton(
+                                            onPressed: () {
+                                              double? latitud =
+                                                  logActual!.logs![index].lat;
+                                              double? longitud =
+                                                  logActual!.logs![index].long;
+                                              String? nsut =
+                                                  logActual!.logs![index].nsut;
+                                              String? etiqueta = logActual!
+                                                  .logs![index].etiqueta;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PageMapa(
+                                                          latitud: latitud,
+                                                          longitud: longitud,
+                                                          nsut: nsut,
+                                                          etiqueta: etiqueta),
+                                                ),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.location_on,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
 
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                            '${logActual!.logs![index].modelo}'),
-                                        const Spacer(),
-                                        Text(
-                                            '${logActual!.logs![index].etiqueta}'),
-                                      ],
+                                      subtitle: Row(
+                                        children: [
+                                          Text(
+                                            'Modelo: ${logActual!.logs![index].modelo}',
+                                            style: TextStyle(
+                                                fontSize: responsive.dp(1.2)),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            'Etiqueta: ${logActual!.logs![index].etiqueta}',
+                                            style: TextStyle(
+                                                fontSize: responsive.dp(1.2)),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
