@@ -40,23 +40,24 @@ class CatService {
     return null;
   }
 
-  
   Future<List<MapDetail>?> getMapDetail(BuildContext context, String token,
-      String? nsut, String? etiqueta, int? dias) async{
-    try{
+      String? nsut, String? etiqueta, int? dias) async {
+    try {
       _dio.options.headers["Authorization"] = "Bearer $token";
-      final response = await _dio.request('get_detail?nsut=&etiqueta=&dias=',
-      queryParameters: {"Nsut": nsut, "Etiqueta": etiqueta, "Dias": dias},
-      options: Options(method: 'GET'));
+      final response = await _dio.request('get_detail',
+          queryParameters: {"Nsut": nsut, "Etiqueta": etiqueta, "Dias": dias},
+          options: Options(method: 'GET'));
+      print(response);
 
-      if (response.statusCode == 200){
-        final List<MapDetail> responseMapDetail = getMedidorDetalleFromJson(response.data);
+      if (response.statusCode == 200) {
+        final List<MapDetail> responseMapDetail =
+            getMedidorDetalleFromJson(response.data);
         print(response.data);
         return responseMapDetail;
-      } 
-    } on DioError catch (e){
-      print(e);
       }
-      return null;
+    } on DioError catch (e) {
+      print(e);
     }
+    return null;
   }
+}

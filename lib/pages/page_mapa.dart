@@ -1,9 +1,12 @@
+// ignore_for_file: unused_label
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
+
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/widget/listtile_telemetria.dart';
@@ -16,8 +19,8 @@ String? itemSelected;
 
 class PageMapa extends StatefulWidget {
   static const routeName = 'PageMapa';
-  const PageMapa({this.latitud, this.longitud, this.nsut, this.etiqueta,
-      super.key});
+  const PageMapa(
+      {this.latitud, this.longitud, this.nsut, this.etiqueta, super.key});
   final double? latitud;
   final double? longitud;
   final String? nsut;
@@ -28,19 +31,35 @@ class PageMapa extends StatefulWidget {
 }
 
 class _PageMapaState extends State<PageMapa> {
-  MapDetail? detalleActual;
+  var _currentSelectedDate;
+
+  void callDatePicker() async {
+    var selectedDate = await getDatePickerWidget();
+    setState(() {
+      _currentSelectedDate = selectedDate;
+    });
+  }
+
+  Future<DateTime?> getDatePickerWidget() {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2017),
+        lastDate: DateTime(2023));
+    // ignore: dead_code
+    builder:
+    (context, child) {
+      return Theme(data: ThemeData.light(), child: child);
+    };
+  }
 
   double? get longitud => null;
   @override
   void initState() {
     super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    _detalleMap = CatService().getMapDetail(
-        context,
-        loginProvider.loginPerfil.token,
-        widget.nsut,
-        widget.etiqueta,
-        999);
+    _detalleMap = CatService().getMapDetail(context,
+        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 1);
   }
 
   @override
@@ -67,6 +86,12 @@ class _PageMapaState extends State<PageMapa> {
                         latitud: widget.latitud!,
                         longitud: widget.longitud!),
                   ),
+                  SizedBox(height: Responsive(context).hp(2)),
+                  ElevatedButton(
+                    onPressed: callDatePicker,
+                    child: const Text('Aceptar'),
+                  ),
+                  Text('Fecha Seleccionada $_currentSelectedDate'),
                   _detalleMap != null
                       ? SingleChildScrollView(
                           child: SizedBox(
@@ -86,15 +111,13 @@ class _PageMapaState extends State<PageMapa> {
                                           listaDetalleMap = snapshot.data,
                                         }
                                       : {
-                                          listaDetalleMap =
-                                              listaDetalleMap!
-                                                  .where((element) => element
-                                                      .modelo!
-                                                      .toLowerCase()
-                                                      .contains(
-                                                          itemSelected!
-                                                              .toLowerCase()))
-                                                  .toList(),
+                                          listaDetalleMap = listaDetalleMap!
+                                              .where((element) => element
+                                                  .modelo!
+                                                  .toLowerCase()
+                                                  .contains(itemSelected!
+                                                      .toLowerCase()))
+                                              .toList(),
                                         };
                                   return SlideInLeft(
                                     child: ListView.builder(
@@ -108,12 +131,7 @@ class _PageMapaState extends State<PageMapa> {
                                                     ColorTheme.indicatorColor,
                                                 iconButton2:
                                                     Icons.arrow_forward_ios,
-                                                onPressarrowButton: () {
-                                                  detalleActual =
-                                                      listaDetalleMap![
-                                                          index];
-                                                  Navigator.pop(context);
-                                                },
+                                                onPressarrowButton: () {},
                                                 nameMedidor:
                                                     listaDetalleMap![index]
                                                         .modelo!,
