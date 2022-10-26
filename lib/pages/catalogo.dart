@@ -177,7 +177,7 @@ class _CatalogoState extends State<Catalogo> {
                   ),
                 ],
               ),
-              Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
+              //Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
               SlideInLeft(
                 child: Column(
                   children: [
@@ -189,40 +189,50 @@ class _CatalogoState extends State<Catalogo> {
                         return Column(
                           children: [
                             Card(
-                              elevation: 10,
+                              elevation: 5,
                               color: Colors.grey.shade100,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ListTile(
-                                    leading: const Icon(Icons.abc),
-                                    title: Text(
-                                        '${logActual!.logs![index].lat}'),
-                                    subtitle:
-                                        Text('${logActual!.logs![index].long}'),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          double? latitud =
-                                              logActual!.logs![index].lat;
-                                          double? longitud =
-                                              logActual!.logs![index].long;
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PageMapa(latitud, longitud),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                            Icons.remove_red_eye_outlined,
-                                            color: Colors.blue),
-                                      ),
-                                    ],
+                                    //leading: const Icon(Icons.abc),
+                                    title: Row(
+                                      // mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text('${logActual!.logs![index].nsut}'),
+                                        const Spacer(),
+                                        IconButton(
+                                          onPressed: () {
+                                            double? latitud =
+                                                logActual!.logs![index].lat;
+                                            double? longitud =
+                                                logActual!.logs![index].long;
+                                            String? nsut = logActual!.logs![index].nsut;
+                                            String? etiqueta = logActual!.logs![index].etiqueta;
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PageMapa(latitud, longitud,nsut,etiqueta),
+                                              ),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              color: Colors.blue),
+                                        ),
+                                      ],
+                                    ),
+
+                                    subtitle: Row(
+                                      children: [
+                                        Text(
+                                            '${logActual!.logs![index].modelo}'),
+                                        const Spacer(),
+                                        Text(
+                                            '${logActual!.logs![index].etiqueta}'),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -426,7 +436,7 @@ class _CatalogoState extends State<Catalogo> {
             _medidorUser != null
                 ? SingleChildScrollView(
                     child: SizedBox(
-                      height: responsive.hp(60),
+                      height: responsive.hp(50),
                       width: responsive.wp(97),
                       child: FutureBuilder<List<MedidorUser>?>(
                         future: _medidorUser,
