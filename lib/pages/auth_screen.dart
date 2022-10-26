@@ -10,7 +10,8 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    // ignore: unused_local_variable
+    GlobalKey<FormState> frmKeyAuth = GlobalKey<FormState>();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 
     return Scaffold(
@@ -19,10 +20,12 @@ class AuthScreen extends StatelessWidget {
             future: loginProvider.readToken(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (!snapshot.hasData) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Image.asset('assets/imagenes/logo.jpeg'),
+                // ignore: sized_box_for_whitespace
+                return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset('assets/imagenes/logo.jpeg'),
+                  
                 );
               }
               if (snapshot.data == '') {
