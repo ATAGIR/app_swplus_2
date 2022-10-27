@@ -59,7 +59,7 @@ class _PageMapaState extends State<PageMapa> {
     super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     _detalleMap = CatService().getMapDetail(context,
-        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 1);
+        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 999);
   }
 
   @override
@@ -158,7 +158,7 @@ class _PageMapaState extends State<PageMapa> {
                                 fontSize: 14),
                           ),
                         ),
-                  SizedBox(height: Responsive(context).wp(150)),
+                  SizedBox(height: Responsive(context).wp(0.1)),
                 ],
               ),
             )),
