@@ -190,40 +190,39 @@ class _CatalogoState extends State<Catalogo> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print('pica');
                                 showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Center(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.blue, width: 1.2),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: SizedBox(
-                                            height: responsive.hp(25),
-                                            width: responsive.wp(95),
-                                            child: Column(
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: responsive.hp(1),
-                                                    ),
-                                                    Table(
-                                                      columnWidths: {
-                                                        0: FixedColumnWidth(
-                                                          responsive.wp(3),
-                                                        ),
-                                                        1: FixedColumnWidth(
-                                                          responsive.wp(31),
-                                                        )
-                                                      },
-                                                      children: [
-                                                        TableRow(
-                                                          children: [
+                                  context: context,
+                                  builder: (context) {
+                                    return Center(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.blue, width: 1.2),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: SizedBox(
+                                          height: responsive.hp(25),
+                                          width: responsive.wp(95),
+                                          child: Column(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: responsive.hp(1),
+                                                  ),
+                                                  Table(
+                                                    columnWidths: {
+                                                      0: FixedColumnWidth(
+                                                        responsive.wp(3),
+                                                      ),
+                                                      1: FixedColumnWidth(
+                                                        responsive.wp(31),
+                                                      )
+                                                    },
+                                                    children: [
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -239,8 +238,10 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ]),
-                                                        TableRow(children: [
+                                                        ],
+                                                      ),
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -256,8 +257,10 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ]),
-                                                        TableRow(children: [
+                                                        ],
+                                                      ),
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -273,8 +276,10 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ]),
-                                                        TableRow(children: [
+                                                        ],
+                                                      ),
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -290,8 +295,10 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ]),
-                                                        TableRow(children: [
+                                                        ],
+                                                      ),
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -307,8 +314,10 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ]),
-                                                        TableRow(children: [
+                                                        ],
+                                                      ),
+                                                      TableRow(
+                                                        children: [
                                                           SizedBox(
                                                             width: responsive
                                                                 .wp(2),
@@ -324,17 +333,19 @@ class _CatalogoState extends State<Catalogo> {
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white)) //
-                                                        ])
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
                                           ),
                                         ),
-                                      );
-                                    });
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                               child: Card(
                                 elevation: 5,

@@ -124,22 +124,255 @@ class _PageMapaState extends State<PageMapa> {
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) {
-                                        return ListTileTelemetria
-                                            .listTileTELEMETRIA(
-                                                buttonText: true,
-                                                circleColor:
-                                                    ColorTheme.indicatorColor,
-                                                iconButton2:
-                                                    Icons.arrow_forward_ios,
-                                                onPressarrowButton: () {},
-                                                nameMedidor:
-                                                    listaDetalleMap![index]
-                                                        .modelo!,
-                                                subtitle:
-                                                    'Fecha:  ${listaDetalleMap?[index].fecha}',
-                                                responsive: responsive,
-                                                iconButton1: Icons.abc,
-                                                textButton: 'Ver');
+                                        return Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.blue,
+                                                              width: 1.2),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: SizedBox(
+                                                          height:
+                                                              responsive.hp(25),
+                                                          width:
+                                                              responsive.wp(95),
+                                                          child: Column(
+                                                            children: [
+                                                              Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                    height:
+                                                                        responsive
+                                                                            .hp(1),
+                                                                  ),
+                                                                  Table(
+                                                                    columnWidths: {
+                                                                      0: FixedColumnWidth(
+                                                                        responsive
+                                                                            .wp(3),
+                                                                      ),
+                                                                      1: FixedColumnWidth(
+                                                                        responsive
+                                                                            .wp(31),
+                                                                      )
+                                                                    },
+                                                                    children: [
+                                                                      //0
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'Fecha: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].fecha}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //1
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'Modelo: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].modelo}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //2
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'Sistema: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].sistema}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //3
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'RFC: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].rfc}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //4
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'NSM: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].nsm}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //5
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'Norma: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].nsue}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //6
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'IMEI: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].imei}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                      //7
+                                                                      TableRow(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                responsive.wp(2),
+                                                                          ),
+                                                                          const Text(
+                                                                            'CCID: ',
+                                                                            style:
+                                                                                TextStyle(color: Colors.white),
+                                                                          ),
+                                                                          Text(
+                                                                              '${listaDetalleMap?[index].ccid}',
+                                                                              style: const TextStyle(color: Colors.white)) //
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Card(
+                                                elevation: 5,
+                                                color: Colors.grey.shade100,
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    ListTile(
+                                                      //leading: const Icon(Icons.abc),
+                                                      title: Row(
+                                                        // mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          Text(
+                                                            'Fecha: ${listaDetalleMap![index].fecha!}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    responsive
+                                                                        .dp(1.5)),
+                                                          ),
+                                                          const Spacer(),
+                                                          IconButton(
+                                                            onPressed: () {},
+                                                            icon: const Icon(
+                                                                Icons
+                                                                    .location_on,
+                                                                color: Colors
+                                                                    .blue),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      subtitle: Row(
+                                                        children: [
+                                                          Text(
+                                                            'Modelo: ${listaDetalleMap![index].modelo!}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    responsive
+                                                                        .dp(1.2)),
+                                                          ),
+                                                          const Spacer(),
+                                                          Text(
+                                                            'Gasto: ${listaDetalleMap![index].gasto!}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    responsive
+                                                                        .dp(1.2)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
                                       },
                                       itemCount: listaDetalleMap!.length,
                                     ),

@@ -35,7 +35,7 @@ class MapDetail {
   String? nsue;
   int? lat;
   int? long;
-  int? gasto;
+  dynamic gasto;
   double? vol;
   int? modeloId;
   String? modelo;
