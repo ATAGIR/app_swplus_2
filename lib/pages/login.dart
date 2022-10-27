@@ -11,9 +11,10 @@ import 'package:telemetria/utils/responsive.dart';
 import 'catalogo.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.passwordVisible = false}) : super(key: key);
   static const routeName = 'login';
   static String id = 'login';
+  final bool passwordVisible;
 
   @override
   State<Login> createState() => _LoginState();
@@ -26,6 +27,7 @@ class _LoginState extends State<Login> {
     setState(() {});
   }
 
+  bool passwordVisible = true;
   bool _saveSession = false;
   String email = '';
   String password = '';
@@ -108,11 +110,25 @@ class _LoginState extends State<Login> {
         child: TextFormField(
           initialValue: 'toke',
           keyboardType: TextInputType.emailAddress,
-          obscureText: true,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(
+          obscureText: passwordVisible,
+          decoration: InputDecoration(
+
+            suffixIcon: IconButton(
+              icon: Icon(
+                passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                    color: Colors.blue,
+              ),
+              onPressed: (){
+                setState(() {
+                  passwordVisible = !passwordVisible;
+                });
+              },
+            ),
+            border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(50))),
-            icon: Icon(Icons.lock_rounded),
+            icon: const Icon(Icons.lock_rounded),
             hintText: 'Contraseña',
             labelText: 'Contraseña',
           ),
