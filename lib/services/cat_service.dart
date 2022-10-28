@@ -3,7 +3,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:telemetria/api/configure_api.dart';
-import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/models/models.dart';
 
 class CatService {
@@ -41,7 +40,7 @@ class CatService {
   }
 
   Future<List<MapDetail>?> getMapDetail(BuildContext context, String token,
-      String? nsut, String? etiqueta, int? dias) async {
+      String? nsut, String? etiqueta, int dias) async {
     try {
       _dio.options.headers["Authorization"] = "Bearer $token";
       final response = await _dio.request('get_detail',
