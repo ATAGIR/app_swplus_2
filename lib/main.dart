@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/cat_screen.dart';
 import 'package:telemetria/pages/catalogo.dart';
+import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'pages/login.dart';
 
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
         Catalogo.routeName: ((context) => const Catalogo()),
         AuthScreen.routeName: ((context) => const AuthScreen()),
         CatScreen.routeName: ((context) => const AuthScreen()),
+        PageMapa.routeName: ((context) => const PageMapa()),
       },
     );
   }

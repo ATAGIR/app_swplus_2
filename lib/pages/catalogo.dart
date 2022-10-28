@@ -34,6 +34,7 @@ List<Log?>? listaDetalleLog;
 
 bool emptyArray = true;
 String? itemSeleccionado;
+String? itemSeleccionado2;
 
 const Map<String, int> itemOrdens = {
   "Conseción, A-Z": 1,
@@ -115,7 +116,7 @@ class _CatalogoState extends State<Catalogo> {
                         emptyArray = true;
                       } else {
                         emptyArray = false;
-                        itemSeleccionado = value.trim();
+                        itemSeleccionado2 = value.trim();
                       }
                     },
                   );
@@ -194,153 +195,135 @@ class _CatalogoState extends State<Catalogo> {
                                   context: context,
                                   builder: (context) {
                                     return Center(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blue, width: 1.2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: SizedBox(
-                                          height: responsive.hp(25),
-                                          width: responsive.wp(95),
-                                          child: Column(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height: responsive.hp(1),
-                                                  ),
-                                                  Table(
-                                                    columnWidths: {
-                                                      0: FixedColumnWidth(
-                                                        responsive.wp(3),
-                                                      ),
-                                                      1: FixedColumnWidth(
-                                                        responsive.wp(31),
-                                                      )
-                                                    },
-                                                    children: [
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'Etiqueta: ',
-                                                            style: TextStyle(
+                                      child: SizedBox(
+                                        height: responsive.hp(25),
+                                        width: responsive.wp(95),
+                                        child: Column(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: responsive.hp(2),
+                                                ),
+                                                Table(
+                                                  border: const TableBorder(
+                                                      verticalInside:
+                                                          BorderSide(
+                                                              width: 1.2,
+                                                              color:
+                                                                  Colors.blue,
+                                                              style: BorderStyle
+                                                                  .solid)),
+                                                  // columnWidths: {
+                                                  //   // 0: FixedColumnWidth(
+                                                  //   //   responsive.wp(3),
+                                                  //   // ),
+                                                  //   // 1: FixedColumnWidth(
+                                                  //   //   responsive.wp(31),
+                                                  //   // )
+                                                  // },
+                                                  children: [
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'Etiqueta: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                            '  ${logActual!.logs![index].etiqueta}',
+                                                            style: const TextStyle(
                                                                 color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].etiqueta}',
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      ),
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'NSUT: ',
-                                                            style: TextStyle(
+                                                                    .white)) //
+                                                      ],
+                                                    ),
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'NSUT: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                            '  ${logActual!.logs![index].nsut}',
+                                                            style: const TextStyle(
                                                                 color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].nsut}',
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      ),
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'Fecha ultimo Registro: ',
-                                                            style: TextStyle(
+                                                                    .white)) //
+                                                      ],
+                                                    ),
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'Fecha de último Registro: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                            '  ${logActual!.logs![index].fecha}',
+                                                            style: const TextStyle(
                                                                 color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].fecha}',
-                                                              style: const TextStyle(
+                                                                    .white)) //
+                                                      ],
+                                                    ),
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'Modelo: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                          '  ${logActual!.logs![index].modelo}',
+                                                          style:
+                                                              const TextStyle(
                                                                   color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      ),
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'Modelo: ',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].modelo}',
-                                                              style: const TextStyle(
+                                                                      .white),
+                                                        ) //
+                                                      ],
+                                                    ),
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'NSM: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                          '  ${logActual!.logs![index].nsm}',
+                                                          style:
+                                                              const TextStyle(
                                                                   color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      ),
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'NSM: ',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].nsm}',
-                                                              style: const TextStyle(
+                                                                      .white),
+                                                        ) //
+                                                      ],
+                                                    ),
+                                                    TableRow(
+                                                      children: [
+                                                        const Text(
+                                                          'NSUE: ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        Text(
+                                                          '  ${logActual!.logs![index].nsue}',
+                                                          style:
+                                                              const TextStyle(
                                                                   color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      ),
-                                                      TableRow(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: responsive
-                                                                .wp(2),
-                                                          ),
-                                                          const Text(
-                                                            'NSUE: ',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                              '${logActual!.logs![index].nsue}',
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .white)) //
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                                                      .white),
+                                                        ) //
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
                                         ),
                                       ),
                                     );
@@ -436,13 +419,14 @@ class _CatalogoState extends State<Catalogo> {
                             } else {
                               emptyArray
                                   ? {
+                                      //asd
                                       listaDetalleLog = snapshot.data,
                                     }
                                   : {
                                       listaDetalleLog = listaDetalleLog!
                                           .where((element) => element!.modelo!
                                               .toLowerCase()
-                                              .contains(itemSeleccionado!
+                                              .contains(itemSeleccionado2!
                                                   .toLowerCase()))
                                           .toList(),
                                     };
@@ -536,7 +520,7 @@ class _CatalogoState extends State<Catalogo> {
               height: responsive.hp(5),
               borderColor: ColorTheme.iconsColor,
               backgroundColor: ColorTheme.thetextBackgroundColor,
-              labelText: 'Buscar',
+              labelText: 'Buscara',
               onPressed: () {},
               iconSize: responsive.dp(2.1),
               onChanged: (value) {
@@ -588,7 +572,7 @@ class _CatalogoState extends State<Catalogo> {
                         setState(
                           () {
                             listaMedidoresUser!.sort(
-                              (a, b) => a.rfc!.compareTo(b.rfc!),
+                              (a, b) => a.psi!.compareTo(b.rfc!),
                             );
                           },
                         );
@@ -597,7 +581,7 @@ class _CatalogoState extends State<Catalogo> {
                         setState(
                           () {
                             listaMedidoresUser!.sort(
-                              (a, b) => b.rfc!.compareTo(a.rfc!),
+                              (a, b) => b.psi!.compareTo(a.rfc!),
                             );
                           },
                         );
@@ -608,6 +592,7 @@ class _CatalogoState extends State<Catalogo> {
                 ),
               ],
             ),
+            //Drawer
             _medidorUser != null
                 ? SingleChildScrollView(
                     child: SizedBox(
@@ -628,7 +613,7 @@ class _CatalogoState extends State<Catalogo> {
                                   }
                                 : {
                                     listaMedidoresUser = listaMedidoresUser!
-                                        .where((element) => element.concesion!
+                                        .where((element) => element.psi!
                                             .toLowerCase()
                                             .contains(itemSeleccionado!
                                                 .toLowerCase()))
@@ -648,9 +633,10 @@ class _CatalogoState extends State<Catalogo> {
                                         Navigator.pop(context);
                                       },
                                       nameMedidor:
-                                          listaMedidoresUser![index].rfc!,
+                                          listaMedidoresUser?[index].psi,
+                                      //listaMedidoresUser![index].rfc!,
                                       subtitle:
-                                          'Razon Social:  ${listaMedidoresUser?[index].razonSocial}',
+                                          '${listaMedidoresUser?[index].concesion} - ${listaMedidoresUser?[index].rfc}',
                                       responsive: responsive,
                                       iconButton1: Icons.abc,
                                       textButton: 'Ver');
