@@ -3,7 +3,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:telemetria/api/configure_api.dart';
-import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/models/models.dart';
 
 class CatService {
