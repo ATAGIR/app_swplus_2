@@ -40,7 +40,7 @@ class CatService {
   }
 
   Future<List<MapDetail>?> getMapDetail(BuildContext context, String token,
-      String? nsut, String? etiqueta, int? dias) async {
+      String? nsut, String? etiqueta, int dias) async {
     try {
       _dio.options.headers["Authorization"] = "Bearer $token";
       final response = await _dio.request('get_detail',

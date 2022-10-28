@@ -8,12 +8,20 @@ import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
 import 'package:telemetria/utils/responsive.dart';
+import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/ubicacion.dart';
 
 Future<List<MapDetail>?>? _detalleMap;
 List<MapDetail>? listaDetalleMap;
 bool emptyArray = true;
 String? itemSelected;
+
+const Map<String, int> opcionOrden = {
+  "Filtro, Utimo día": 1,
+  "Filtro, Ultima semana": 2,
+  "Filtro, Ultimo mes": 3,
+  "Filtro, Prueba": 4,
+};
 
 class PageMapa extends StatefulWidget {
   static const routeName = 'PageMapa';
@@ -28,48 +36,23 @@ class PageMapa extends StatefulWidget {
 }
 
 class _PageMapaState extends State<PageMapa> {
-  var _currentSelectedDate = DateTime.now();
-  var _currentTime = TimeOfDay.now();
-  void callDatePicker() async {
-    var selectedDate = await getDatePickerWidget();
-    setState(
-      () {
-        _currentSelectedDate = selectedDate!;
-      },
-    );
-  }
+  int? ordens;
+  // int dias = dia;
 
-  void callTimePicker() async {
-    var selectedTime = await getDatePickerWidget();
-    setState(
-      () {
-        _currentTime = selectedTime as TimeOfDay;
-      },
-    );
-  }
+  //  if(dia == Ultimodia){
+  //   return 1;
 
-  Future<DateTime?> getDatePickerWidget() {
-    return showDatePicker(
-        context: context,
-        initialDate: _currentSelectedDate,
-        firstDate: DateTime(2017),
-        lastDate: DateTime(2023),
-        initialEntryMode: DatePickerEntryMode.calendarOnly);
-    builder:
-    (context, child) {
-      return Theme(data: ThemeData.dark(), child: child);
-    };
-  }
+  // }else{
+  //   if(dia == ultimasemana){
+  //     return 7;
+  //   }else{
+  //     if (dia == ultimomes) {
+  //       return 30;
+  //     } else {
 
-  Future<TimeOfDay?> getTimePickerWidget() {
-    return showTimePicker(
-      context: context,
-      initialTime: _currentTime,
-      builder: (context, child) {
-        return Theme(data: ThemeData.dark(), child: child!);
-      },
-    );
-  }
+  //     }
+  //   }
+  // }
 
   double? get longitud => null;
   @override
@@ -77,7 +60,7 @@ class _PageMapaState extends State<PageMapa> {
     super.initState();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     _detalleMap = CatService().getMapDetail(context,
-        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 999);
+        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 0);
   }
 
   @override
@@ -109,18 +92,102 @@ class _PageMapaState extends State<PageMapa> {
                   padding: const EdgeInsets.all(3.0),
                   child: Column(
                     children: [
-                      // ignore: prefer_const_constructors
-                      Center(
-                        child: const Text('Selecciona una fecha para filtrar'),
-                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          IconButton(
-                            onPressed: callDatePicker,
-                            icon: const Icon(Icons.calendar_month_outlined),
+                          LabelText(
+                            txtValor: 'Modelo',
+                            fontSize: responsive.dp(1.8),
+                            colorText: Colors.black54,
                           ),
-                          SizedBox(width: responsive.wp(5)),
-                          Text('$_currentSelectedDate'),
+                          DropdownButton<int>(
+                            hint: Text(
+                              'Ordenar por',
+                              style: TextStyle(color: ColorTheme.thetextColor),
+                            ),
+                            style: TextStyle(color: ColorTheme.thetextColor),
+                            items: opcionOrden
+                                .map(
+                                  (descripcion, value) {
+                                    return MapEntry(
+                                      descripcion,
+                                      DropdownMenuItem<int>(
+                                        value: value,
+                                        child: Text(descripcion),
+                                      ),
+                                    );
+                                  },
+                                )
+                                .values
+                                .toList(),
+                            value: ordens,
+                            onChanged: (int? value) {
+                              ordens = value!;
+                              switch (ordens) {
+                                case 1:
+                                  setState(
+                                    () {
+                                      final loginProvider =
+                                          Provider.of<LoginProvider>(context,
+                                              listen: false);
+                                      CatService().getMapDetail(
+                                          context,
+                                          loginProvider.loginPerfil.token,
+                                          widget.nsut,
+                                          widget.etiqueta,
+                                          1);
+                                    },
+                                  );
+                                  break;
+                                case 2:
+                                  setState(
+                                    () {
+                                      final loginProvider =
+                                          Provider.of<LoginProvider>(context,
+                                              listen: false);
+                                      CatService().getMapDetail(
+                                          context,
+                                          loginProvider.loginPerfil.token,
+                                          widget.nsut,
+                                          widget.etiqueta,
+                                          7);
+                                    },
+                                  );
+                                  break;
+                                case 3:
+                                  setState(
+                                    () {
+                                      final loginProvider =
+                                          Provider.of<LoginProvider>(context,
+                                              listen: false);
+                                      CatService().getMapDetail(
+                                          context,
+                                          loginProvider.loginPerfil.token,
+                                          widget.nsut,
+                                          widget.etiqueta,
+                                          31);
+                                    },
+                                  );
+                                  break;
+                                case 4:
+                                  setState(
+                                    () {
+                                      final loginProvider =
+                                          Provider.of<LoginProvider>(context,
+                                              listen: false);
+                                      CatService().getMapDetail(
+                                          context,
+                                          loginProvider.loginPerfil.token,
+                                          widget.nsut,
+                                          widget.etiqueta,
+                                          9999);
+                                    },
+                                  );
+                                  break;
+                                default:
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ],
