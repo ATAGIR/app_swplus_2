@@ -17,9 +17,9 @@ bool emptyArray = true;
 String? itemSelected;
 
 const Map<String, int> opcionOrden = {
-  "Filtro, Utimo día": 1,
-  "Filtro, Ultima semana": 2,
-  "Filtro, Ultimo mes": 3,
+  "Utimo día": 1,
+  "Ultima semana": 2,
+  "Ultimos 30 dias": 3,
 };
 
 class PageMapa extends StatefulWidget {
@@ -52,13 +52,7 @@ class _PageMapaState extends State<PageMapa> {
     var index = 0;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.exit_to_app_rounded),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         actions: [
           Column(
             mainAxisSize: MainAxisSize.max,
@@ -117,7 +111,7 @@ class _PageMapaState extends State<PageMapa> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         LabelText(
-                          txtValor: 'Modelo',
+                          txtValor: 'Seleccione un rango',
                           fontSize: responsive.dp(1.8),
                           colorText: Colors.black54,
                         ),
