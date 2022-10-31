@@ -46,12 +46,9 @@ class CatService {
       final response = await _dio.request('get_detail',
           queryParameters: {"Nsut": nsut, "Etiqueta": etiqueta, "Dias": dias},
           options: Options(method: 'GET'));
-      print(response);
-
       if (response.statusCode == 200) {
         final List<MapDetail> responseMapDetail =
             getMedidorDetalleFromJson(response.data);
-        print(response.data);
         return responseMapDetail;
       }
     } on DioError catch (e) {

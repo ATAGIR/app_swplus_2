@@ -1,4 +1,4 @@
-// ignore_for_file: unused_label, dead_code
+// ignore_for_file: unused_label, dead_code, unused_local_variable
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,6 @@ const Map<String, int> opcionOrden = {
   "Filtro, Utimo día": 1,
   "Filtro, Ultima semana": 2,
   "Filtro, Ultimo mes": 3,
-  "Filtro, Prueba": 4,
 };
 
 class PageMapa extends StatefulWidget {
@@ -37,22 +36,6 @@ class PageMapa extends StatefulWidget {
 
 class _PageMapaState extends State<PageMapa> {
   int? ordens;
-  // int dias = dia;
-
-  //  if(dia == Ultimodia){
-  //   return 1;
-
-  // }else{
-  //   if(dia == ultimasemana){
-  //     return 7;
-  //   }else{
-  //     if (dia == ultimomes) {
-  //       return 30;
-  //     } else {
-
-  //     }
-  //   }
-  // }
 
   double? get longitud => null;
   @override
@@ -66,441 +49,436 @@ class _PageMapaState extends State<PageMapa> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
-    return SafeArea(
-      child: Scaffold(
-        // ignore: avoid_unnecessary_containers
-        body: GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
+    var index = 0;
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.exit_to_app_rounded),
+          onPressed: () {
+            Navigator.pop(context);
           },
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: responsive.hp(45),
-                  child: Ubicacion(
-                      minZoom: 5,
-                      maxZoom: 20,
-                      latitud: widget.latitud!,
-                      longitud: widget.longitud!),
-                ),
-                SizedBox(height: responsive.hp(2)),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          LabelText(
-                            txtValor: 'Modelo',
-                            fontSize: responsive.dp(1.8),
-                            colorText: Colors.black54,
-                          ),
-                          DropdownButton<int>(
-                            hint: Text(
-                              'Ordenar por',
-                              style: TextStyle(color: ColorTheme.thetextColor),
-                            ),
+        ),
+        automaticallyImplyLeading: false,
+        actions: [
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(
+                height: responsive.hp(1),
+              ),
+              Text(
+                '${widget.etiqueta}',
+                style: const TextStyle(color: Colors.black),
+              ),
+              SizedBox(
+                height: responsive.hp(1),
+              ),
+              Text(
+                '${widget.nsut}',
+                style: const TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: responsive.wp(10),
+          ),
+        ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: responsive.dp(20),
+                child: Ubicacion(
+                    minZoom: 5,
+                    maxZoom: 20,
+                    latitud: widget.latitud!,
+                    longitud: widget.longitud!),
+              ),
+              SizedBox(height: responsive.hp(2)),
+              Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        LabelText(
+                          txtValor: 'Modelo',
+                          fontSize: responsive.dp(1.8),
+                          colorText: Colors.black54,
+                        ),
+                        DropdownButton<int>(
+                          hint: Text(
+                            'Ordenar por',
                             style: TextStyle(color: ColorTheme.thetextColor),
-                            items: opcionOrden
-                                .map(
-                                  (descripcion, value) {
-                                    return MapEntry(
-                                      descripcion,
-                                      DropdownMenuItem<int>(
-                                        value: value,
-                                        child: Text(descripcion),
-                                      ),
-                                    );
-                                  },
-                                )
-                                .values
-                                .toList(),
-                            value: ordens,
-                            onChanged: (int? value) {
-                              ordens = value!;
-                              switch (ordens) {
-                                case 1:
-                                  setState(
-                                    () {
-                                      final loginProvider =
-                                          Provider.of<LoginProvider>(context,
-                                              listen: false);
-                                      _detalleMap = CatService().getMapDetail(
-                                          context,
-                                          loginProvider.loginPerfil.token,
-                                          widget.nsut,
-                                          widget.etiqueta,
-                                          1);
-                                    },
-                                  );
-                                  break;
-                                case 2:
-                                  setState(
-                                    () {
-                                      final loginProvider =
-                                          Provider.of<LoginProvider>(context,
-                                              listen: false);
-                                      _detalleMap = CatService().getMapDetail(
-                                          context,
-                                          loginProvider.loginPerfil.token,
-                                          widget.nsut,
-                                          widget.etiqueta,
-                                          7);
-                                    },
-                                  );
-                                  break;
-                                case 3:
-                                  setState(
-                                    () {
-                                      final loginProvider =
-                                          Provider.of<LoginProvider>(context,
-                                              listen: false);
-                                      _detalleMap = CatService().getMapDetail(
-                                          context,
-                                          loginProvider.loginPerfil.token,
-                                          widget.nsut,
-                                          widget.etiqueta,
-                                          31);
-                                    },
-                                  );
-                                  break;
-                                case 4:
-                                  setState(
-                                    () {
-                                      final loginProvider =
-                                          Provider.of<LoginProvider>(context,
-                                              listen: false);
-                                      _detalleMap = CatService().getMapDetail(
-                                          context,
-                                          loginProvider.loginPerfil.token,
-                                          widget.nsut,
-                                          widget.etiqueta,
-                                          9999);
-                                    },
-                                  );
-                                  break;
-                                default:
-                              }
-                            },
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                _detalleMap != null
-                    ? SingleChildScrollView(
-                        child: SizedBox(
-                          height: responsive.hp(50),
-                          width: responsive.wp(97),
-                          child: FutureBuilder<List<MapDetail>?>(
-                            future: _detalleMap,
-                            builder: (context,
-                                AsyncSnapshot<List<MapDetail>?> snapshot) {
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
+                          style: TextStyle(color: ColorTheme.thetextColor),
+                          items: opcionOrden
+                              .map(
+                                (descripcion, value) {
+                                  return MapEntry(
+                                    descripcion,
+                                    DropdownMenuItem<int>(
+                                      value: value,
+                                      child: Text(descripcion),
+                                    ),
+                                  );
+                                },
+                              )
+                              .values
+                              .toList(),
+                          value: ordens,
+                          onChanged: (int? value) {
+                            ordens = value!;
+                            switch (ordens) {
+                              case 1:
+                                setState(
+                                  () {
+                                    final loginProvider =
+                                        Provider.of<LoginProvider>(context,
+                                            listen: false);
+                                    _detalleMap = CatService().getMapDetail(
+                                        context,
+                                        loginProvider.loginPerfil.token,
+                                        widget.nsut,
+                                        widget.etiqueta,
+                                        1);
+                                  },
                                 );
-                              } else {
-                                emptyArray
-                                    ? {
-                                        listaDetalleMap = snapshot.data,
-                                      }
-                                    : {
-                                        listaDetalleMap = listaDetalleMap!
-                                            .where((element) => element.modelo!
-                                                .toLowerCase()
-                                                .contains(itemSelected!
-                                                    .toLowerCase()))
-                                            .toList(),
-                                      };
-                                return SlideInLeft(
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return Center(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.blue,
-                                                            width: 1.2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                break;
+                              case 2:
+                                setState(
+                                  () {
+                                    final loginProvider =
+                                        Provider.of<LoginProvider>(context,
+                                            listen: false);
+                                    _detalleMap = CatService().getMapDetail(
+                                        context,
+                                        loginProvider.loginPerfil.token,
+                                        widget.nsut,
+                                        widget.etiqueta,
+                                        7);
+                                  },
+                                );
+                                break;
+                              case 3:
+                                setState(
+                                  () {
+                                    final loginProvider =
+                                        Provider.of<LoginProvider>(context,
+                                            listen: false);
+                                    _detalleMap = CatService().getMapDetail(
+                                        context,
+                                        loginProvider.loginPerfil.token,
+                                        widget.nsut,
+                                        widget.etiqueta,
+                                        31);
+                                  },
+                                );
+                                break;
+                              default:
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              _detalleMap != null
+                  ? SingleChildScrollView(
+                      child: SizedBox(
+                        height: responsive.hp(54),
+                        width: responsive.wp(97),
+                        child: FutureBuilder<List<MapDetail>?>(
+                          future: _detalleMap,
+                          builder: (context,
+                              AsyncSnapshot<List<MapDetail>?> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              emptyArray
+                                  ? {
+                                      listaDetalleMap = snapshot.data,
+                                    }
+                                  : {
+                                      listaDetalleMap = listaDetalleMap!
+                                          .where((element) => element.modelo!
+                                              .toLowerCase()
+                                              .contains(
+                                                  itemSelected!.toLowerCase()))
+                                          .toList(),
+                                    };
+                              return SlideInLeft(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            verDialogo(
+                                                context, responsive, index);
+                                          },
+                                          child: Card(
+                                            elevation: 5,
+                                            color: Colors.grey.shade100,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  //leading: const Icon(Icons.abc),
+                                                  title: Row(
+                                                    // mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        'Fecha: ${listaDetalleMap![index].fecha!}',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .dp(1.5)),
                                                       ),
-                                                      child: SizedBox(
-                                                        height:
-                                                            responsive.hp(20),
-                                                        width:
-                                                            responsive.wp(95),
-                                                        child: Column(
-                                                          children: [
-                                                            Column(
-                                                              children: [
-                                                                SizedBox(
-                                                                  height:
-                                                                      responsive
-                                                                          .hp(1),
-                                                                ),
-                                                                Table(
-                                                                  columnWidths: {
-                                                                    0: FixedColumnWidth(
-                                                                      responsive
-                                                                          .wp(3),
-                                                                    ),
-                                                                    1: FixedColumnWidth(
-                                                                      responsive
-                                                                          .wp(31),
-                                                                    )
-                                                                  },
-                                                                  children: [
-                                                                    //0
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'Fecha: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].fecha}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //1
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'Modelo: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].modelo}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //2
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'Sistema: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].sistema}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //3
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'RFC: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].rfc}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //4
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'NSM: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].nsm}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //5
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'Norma: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].nsue}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //6
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'IMEI: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].imei}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                    //7
-                                                                    TableRow(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              responsive.wp(2),
-                                                                        ),
-                                                                        const Text(
-                                                                          'CCID: ',
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                        Text(
-                                                                            '${listaDetalleMap?[index].ccid}',
-                                                                            style:
-                                                                                const TextStyle(color: Colors.white)) //
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
+                                                      const Spacer(),
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          verDialogo(
+                                                              context,
+                                                              responsive,
+                                                              index);
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.info_outline,
+                                                            color: Colors.blue),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                            child: Card(
-                                              elevation: 5,
-                                              color: Colors.grey.shade100,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  ListTile(
-                                                    //leading: const Icon(Icons.abc),
-                                                    title: Row(
-                                                      // mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        Text(
-                                                          'Fecha: ${listaDetalleMap![index].fecha!}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .dp(1.5)),
-                                                        ),
-                                                        const Spacer(),
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: const Icon(
-                                                              Icons.location_on,
-                                                              color:
-                                                                  Colors.blue),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    subtitle: Row(
-                                                      children: [
-                                                        Text(
-                                                          'Gasto: ${listaDetalleMap![index].gasto!}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .dp(1.2)),
-                                                        ),
-                                                        const Spacer(),
-                                                        Text(
-                                                          'Volumen: ${listaDetalleMap![index].vol!}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .dp(1.2)),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                  subtitle: Row(
+                                                    children: [
+                                                      Text(
+                                                        'Gasto: ${listaDetalleMap![index].gasto!}',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .dp(1.2)),
+                                                      ),
+                                                      const Spacer(),
+                                                      Text(
+                                                        'Volumen: ${listaDetalleMap![index].vol!}',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .dp(1.2)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      );
-                                    },
-                                    itemCount: listaDetalleMap!.length,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          'Sin Archivos',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: ColorTheme.fontFamily,
-                              fontSize: 14),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  itemCount: listaDetalleMap!.length,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
-                SizedBox(height: Responsive(context).wp(0.1)),
-              ],
-            ),
+                    )
+                  : Center(
+                      child: Text(
+                        'Sin Archivos',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: ColorTheme.fontFamily,
+                            fontSize: 14),
+                      ),
+                    ),
+              SizedBox(height: Responsive(context).wp(0.1)),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> verDialogo(
+      BuildContext context, Responsive responsive, int index) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue, width: 1.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: SizedBox(
+              height: responsive.hp(20),
+              width: responsive.wp(95),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: responsive.hp(1),
+                      ),
+                      Table(
+                        columnWidths: {
+                          0: FixedColumnWidth(
+                            responsive.wp(3),
+                          ),
+                          1: FixedColumnWidth(
+                            responsive.wp(31),
+                          )
+                        },
+                        children: [
+                          //0
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'Fecha: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].fecha}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //1
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'Modelo: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].modelo}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //2
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'Sistema: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].sistema}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //3
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'RFC: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].rfc}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //4
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'NSM: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].nsm}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //5
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'Norma: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].nsue}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //6
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'IMEI: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].imei}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                          //7
+                          TableRow(
+                            children: [
+                              SizedBox(
+                                width: responsive.wp(2),
+                              ),
+                              const Text(
+                                'CCID: ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('${listaDetalleMap?[index].ccid}',
+                                  style:
+                                      const TextStyle(color: Colors.white)) //
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
