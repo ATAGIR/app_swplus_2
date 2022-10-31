@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, unused_import, depend_on_referenced_packages
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
@@ -207,21 +209,12 @@ class _CatalogoState extends State<Catalogo> {
                                                 ),
                                                 Table(
                                                   border: const TableBorder(
-                                                      verticalInside:
-                                                          BorderSide(
-                                                              width: 1.2,
-                                                              color:
-                                                                  Colors.blue,
-                                                              style: BorderStyle
-                                                                  .solid)),
-                                                  // columnWidths: {
-                                                  //   // 0: FixedColumnWidth(
-                                                  //   //   responsive.wp(3),
-                                                  //   // ),
-                                                  //   // 1: FixedColumnWidth(
-                                                  //   //   responsive.wp(31),
-                                                  //   // )
-                                                  // },
+                                                    verticalInside: BorderSide(
+                                                        width: 1.2,
+                                                        color: Colors.blue,
+                                                        style:
+                                                            BorderStyle.solid),
+                                                  ),
                                                   children: [
                                                     TableRow(
                                                       children: [
@@ -232,10 +225,12 @@ class _CatalogoState extends State<Catalogo> {
                                                                   Colors.white),
                                                         ),
                                                         Text(
-                                                            '  ${logActual!.logs![index].etiqueta}',
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white)) //
+                                                          '  ${logActual!.logs![index].etiqueta}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ) //
                                                       ],
                                                     ),
                                                     TableRow(
@@ -247,10 +242,12 @@ class _CatalogoState extends State<Catalogo> {
                                                                   Colors.white),
                                                         ),
                                                         Text(
-                                                            '  ${logActual!.logs![index].nsut}',
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white)) //
+                                                          '  ${logActual!.logs![index].nsut}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ) //
                                                       ],
                                                     ),
                                                     TableRow(
@@ -262,10 +259,12 @@ class _CatalogoState extends State<Catalogo> {
                                                                   Colors.white),
                                                         ),
                                                         Text(
-                                                            '  ${logActual!.logs![index].fecha}',
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white)) //
+                                                          '  ${logActual!.logs![index].fecha}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ) //
                                                       ],
                                                     ),
                                                     TableRow(
@@ -380,13 +379,15 @@ class _CatalogoState extends State<Catalogo> {
                                           Text(
                                             'Modelo: ${logActual!.logs![index].modelo}',
                                             style: TextStyle(
-                                                fontSize: responsive.dp(1.2)),
+                                              fontSize: responsive.dp(1.2),
+                                            ),
                                           ),
                                           const Spacer(),
                                           Text(
                                             'Etiqueta: ${logActual!.logs![index].etiqueta}',
                                             style: TextStyle(
-                                                fontSize: responsive.dp(1.2)),
+                                              fontSize: responsive.dp(1.2),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -403,58 +404,58 @@ class _CatalogoState extends State<Catalogo> {
                   ],
                 ),
               ),
-              detalleLog != null
-                  ? SingleChildScrollView(
-                      child: SizedBox(
-                        height: responsive.hp(60),
-                        width: responsive.wp(97),
-                        child: FutureBuilder<List<Log>?>(
-                          future: detalleLog,
-                          builder:
-                              (context, AsyncSnapshot<List<Log>?> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              emptyArray
-                                  ? {
-                                      //asd
-                                      listaDetalleLog = snapshot.data,
-                                    }
-                                  : {
-                                      listaDetalleLog = listaDetalleLog!
-                                          .where((element) => element!.modelo!
-                                              .toLowerCase()
-                                              .contains(itemSeleccionado2!
-                                                  .toLowerCase()))
-                                          .toList(),
-                                    };
-                              return SlideInLeft(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Text(
-                                        '${logActual!.logs![index].modelo}');
-                                  },
-                                  itemCount: logActual?.logs?.length ?? 0,
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    )
-                  : Center(
-                      child: Text(
-                        '',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: ColorTheme.fontFamily,
-                            fontSize: 14),
-                      ),
-                    ),
+              // detalleLog != null
+              //     ? SingleChildScrollView(
+              //         child: SizedBox(
+              //           height: responsive.hp(60),
+              //           width: responsive.wp(97),
+              //           child: FutureBuilder<List<Log>?>(
+              //             future: detalleLog,
+              //             builder:
+              //                 (context, AsyncSnapshot<List<Log>?> snapshot) {
+              //               if (!snapshot.hasData) {
+              //                 return const Center(
+              //                   child: CircularProgressIndicator(),
+              //                 );
+              //               } else {
+              //                 emptyArray
+              //                     ? {
+              //                         //asd
+              //                         listaDetalleLog = snapshot.data,
+              //                       }
+              //                     : {
+              //                         listaDetalleLog = listaDetalleLog!
+              //                             .where((element) => element!.modelo!
+              //                                 .toLowerCase()
+              //                                 .contains(itemSeleccionado2!
+              //                                     .toLowerCase()))
+              //                             .toList(),
+              //                       };
+              //                 return SlideInLeft(
+              //                   child: ListView.builder(
+              //                     scrollDirection: Axis.vertical,
+              //                     shrinkWrap: true,
+              //                     itemBuilder: (context, index) {
+              //                       return Text(
+              //                           '${logActual!.logs![index].modelo}');
+              //                     },
+              //                     itemCount: logActual?.logs?.length ?? 0,
+              //                   ),
+              //                 );
+              //               }
+              //             },
+              //           ),
+              //         ),
+              //       )
+              //     : Center(
+              //         child: Text(
+              //           '',
+              //           style: TextStyle(
+              //               color: Colors.white,
+              //               fontFamily: ColorTheme.fontFamily,
+              //               fontSize: 14),
+              //         ),
+              //       ),
               SizedBox(height: Responsive(context).wp(0.1)),
             ],
           ),
@@ -613,10 +614,13 @@ class _CatalogoState extends State<Catalogo> {
                                   }
                                 : {
                                     listaMedidoresUser = listaMedidoresUser!
-                                        .where((element) => element.psi!
-                                            .toLowerCase()
-                                            .contains(itemSeleccionado!
-                                                .toLowerCase()))
+                                        .where(
+                                          (element) => element.psi!
+                                              .toLowerCase()
+                                              .contains(
+                                                itemSeleccionado!.toLowerCase(),
+                                              ),
+                                        )
                                         .toList(),
                                   };
                             return SlideInLeft(
@@ -659,6 +663,76 @@ class _CatalogoState extends State<Catalogo> {
                     ),
                   ),
             SizedBox(height: Responsive(context).wp(0.1)),
+
+            TextButton.icon(
+                onPressed: () {
+                  showModalBottomSheet(
+                    elevation: 5,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: ((context) => Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                '¿ESTÁ SEGURO DE ELIMINAR SU CUENTA?',
+                                style: TextStyle(
+                                  fontSize: responsive.dp(2),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: responsive.dp(1.5),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(7.0),
+                              child: Text(
+                                'Este será un proceso irreversible, asegúrese de querer llevar a cabo este proceso.',
+                                style: TextStyle(
+                                  color: Colors.grey.shade700,
+                                  fontSize: Responsive(context).dp(1.5),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: responsive.dp(4),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                TextButton(
+                                  //TODO: implementar el api de eliminacion de cuenta
+                                  onPressed: () {
+                                    print('Eliminar cuenta');
+                                  },
+                                  child: const Text(
+                                    'Eliminar',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Cancelar',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        )),
+                  );
+                },
+                icon: const Icon(Icons.delete_forever_outlined),
+                label: const Text('Eliminar cuenta'))
           ],
         ),
       ),
