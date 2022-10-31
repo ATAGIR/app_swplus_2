@@ -130,7 +130,7 @@ class _PageMapaState extends State<PageMapa> {
                                       final loginProvider =
                                           Provider.of<LoginProvider>(context,
                                               listen: false);
-                                      CatService().getMapDetail(
+                                      _detalleMap = CatService().getMapDetail(
                                           context,
                                           loginProvider.loginPerfil.token,
                                           widget.nsut,
@@ -145,7 +145,7 @@ class _PageMapaState extends State<PageMapa> {
                                       final loginProvider =
                                           Provider.of<LoginProvider>(context,
                                               listen: false);
-                                      CatService().getMapDetail(
+                                      _detalleMap = CatService().getMapDetail(
                                           context,
                                           loginProvider.loginPerfil.token,
                                           widget.nsut,
@@ -160,7 +160,7 @@ class _PageMapaState extends State<PageMapa> {
                                       final loginProvider =
                                           Provider.of<LoginProvider>(context,
                                               listen: false);
-                                      CatService().getMapDetail(
+                                      _detalleMap = CatService().getMapDetail(
                                           context,
                                           loginProvider.loginPerfil.token,
                                           widget.nsut,
@@ -175,7 +175,7 @@ class _PageMapaState extends State<PageMapa> {
                                       final loginProvider =
                                           Provider.of<LoginProvider>(context,
                                               listen: false);
-                                      CatService().getMapDetail(
+                                      _detalleMap = CatService().getMapDetail(
                                           context,
                                           loginProvider.loginPerfil.token,
                                           widget.nsut,
