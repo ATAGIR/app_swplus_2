@@ -5,8 +5,7 @@ import 'package:telemetria/utils/secure_storage.dart';
 
 class CatalogoProvider extends ChangeNotifier {
   String _token = '';
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> catKey = GlobalKey<FormState>();
 
   static final GlobalKey<FormState> toKey = GlobalKey<FormState>();
   String get token => _token;

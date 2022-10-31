@@ -26,7 +26,9 @@ class CatService {
             medidorUserFromJson(response.data).toList();
         print(response.data);
         return responseMedidorUser;
-      } else {}
+      } else {
+        return null;
+      }
     } on DioError catch (e) {
       print(e);
       if (e.response != null) {
