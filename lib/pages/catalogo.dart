@@ -523,7 +523,7 @@ class _CatalogoState extends State<Catalogo> {
                 height: responsive.hp(5),
                 borderColor: ColorTheme.iconsColor,
                 backgroundColor: ColorTheme.thetextBackgroundColor,
-                labelText: 'Buscara',
+                labelText: 'Buscar',
                 onPressed: () {},
                 iconSize: responsive.dp(2.1),
                 onChanged: (value) {
