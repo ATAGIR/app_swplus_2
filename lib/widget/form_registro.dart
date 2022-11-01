@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:telemetria/api/configure_api.dart';
 import 'package:telemetria/pages/login.dart';
 import 'package:telemetria/services/registro_serv.dart';
 import 'package:telemetria/utils/caracteres.dart';
@@ -14,11 +13,11 @@ class FormRegistro extends StatefulWidget {
 }
 
 class _FormRegistroState extends State<FormRegistro> {
-  GlobalKey<FormState> _regKey = GlobalKey();
-
-  final ConfigureApi _configureApi = ConfigureApi();
+  final GlobalKey<FormState> _regKey = GlobalKey();
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+  }
 
   bool passwordVisible = true;
   String username = '';
@@ -28,7 +27,9 @@ class _FormRegistroState extends State<FormRegistro> {
 
   _submit() {
     final isOk = _regKey.currentState!.validate();
-    if (isOk) {}
+    if (isOk) {
+      RegistroServ().registroUsr(context, username, email, password,3);
+    }
   }
 
   @override
@@ -131,21 +132,17 @@ class _FormRegistroState extends State<FormRegistro> {
             keyboardType: TextInputType.emailAddress,
             obscureText: passwordVisible,
             decoration: InputDecoration(
-
               suffixIcon: IconButton(
                 icon: Icon(
-                  passwordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                      color: Colors.blue,
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.blue,
                 ),
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     passwordVisible = !passwordVisible;
                   });
                 },
-                ),
-
+              ),
               border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50))),
               icon: const Icon(Icons.lock_rounded),
@@ -173,21 +170,17 @@ class _FormRegistroState extends State<FormRegistro> {
             keyboardType: TextInputType.emailAddress,
             obscureText: passwordVisible,
             decoration: InputDecoration(
-
               suffixIcon: IconButton(
                 icon: Icon(
-                  passwordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                      color: Colors.blue,
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.blue,
                 ),
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     passwordVisible = !passwordVisible;
                   });
                 },
-                ),
-
+              ),
               border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50))),
               icon: const Icon(Icons.lock_rounded),
@@ -212,6 +205,7 @@ class _FormRegistroState extends State<FormRegistro> {
           ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
       onPressed: () {
         FocusScope.of(context).unfocus();
+        _submit;
         if (username.isEmpty) {
           Message.showMessage(
               context: context,
@@ -221,22 +215,23 @@ class _FormRegistroState extends State<FormRegistro> {
           return;
         }
 
-        if (email.isEmpty){
-          Message.showMessage(context: context, message: 
-          'El correo no es valido', 
-          color: Color(0xffBF4045));
+        if (email.isEmpty) {
+          Message.showMessage(
+              context: context,
+              message: 'El correo no es valido',
+              color: const Color(0xffBF4045));
           return;
-          
         }
-        if (password.isEmpty){
-          Message.showMessage(context: context, message: 
-          'La contraseña debe de ser minimo 5 caracteres', 
-          color:  Color(0xffBF4045));
+        if (password.isEmpty) {
+          Message.showMessage(
+              context: context,
+              message: 'La contraseña debe de ser minimo 5 caracteres',
+              color: const Color(0xffBF4045));
           return;
         }
 
         RegistroServ()
-            .registroUsr(context, username, email, password, 3)
+            .registroUsr(context, username, email, password,3)
             .then((value) {
           Navigator.pop(
               context, MaterialPageRoute(builder: (context) => const Login()));

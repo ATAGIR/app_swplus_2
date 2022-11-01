@@ -14,7 +14,10 @@ class CatService {
   CatService.internal();
   final Dio _dio = Dio(ConfigureApi.options);
 
-  Future<List<MedidorUser>?> getLast(BuildContext context, String token) async {
+  Future<List<MedidorUser>?> getLast(
+    BuildContext context,
+    String token,
+  ) async {
     try {
       _dio.options.headers["Authorization"] = "Bearer $token";
 

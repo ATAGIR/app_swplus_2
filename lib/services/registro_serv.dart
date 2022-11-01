@@ -1,10 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/api/configure_api.dart';
+import 'package:telemetria/providers/registro_provider.dart';
 import 'package:telemetria/utils/message.dart';
 import '../models/registroLog.dart';
-import '../providers/registro_provider.dart';
 
 class RegistroServ {
   static final RegistroServ _registroServ = RegistroServ._internal();
@@ -22,8 +24,7 @@ class RegistroServ {
     String password,
     int roleId,
   ) async {
-    final registroLog = Provider.of<RegistroProvider>(context, listen: false);
-
+    final regUser = Provider.of<RegistroProvider>(context, listen: false);
     try {
       Message.show(context);
       final response = await _dio.post('/auth/register',
@@ -31,20 +32,21 @@ class RegistroServ {
             "username": username,
             "password": password,
             "email": email,
-            "role_id": roleId
+            "role_Id": roleId,
           },
           options: Options(method: 'POST'));
       if (response.statusCode == 200) {
+        Message.dissmiss(context);
         final RegistroLog registroLog = RegistroLog.fromJson(response.data);
-        // Message.dissmiss(context);
+        regUser.registro = registroLog;
+        return registroLog;
       } else {
-        // Message.dissmiss(context);
+        Message.dissmiss(context);
         return null;
       }
     } on DioError catch (e) {
       if (e.response != null) {
         Message.dissmiss(context);
-
         return null;
       }
     }
