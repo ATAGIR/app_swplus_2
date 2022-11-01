@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:telemetria/models/models.dart';
+import 'package:telemetria/models/registroLog.dart';
 import '../services/aut_serv.dart';
 import '../utils/secure_storage.dart';
 
@@ -65,6 +66,33 @@ class LoginProvider extends ChangeNotifier {
           .updateToken(email, password)
           .then((value) => {token = value!});
     }
+  }
+  String _username = '';
+  String get username => _username;
+  set username(String username) {
+    _username = username;
+    notifyListeners();
+  }
+
+  String _emailRegistration = '';
+  String get emailRegistration => _emailRegistration;
+  set emailRegistration(String emailRegistration) {
+    _emailRegistration = emailRegistration;
+    notifyListeners();
+  }
+
+  String _passwordRegistration = '';
+  String get passwordRegistration => _passwordRegistration;
+  set passwordRegistration(String passwordRegistration) {
+    _passwordRegistration = passwordRegistration;
+    notifyListeners();
+  }
+
+  RegistroLog? _registroRegistration;
+  RegistroLog get registroRegistration => _registroRegistration!;
+  set registroRegistration(RegistroLog registroRegistration) {
+    _registroRegistration = registroRegistration;
+    notifyListeners();
   }
 
   Future<String> readToken() async {

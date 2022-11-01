@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/api/configure_api.dart';
+import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/providers/registro_provider.dart';
 import 'package:telemetria/utils/message.dart';
 import '../models/registroLog.dart';
@@ -24,7 +25,7 @@ class RegistroServ {
     String password,
     int roleId,
   ) async {
-    final regUser = Provider.of<RegistroProvider>(context, listen: false);
+    final regUser = Provider.of<LoginProvider>(context, listen: false);
     try {
       Message.show(context);
       final response = await _dio.post('/auth/register',
@@ -36,9 +37,10 @@ class RegistroServ {
           },
           options: Options(method: 'POST'));
       if (response.statusCode == 200) {
+        print(response.data);
         Message.dissmiss(context);
         final RegistroLog registroLog = RegistroLog.fromJson(response.data);
-        regUser.registro = registroLog;
+        regUser.registroRegistration = registroLog;
         return registroLog;
       } else {
         Message.dissmiss(context);

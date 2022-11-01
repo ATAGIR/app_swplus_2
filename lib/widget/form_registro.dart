@@ -28,7 +28,7 @@ class _FormRegistroState extends State<FormRegistro> {
   _submit() {
     final isOk = _regKey.currentState!.validate();
     if (isOk) {
-      RegistroServ().registroUsr(context, username, email, password,3);
+      RegistroServ().registroUsr(context, username, email, password, 3);
     }
   }
 
@@ -231,10 +231,22 @@ class _FormRegistroState extends State<FormRegistro> {
         }
 
         RegistroServ()
-            .registroUsr(context, username, email, password,3)
+            .registroUsr(context, username, email, password, 3)
             .then((value) {
-          Navigator.pop(
+          if (value!.email == email) {
+            Message.showMessage(
+                context: context,
+                message: 'Registro Exitoso',
+                color: const Color(0xff69C073));
+                Navigator.pop(
               context, MaterialPageRoute(builder: (context) => const Login()));
+          }else{
+            Message.showMessage(
+                context: context,
+                message: 'Registro no se pudo completar, revise sus datos',
+                color: const Color(0xffBF4045));
+          }
+          
         });
       },
       child: SizedBox(

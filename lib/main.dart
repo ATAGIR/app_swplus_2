@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/cat_screen.dart';
@@ -11,6 +11,7 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => LoginProvider(),
+      
     )
   ], child: const MyApp()));
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
+import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
@@ -71,8 +72,8 @@ class _CatalogoState extends State<Catalogo> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Login()));
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AuthScreen.routeName, (route) => false);
             },
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
@@ -619,7 +620,8 @@ class _CatalogoState extends State<Catalogo> {
                                             (element) => element.psi!
                                                 .toLowerCase()
                                                 .contains(
-                                                  itemSeleccionado!.toLowerCase(),
+                                                  itemSeleccionado!
+                                                      .toLowerCase(),
                                                 ),
                                           )
                                           .toList(),
@@ -629,22 +631,26 @@ class _CatalogoState extends State<Catalogo> {
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    return ListTileTelemetria.listTileTELEMETRIA(
-                                        buttonText: true,
-                                        circleColor: ColorTheme.indicatorColor,
-                                        iconButton2: Icons.arrow_forward_ios,
-                                        onPressarrowButton: () {
-                                          logActual = listaMedidoresUser![index];
-                                          Navigator.pop(context);
-                                        },
-                                        nameMedidor:
-                                            listaMedidoresUser?[index].psi,
-                                        //listaMedidoresUser![index].rfc!,
-                                        subtitle:
-                                            '${listaMedidoresUser?[index].concesion} - ${listaMedidoresUser?[index].rfc}',
-                                        responsive: responsive,
-                                        iconButton1: Icons.abc,
-                                        textButton: 'Ver');
+                                    return ListTileTelemetria
+                                        .listTileTELEMETRIA(
+                                            buttonText: true,
+                                            circleColor:
+                                                ColorTheme.indicatorColor,
+                                            iconButton2:
+                                                Icons.arrow_forward_ios,
+                                            onPressarrowButton: () {
+                                              logActual =
+                                                  listaMedidoresUser![index];
+                                              Navigator.pop(context);
+                                            },
+                                            nameMedidor:
+                                                listaMedidoresUser?[index].psi,
+                                            //listaMedidoresUser![index].rfc!,
+                                            subtitle:
+                                                '${listaMedidoresUser?[index].concesion} - ${listaMedidoresUser?[index].rfc}',
+                                            responsive: responsive,
+                                            iconButton1: Icons.abc,
+                                            textButton: 'Ver');
                                   },
                                   itemCount: listaMedidoresUser!.length,
                                 ),
@@ -664,7 +670,7 @@ class _CatalogoState extends State<Catalogo> {
                       ),
                     ),
               SizedBox(height: Responsive(context).wp(0.1)),
-        
+
               TextButton.icon(
                   onPressed: () {
                     showModalBottomSheet(
@@ -708,16 +714,30 @@ class _CatalogoState extends State<Catalogo> {
                                 height: responsive.dp(4),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   TextButton(
                                     //TODO: implementar el api de eliminacion de cuenta
                                     onPressed: () {
+                                      final loginProvider =
+                                          Provider.of<LoginProvider>(context,
+                                              listen: false);
                                       print('Eliminar cuenta');
-                                      Message.showMessage(
-                                          context: context,
-                                          message: 'Cuenta Eliminada con éxito',
-                                          color: const Color(0xff69C073));
+                                      CatService()
+                                          .delete(context, loginProvider.token)
+                                          .then((value) {
+                                        print('value $value');
+                                        Message.showMessage(
+                                            context: context,
+                                            message:
+                                                'Cuenta eliminada con éxito',
+                                            color: const Color(0xff69C073));
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            AuthScreen.routeName,
+                                            (route) => false);
+                                      });
                                     },
                                     child: const Text(
                                       'Eliminar',
