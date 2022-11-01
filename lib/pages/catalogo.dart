@@ -13,8 +13,6 @@ import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
-import 'login.dart';
-import 'package:intl/intl.dart';
 
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
@@ -55,7 +53,6 @@ class _CatalogoState extends State<Catalogo> {
 
     _medidorUser =
         CatService().getLast(context, loginProvider.loginPerfil.token);
-    listaDetalleLog = [];
   }
 
   @override
@@ -721,7 +718,6 @@ class _CatalogoState extends State<Catalogo> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   TextButton(
-                                    //TODO: implementar el api de eliminacion de cuenta
                                     onPressed: () {
                                       final loginProvider =
                                           Provider.of<LoginProvider>(context,

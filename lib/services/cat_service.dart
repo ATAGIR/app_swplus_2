@@ -61,13 +61,13 @@ class CatService {
     }
     return null;
   }
-    Future delete(BuildContext context, String token) async {
+
+  Future delete(BuildContext context, String token) async {
     try {
       _dio.options.headers["Authorization"] = "Bearer $token";
       final response = await _dio.request('/auth/delete-account',
           options: Options(method: 'DELETE'));
       if (response.statusCode == 200) {
-        final responseDelete = response.data;
         return response.data;
       }
     } on DioError catch (e) {

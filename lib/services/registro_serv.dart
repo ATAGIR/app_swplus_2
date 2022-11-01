@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/api/configure_api.dart';
 import 'package:telemetria/providers/login_prov.dart';
-import 'package:telemetria/providers/registro_provider.dart';
 import 'package:telemetria/utils/message.dart';
 import '../models/registroLog.dart';
 
@@ -37,7 +36,6 @@ class RegistroServ {
           },
           options: Options(method: 'POST'));
       if (response.statusCode == 200) {
-        print(response.data);
         Message.dissmiss(context);
         final RegistroLog registroLog = RegistroLog.fromJson(response.data);
         regUser.registroRegistration = registroLog;

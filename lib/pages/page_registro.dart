@@ -20,7 +20,9 @@ class _PageRegistroState extends State<PageRegistro> {
   // }
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+  }
   String username = '';
   String email = '';
   String password = '';

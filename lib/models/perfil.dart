@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final loginPefil = loginPefilFromMap(jsonString);
+//     final loginPerfil = loginPerfilFromMap(jsonString);
 
 import 'dart:convert';
 
@@ -54,7 +54,6 @@ class LoginPerfil {
         "email": email,
         "email_confirmed": emailConfirmed,
         "is_active": isActive,
-        "last_login": lastLogin,
         "token": token,
       };
 }
