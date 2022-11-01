@@ -72,6 +72,9 @@ class _CatalogoState extends State<Catalogo> {
         actions: [
           IconButton(
             onPressed: () {
+              SecureStorage().deleteSecureData('token');
+              SecureStorage().deleteSecureData('username');
+              SecureStorage().deleteSecureData('password');
               Navigator.pushNamedAndRemoveUntil(
                   context, AuthScreen.routeName, (route) => false);
             },
