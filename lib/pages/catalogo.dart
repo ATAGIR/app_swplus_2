@@ -1,7 +1,3 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, unused_import, depend_on_referenced_packages
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
@@ -9,6 +5,7 @@ import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
+import 'package:telemetria/utils/message.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/utils/secure_storage.dart';
 import 'package:telemetria/widget/label_text.dart';
@@ -74,9 +71,6 @@ class _CatalogoState extends State<Catalogo> {
         actions: [
           IconButton(
             onPressed: () {
-              SecureStorage().deleteSecureData('token');
-              SecureStorage().deleteSecureData('username');
-              SecureStorage().deleteSecureData('password');
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Login()));
             },
@@ -692,11 +686,14 @@ class _CatalogoState extends State<Catalogo> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(7.0),
-                              child: Text(
-                                'Este será un proceso irreversible, asegúrese de querer llevar a cabo este proceso.',
-                                style: TextStyle(
-                                  color: Colors.grey.shade700,
-                                  fontSize: Responsive(context).dp(1.5),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Este será un proceso irreversible, asegúrese de querer llevar a cabo este proceso.',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade700,
+                                    fontSize: Responsive(context).dp(1.5),
+                                  ),
                                 ),
                               ),
                             ),
@@ -710,6 +707,10 @@ class _CatalogoState extends State<Catalogo> {
                                   //TODO: implementar el api de eliminacion de cuenta
                                   onPressed: () {
                                     print('Eliminar cuenta');
+                                    Message.showMessage(
+                                        context: context,
+                                        message: 'Cuenta Eliminada con éxito',
+                                        color: const Color(0xff69C073));
                                   },
                                   child: const Text(
                                     'Eliminar',

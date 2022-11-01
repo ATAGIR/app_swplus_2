@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: AuthScreen.routeName,
       routes: {
-        Login.routeName: (context) => const Login(),
+        Login.routeName: ((context) => const Login()),
         Catalogo.routeName: ((context) => const Catalogo()),
         AuthScreen.routeName: ((context) => const AuthScreen()),
         CatScreen.routeName: ((context) => const AuthScreen()),

@@ -62,7 +62,7 @@ class AutService {
 
   Future<String?> updateToken(String email, String password) async {
     try {
-      final response = await _dio.request('login',
+      final response = await _dio.request('/auth/login',
           data: {"username": email, "password": password},
           options: Options(method: 'POST'));
       final loginPerfil = jsonDecode(response.data);

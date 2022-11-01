@@ -19,7 +19,7 @@ class CatService {
       _dio.options.headers["Authorization"] = "Bearer $token";
 
       final response =
-          await _dio.request('/Log/get_detail', options: Options(method: 'GET'));
+          await _dio.request('/Log/get_last', options: Options(method: 'GET'));
 
       if (response.statusCode == 200) {
         List<MedidorUser> responseMedidorUser =
@@ -45,8 +45,8 @@ class CatService {
       String? nsut, String? etiqueta, int dias) async {
     try {
       _dio.options.headers["Authorization"] = "Bearer $token";
-      final response = await _dio.request('get_detail',
-          queryParameters: {"Nsut": nsut, "Etiqueta": etiqueta, "Dias": dias},
+      final response = await _dio.request('/log/get_detail',
+          queryParameters: {"nsut": nsut, "etiqueta": etiqueta, "dias": dias},
           options: Options(method: 'GET'));
       if (response.statusCode == 200) {
         final List<MapDetail> responseMapDetail =
