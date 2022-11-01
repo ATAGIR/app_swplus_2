@@ -1,45 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:telemetria/api/configure_api.dart';
+import 'package:telemetria/pages/login.dart';
 import 'package:telemetria/services/registro_serv.dart';
 import 'package:telemetria/utils/caracteres.dart';
 import 'package:telemetria/utils/message.dart';
-import '../utils/responsive.dart';
-import 'login.dart';
+import 'package:telemetria/utils/responsive.dart';
 
-class RegistroLogin extends StatefulWidget {
-  const RegistroLogin({Key? key}) : super(key: key);
-  static String id = 'Registrarse';
+class FormRegistro extends StatefulWidget {
+  const FormRegistro({super.key});
 
   @override
-  State<RegistroLogin> createState() => _RegistroLoginState();
+  State<FormRegistro> createState() => _FormRegistroState();
 }
 
-class _RegistroLoginState extends State<RegistroLogin> {
+class _FormRegistroState extends State<FormRegistro> {
+  GlobalKey<FormState> _regKey = GlobalKey();
+
+  final ConfigureApi _configureApi = ConfigureApi();
+  @override
+  void initState() {}
   String username = '';
   String email = '';
   String password = '';
   String confirmarPassword = '';
 
+  _submit() {
+    final isOk = _regKey.currentState!.validate();
+    if (isOk) {}
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Responsive responsive = Responsive.of(context);
-
+    final responsive = Responsive.of(context);
     return SafeArea(
       child: Scaffold(
-          body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: SingleChildScrollView(
+        body: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
           child: Center(
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/imagenes/logo.jpeg',
+                    'assets/imagenes/InfoPro.png',
                     height: responsive.hp(30),
                     width: responsive.wp(65),
                   ),
@@ -57,7 +65,7 @@ class _RegistroLoginState extends State<RegistroLogin> {
             ),
           ),
         ),
-      )),
+      ),
     );
   }
 

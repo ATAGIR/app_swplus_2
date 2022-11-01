@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemetria/pages/registro_login.dart';
+import 'package:telemetria/pages/page_registro.dart';
 import 'package:telemetria/services/aut_serv.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/utils/caracteres.dart';
@@ -112,15 +112,12 @@ class _LoginState extends State<Login> {
           keyboardType: TextInputType.emailAddress,
           obscureText: passwordVisible,
           decoration: InputDecoration(
-
             suffixIcon: IconButton(
               icon: Icon(
-                passwordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off,
-                    color: Colors.blue,
+                passwordVisible ? Icons.visibility : Icons.visibility_off,
+                color: Colors.blue,
               ),
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   passwordVisible = !passwordVisible;
                 });
@@ -203,7 +200,7 @@ class _LoginState extends State<Login> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const RegistroLogin()));
+                      builder: (context) => const PageRegistro()));
             },
           )
         ],
