@@ -24,7 +24,7 @@ class RegistroServ {
 
     try {
       Message.show(context);
-      final response = await _dio.request('register',
+      final response = await _dio.request('/auth/register',
           data: {
             "username": username,
             "password": password,
