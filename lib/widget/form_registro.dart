@@ -19,6 +19,8 @@ class _FormRegistroState extends State<FormRegistro> {
   final ConfigureApi _configureApi = ConfigureApi();
   @override
   void initState() {}
+
+  bool passwordVisible = true;
   String username = '';
   String email = '';
   String password = '';
@@ -32,6 +34,7 @@ class _FormRegistroState extends State<FormRegistro> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+
     return SafeArea(
       child: Scaffold(
         body: GestureDetector(
@@ -126,11 +129,26 @@ class _FormRegistroState extends State<FormRegistro> {
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
             keyboardType: TextInputType.emailAddress,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
+            obscureText: passwordVisible,
+            decoration: InputDecoration(
+
+              suffixIcon: IconButton(
+                icon: Icon(
+                  passwordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                      color: Colors.blue,
+                ),
+                onPressed: (){
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+                ),
+
+              border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50))),
-              icon: Icon(Icons.lock_rounded),
+              icon: const Icon(Icons.lock_rounded),
               hintText: 'Ingrese una contraseña',
               labelText: 'Contraseña',
             ),
@@ -153,7 +171,7 @@ class _FormRegistroState extends State<FormRegistro> {
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
             keyboardType: TextInputType.emailAddress,
-            obscureText: true,
+            obscureText: passwordVisible,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50))),
@@ -178,6 +196,7 @@ class _FormRegistroState extends State<FormRegistro> {
       style:
           ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
       onPressed: () {
+        FocusScope.of(context).unfocus();
         if (username.isEmpty) {
           Message.showMessage(
               context: context,
@@ -186,6 +205,21 @@ class _FormRegistroState extends State<FormRegistro> {
               color: const Color.fromARGB(255, 191, 64, 69));
           return;
         }
+
+        if (email.isEmpty){
+          Message.showMessage(context: context, message: 
+          'El correo no es valido', 
+          color: Color(0xffBF4045));
+          return;
+          
+        }
+        if (password.isEmpty){
+          Message.showMessage(context: context, message: 
+          'La contraseña debe de ser minimo 5 caracteres', 
+          color:  Color(0xffBF4045));
+          return;
+        }
+
         RegistroServ()
             .registroUsr(context, username, email, password, 3)
             .then((value) {

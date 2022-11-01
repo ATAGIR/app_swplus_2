@@ -10,6 +10,9 @@ class Message {
   }
   Message._internal();
   static String msgNotActive = 'Usuario no activo';
+  static String validatePasswordregex = ' Ingrese su contraseña';
+  static String validatePassword =
+      ' Ingrese su contraseña';
 
   static showMessage(
       {required BuildContext context,

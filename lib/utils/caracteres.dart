@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'message.dart';
+
 class Caracteres {
   static final Caracteres _Caracteres = Caracteres._internal();
   factory Caracteres() {
@@ -14,5 +16,18 @@ class Caracteres {
     RegExp regExp = RegExp(pattern);
 
     return regExp.hasMatch(correo) ? null : 'No es un correo valido';
+  }
+  String? validatePassword(String value) {
+    RegExp regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$*~]).{8,}$');
+    if (value.isEmpty) {
+      return Message.validatePasswordregex;
+    } else {
+      if (!regex.hasMatch(value)) {
+        return Message.validatePassword;
+      } else {
+        return null;
+      }
+    }
   }
 }
