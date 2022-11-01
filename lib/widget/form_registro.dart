@@ -172,10 +172,25 @@ class _FormRegistroState extends State<FormRegistro> {
         child: TextFormField(
             keyboardType: TextInputType.emailAddress,
             obscureText: passwordVisible,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
+            decoration: InputDecoration(
+
+              suffixIcon: IconButton(
+                icon: Icon(
+                  passwordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                      color: Colors.blue,
+                ),
+                onPressed: (){
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+                ),
+
+              border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50))),
-              icon: Icon(Icons.lock_rounded),
+              icon: const Icon(Icons.lock_rounded),
               hintText: 'Confirmar contraseña',
               labelText: 'Confirmar contraseña',
             ),
