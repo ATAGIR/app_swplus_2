@@ -1,8 +1,9 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/api/configure_api.dart';
-import 'package:telemetria/pages/registro_login.dart';
 import 'package:telemetria/utils/message.dart';
 import '../models/registroLog.dart';
 import '../providers/registro_provider.dart';
@@ -17,7 +18,7 @@ class RegistroServ {
   RegistroServ._internal();
   final Dio _dio = Dio(ConfigureApi.options);
 
-  Future<RegistroLog?> registro(BuildContext context, String username,
+  Future<RegistroLog?> registroUsr(BuildContext context, String username,
       String email, String password, int roleId) async {
     final registroLog = Provider.of<RegistroProvider>(context, listen: false);
 
@@ -32,8 +33,6 @@ class RegistroServ {
           },
           options: Options(method: 'POST'));
 
-      print(response.data);
-
       if (response.statusCode == 200) {
         final RegistroLog registroLog = RegistroLog.fromJson(response.data);
         Message.dissmiss(context);
@@ -44,8 +43,6 @@ class RegistroServ {
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        print(e.response?.statusCode);
-        print(e.response?.data);
         Message.dissmiss(context);
 
         return null;

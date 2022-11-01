@@ -19,7 +19,7 @@ class CatService {
       _dio.options.headers["Authorization"] = "Bearer $token";
 
       final response =
-          await _dio.request('get_last', options: Options(method: 'GET'));
+          await _dio.request('/Log/get_detail', options: Options(method: 'GET'));
 
       if (response.statusCode == 200) {
         List<MedidorUser> responseMedidorUser =

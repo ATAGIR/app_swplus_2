@@ -8,7 +8,7 @@ class ConfigureApi {
     return _configureApi;
   }
   ConfigureApi._internal();
-  static const base_url = "http://infopro-api.swplus.com.mx/api/log/";
+  static const base_url = "http://infopro-api.swplus.com.mx/api/";
 
   static BaseOptions options = BaseOptions(
     baseUrl: base_url,

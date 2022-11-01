@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telemetria/api/configure_api.dart';
 import 'package:telemetria/models/perfil.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/errores.dart';
@@ -12,20 +13,13 @@ import '../utils/secure_storage.dart';
 
 class AutService {
   static final AutService _autService = AutService._internal();
-  final Dio _dio = Dio();
   String token = '';
 
   factory AutService() {
     return _autService;
   }
-  AutService._internal() {
-    _dio.options.baseUrl = 'http://infopro-api.swplus.com.mx/api/auth/';
-    _dio.options.connectTimeout = 120000;
-    _dio.options.receiveTimeout = 120000;
-    _dio.options.receiveDataWhenStatusError = false;
-
-    _dio.options.responseType = ResponseType.plain;
-  }
+  AutService._internal();
+  final Dio _dio = Dio(ConfigureApi.options);
 
   Future<LoginPerfil?> emailLogin(BuildContext context, String email,
       String password, bool saveSession) async {
@@ -33,7 +27,7 @@ class AutService {
 
     try {
       Message.show(context);
-      final response = await _dio.request('login',
+      final response = await _dio.request('/auth/login',
           data: {"username": email, "password": password},
           options: Options(method: 'POST'));
 
@@ -43,9 +37,6 @@ class AutService {
         final LoginPerfil loginPerfil = LoginPerfil.fromJson(response.data);
 
         if (saveSession) {
-          print(loginPerfil.token);
-          print(email);
-          print(password);
           SecureStorage().writeSecureData('token', loginPerfil.token);
           SecureStorage().writeSecureData('username', email);
           SecureStorage().writeSecureData('password', password);

@@ -175,11 +175,11 @@ class _RegistroLoginState extends State<RegistroLogin> {
               context: context,
               message:
                   '  Se require completar la información solicitada, verifique',
-              color: Color(0xffBF4045));
+              color: const Color.fromARGB(255, 191, 64, 69));
           return;
         }
         RegistroServ()
-            .registro(context, username, email, password, 3)
+            .registroUsr(context, username, email, password, 3)
             .then((value) {
           Navigator.pop(
               context, MaterialPageRoute(builder: (context) => const Login()));
