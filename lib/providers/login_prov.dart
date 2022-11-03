@@ -8,7 +8,9 @@ import '../utils/secure_storage.dart';
 
 class LoginProvider extends ChangeNotifier {
   bool _saveSession = false;
+
   String _token = '';
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String get token => _token;
@@ -30,43 +32,12 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  LoginPerfil? _loginPerfil;
-  LoginPerfil get loginPerfil => _loginPerfil!;
-  set loginPerfil(LoginPerfil loginPerfil) {
-    _loginPerfil = loginPerfil;
-    notifyListeners();
-  }
-
-  LoginProvider() {
-    obtenerToken();
-    print(saveSession);
-  }
-
   bool get saveSession => _saveSession;
   set saveSession(bool token) {
     _saveSession = token;
     notifyListeners();
   }
 
-  obtenerToken() async {
-    var _token, _email, _password;
-
-    _token = await SecureStorage().readSecureData('token') ?? '';
-    _email = await SecureStorage().readSecureData('username') ?? '';
-    _password = await SecureStorage().readSecureData('password') ?? '';
-
-    if (_token == '') {
-      saveSession = false;
-    } else {
-      saveSession = true;
-      email = _email;
-      password = _password;
-
-      AutService()
-          .updateToken(email, password)
-          .then((value) => {token = value!});
-    }
-  }
   String _username = '';
   String get username => _username;
   set username(String username) {
@@ -88,6 +59,15 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<String> readToken() async {
+    var token = await SecureStorage().readSecureData('token');
+    if (token == null) {
+      return '';
+    } else {
+      return token;
+    }
+  }
+
   RegistroLog? _registroRegistration;
   RegistroLog get registroRegistration => _registroRegistration!;
   set registroRegistration(RegistroLog registroRegistration) {
@@ -95,12 +75,35 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> readToken() async {
-    var token = await SecureStorage().readSecureData('token');
-    if (token == null) {
-      return '';
+  LoginPerfil? _loginPerfil;
+  LoginPerfil get loginPerfil => _loginPerfil!;
+  set loginPerfil(LoginPerfil loginPerfil) {
+    _loginPerfil = loginPerfil;
+    notifyListeners();
+  }
+
+  LoginProvider() {
+    obtenerToken();
+    print(saveSession);
+  }
+
+  obtenerToken() async {
+    var _token, _email, _password;
+
+    _token = await SecureStorage().readSecureData('token') ?? '';
+    _email = await SecureStorage().readSecureData('username') ?? '';
+    _password = await SecureStorage().readSecureData('password') ?? '';
+
+    if (_token == '') {
+      saveSession = false;
     } else {
-      return token;
+      saveSession = true;
+      email = _email;
+      password = _password;
+
+      AutService()
+          .updateToken(email, password)
+          .then((value) => {token = value!});
     }
   }
 }
