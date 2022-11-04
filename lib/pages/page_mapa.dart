@@ -25,11 +25,15 @@ const Map<String, int> opcionOrden = {
 class PageMapa extends StatefulWidget {
   static const routeName = 'PageMapa';
   const PageMapa(
-      {this.latitud, this.longitud, this.nsut, this.etiqueta, super.key});
-  final double? latitud;
-  final double? longitud;
-  final String? nsut;
-  final String? etiqueta;
+      {required this.latitud,
+      required this.longitud,
+      required this.nsut,
+      required this.etiqueta,
+      super.key});
+  final double latitud;
+  final double longitud;
+  final String nsut;
+  final String etiqueta;
   @override
   State<PageMapa> createState() => _PageMapaState();
 }
@@ -41,7 +45,9 @@ class _PageMapaState extends State<PageMapa> {
   @override
   void initState() {
     super.initState();
+
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
     _detalleMap = CatService().getMapDetail(context,
         loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 0);
   }

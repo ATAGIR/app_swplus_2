@@ -193,130 +193,125 @@ class _CatalogoState extends State<Catalogo> {
                                   context: context,
                                   builder: (context) {
                                     return Center(
-                                      child: SizedBox(
-                                        height: responsive.hp(25),
-                                        width: responsive.wp(95),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.black54),
+                                        height: responsive.hp(20),
+                                        width: responsive.wp(92),
                                         child: Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: responsive.hp(2),
+                                            SizedBox(
+                                              height: responsive.hp(2),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Table(
+                                                border: const TableBorder(
+                                                  verticalInside: BorderSide(
+                                                      width: 1.2,
+                                                      color: Colors.blue,
+                                                      style: BorderStyle.solid),
                                                 ),
-                                                Table(
-                                                  border: const TableBorder(
-                                                    verticalInside: BorderSide(
-                                                        width: 1.2,
-                                                        color: Colors.blue,
-                                                        style:
-                                                            BorderStyle.solid),
+                                                children: [
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'Etiqueta: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].etiqueta}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
                                                   ),
-                                                  children: [
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'Etiqueta: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].etiqueta}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    ),
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'NSUT: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].nsut}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    ),
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'Fecha de último Registro: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].fecha}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    ),
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'Modelo: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].modelo}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    ),
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'NSM: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].nsm}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    ),
-                                                    TableRow(
-                                                      children: [
-                                                        const Text(
-                                                          'NSUE: ',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        Text(
-                                                          '  ${logActual!.logs![index].nsue}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ) //
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'NSUT: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].nsut}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
+                                                  ),
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'Fecha de último Registro: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].fecha}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
+                                                  ),
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'Modelo: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].modelo}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
+                                                  ),
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'NSM: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].nsm}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
+                                                  ),
+                                                  TableRow(
+                                                    children: [
+                                                      const Text(
+                                                        'NSUE: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Text(
+                                                        '  ${logActual!.logs![index].nsue}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ) //
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             )
                                           ],
                                         ),
@@ -344,25 +339,29 @@ class _CatalogoState extends State<Catalogo> {
                                           const Spacer(),
                                           IconButton(
                                             onPressed: () {
-                                              double? latitud =
-                                                  logActual!.logs![index].lat;
-                                              double? longitud =
-                                                  logActual!.logs![index].long;
-                                              String? nsut =
-                                                  logActual!.logs![index].nsut;
-                                              String? etiqueta = logActual!
-                                                  .logs![index].etiqueta;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PageMapa(
-                                                          latitud: latitud,
-                                                          longitud: longitud,
-                                                          nsut: nsut,
-                                                          etiqueta: etiqueta),
-                                                ),
-                                              );
+                                              try {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PageMapa(
+                                                            latitud: logActual!
+                                                                .logs![index]
+                                                                .lat!,
+                                                            longitud: logActual!
+                                                                .logs![index]
+                                                                .long!,
+                                                            nsut: logActual!
+                                                                .logs![index]
+                                                                .nsut!,
+                                                            etiqueta: logActual!
+                                                                .logs![index]
+                                                                .etiqueta!),
+                                                  ),
+                                                );
+                                              } catch (e) {
+                                                throw e;
+                                              }
                                             },
                                             icon: const Icon(Icons.location_on,
                                                 color: Colors.blue),

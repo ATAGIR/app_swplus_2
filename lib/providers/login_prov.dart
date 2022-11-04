@@ -61,6 +61,7 @@ class LoginProvider extends ChangeNotifier {
 
   Future<String> readToken() async {
     var token = await SecureStorage().readSecureData('token');
+    print(token);
     if (token == null) {
       return '';
     } else {

@@ -37,7 +37,12 @@ class _MyAppState extends State<MyApp> {
               token: '',
             )),
         AuthScreen.routeName: ((context) => const AuthScreen()),
-        PageMapa.routeName: ((context) => const PageMapa()),
+        PageMapa.routeName: ((context) => const PageMapa(
+              etiqueta: '0',
+              latitud: 0,
+              longitud: 0,
+              nsut: '0',
+            )),
       },
     );
   }

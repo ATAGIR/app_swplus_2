@@ -13,6 +13,7 @@ class AuthScreen extends StatelessWidget {
     // ignore: unused_local_variable
     GlobalKey<FormState> frmKeyAuth = GlobalKey<FormState>();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    String? tokenCatalogo = '';
 
     return Scaffold(
       body: Center(
@@ -21,29 +22,32 @@ class AuthScreen extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (!snapshot.hasData) {
                 // ignore: sized_box_for_whitespace
-                return Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Image.asset('assets/imagenes/logo.jpeg'),
-                  
+
+                return SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Image.asset('assets/imagenes/logo.jpeg'),
                 );
-              }
-              if (snapshot.data == '') {
-                Future.microtask(() => {
-                      Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (
-                                _,
-                                __,
-                                ___,
-                              ) =>
-                                  const Login(),
-                              //const ServicesScreen(),
-                              transitionDuration: const Duration(seconds: 1)))
-                      //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
-                    });
               } else {
+                if (snapshot.data == '') {
+                  Future.microtask(() => {
+                        Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (
+                                  _,
+                                  __,
+                                  ___,
+                                ) =>
+                                    const Login(),
+                                //const ServicesScreen(),
+                                transitionDuration: const Duration(seconds: 1)))
+                        //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
+                      });
+                } else {
+                  tokenCatalogo = snapshot.data;
+                  loginProvider.loginPerfil.token = snapshot.data!;
+                }
                 Future.microtask(() => {
                       Navigator.pushReplacement(
                           context,
@@ -53,7 +57,9 @@ class AuthScreen extends StatelessWidget {
                                 __,
                                 ___,
                               ) =>
-                                  const Catalogo(token: '',),
+                                  Catalogo(
+                                    token: tokenCatalogo!,
+                                  ),
                               transitionDuration: const Duration(seconds: 0)))
                       //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
                     });
