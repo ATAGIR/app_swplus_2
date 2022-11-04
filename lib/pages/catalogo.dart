@@ -53,10 +53,7 @@ class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
     super.initState();
-    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-
-    _medidorUser =
-        CatService().getLast(context, loginProvider.loginPerfil.token);
+    _medidorUser = CatService().getLast(context, widget.token);
   }
 
   @override
