@@ -10,7 +10,6 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => LoginProvider(),
-      
     )
   ], child: const MyApp()));
 }
@@ -34,7 +33,9 @@ class _MyAppState extends State<MyApp> {
       initialRoute: AuthScreen.routeName,
       routes: {
         Login.routeName: ((context) => const Login()),
-        Catalogo.routeName: ((context) => const Catalogo()),
+        Catalogo.routeName: ((context) => const Catalogo(
+              token: '',
+            )),
         AuthScreen.routeName: ((context) => const AuthScreen()),
         PageMapa.routeName: ((context) => const PageMapa()),
       },

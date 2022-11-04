@@ -17,7 +17,11 @@ import 'package:animate_do/animate_do.dart';
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
 
-  const Catalogo({super.key});
+  const Catalogo({
+    super.key,
+    required this.token,
+  });
+  final String token;
 
   @override
   State<Catalogo> createState() => _CatalogoState();
@@ -399,58 +403,6 @@ class _CatalogoState extends State<Catalogo> {
                   ],
                 ),
               ),
-              // detalleLog != null
-              //     ? SingleChildScrollView(
-              //         child: SizedBox(
-              //           height: responsive.hp(60),
-              //           width: responsive.wp(97),
-              //           child: FutureBuilder<List<Log>?>(
-              //             future: detalleLog,
-              //             builder:
-              //                 (context, AsyncSnapshot<List<Log>?> snapshot) {
-              //               if (!snapshot.hasData) {
-              //                 return const Center(
-              //                   child: CircularProgressIndicator(),
-              //                 );
-              //               } else {
-              //                 emptyArray
-              //                     ? {
-              //                         //asd
-              //                         listaDetalleLog = snapshot.data,
-              //                       }
-              //                     : {
-              //                         listaDetalleLog = listaDetalleLog!
-              //                             .where((element) => element!.modelo!
-              //                                 .toLowerCase()
-              //                                 .contains(itemSeleccionado2!
-              //                                     .toLowerCase()))
-              //                             .toList(),
-              //                       };
-              //                 return SlideInLeft(
-              //                   child: ListView.builder(
-              //                     scrollDirection: Axis.vertical,
-              //                     shrinkWrap: true,
-              //                     itemBuilder: (context, index) {
-              //                       return Text(
-              //                           '${logActual!.logs![index].modelo}');
-              //                     },
-              //                     itemCount: logActual?.logs?.length ?? 0,
-              //                   ),
-              //                 );
-              //               }
-              //             },
-              //           ),
-              //         ),
-              //       )
-              //     : Center(
-              //         child: Text(
-              //           '',
-              //           style: TextStyle(
-              //               color: Colors.white,
-              //               fontFamily: ColorTheme.fontFamily,
-              //               fontSize: 14),
-              //         ),
-              //       ),
               SizedBox(height: Responsive(context).wp(0.1)),
             ],
           ),

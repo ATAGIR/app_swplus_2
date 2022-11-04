@@ -174,8 +174,9 @@ class _LoginState extends State<Login> {
               .then((value) {
             print(value);
             if (value!.isActive == true) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  Catalogo.routeName, (route) => false);
+              String token = loginProvider.loginPerfil.token;
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Catalogo(token:token)));
             } else {
               Message.msgNotActive;
             }

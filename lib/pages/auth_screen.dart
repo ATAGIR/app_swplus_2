@@ -53,7 +53,7 @@ class AuthScreen extends StatelessWidget {
                                 __,
                                 ___,
                               ) =>
-                                  const Catalogo(),
+                                  const Catalogo(token: '',),
                               transitionDuration: const Duration(seconds: 0)))
                       //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
                     });
