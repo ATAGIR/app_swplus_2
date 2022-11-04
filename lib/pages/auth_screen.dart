@@ -46,7 +46,7 @@ class AuthScreen extends StatelessWidget {
                       });
                 } else {
                   tokenCatalogo = snapshot.data;
-                  loginProvider.loginPerfil.token = snapshot.data!;
+                  //loginProvider.loginPerfil.token = snapshot.data!;
                 }
                 Future.microtask(() => {
                       Navigator.pushReplacement(

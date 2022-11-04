@@ -102,9 +102,11 @@ class LoginProvider extends ChangeNotifier {
       email = _email;
       password = _password;
 
-      AutService()
-          .updateToken(email, password)
-          .then((value) => {token = value!});
+      AutService().updateToken(email, password).then((value) {
+        token = value!;
+        notifyListeners();
+        print(token);
+      });
     }
   }
 }

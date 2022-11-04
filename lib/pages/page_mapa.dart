@@ -7,6 +7,7 @@ import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
+import 'package:telemetria/utils/image_background.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/ubicacion.dart';
@@ -18,8 +19,14 @@ String? itemSelected;
 
 const Map<String, int> opcionOrden = {
   "Utimo día": 1,
-  "Ultima semana": 2,
-  "Ultimos 30 dias": 3,
+  "Ultima semana": 7,
+  "Ultimos 30 dias": 30,
+};
+
+const Map<int, String> rangoDias = {
+  1: "Utimo día",
+  7: "Ultima semana",
+  30: "Ultimos 30 dias"
 };
 
 class PageMapa extends StatefulWidget {
@@ -40,16 +47,16 @@ class PageMapa extends StatefulWidget {
 
 class _PageMapaState extends State<PageMapa> {
   int? ordens;
-
   double? get longitud => null;
+
   @override
   void initState() {
     super.initState();
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 
-    _detalleMap = CatService().getMapDetail(context,
-        loginProvider.loginPerfil.token, widget.nsut, widget.etiqueta, 0);
+    _detalleMap = CatService().getMapDetail(
+        context, loginProvider.token, widget.nsut, widget.etiqueta, 1);
   }
 
   @override
@@ -59,259 +66,223 @@ class _PageMapaState extends State<PageMapa> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        actions: [
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              SizedBox(
-                height: responsive.hp(1),
-              ),
-              Text(
-                '${widget.etiqueta}',
-                style: const TextStyle(color: Colors.black),
-              ),
-              SizedBox(
-                height: responsive.hp(1),
-              ),
-              Text(
-                '${widget.nsut}',
-                style: const TextStyle(color: Colors.black),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: responsive.wp(10),
-          ),
-        ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         title: Column(
+          //mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              widget.etiqueta,
+              style:
+                  TextStyle(color: Colors.black, fontSize: responsive.dp(1.5)),
+            ),
+            Text(
+              widget.nsut,
+              style:
+                  TextStyle(color: Colors.black, fontSize: responsive.dp(1.5)),
+            ),
+          ],
         ),
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: responsive.dp(20),
-                child: Ubicacion(
-                    minZoom: 5,
-                    maxZoom: 20,
-                    latitud: widget.latitud!,
-                    longitud: widget.longitud!),
-              ),
-              SizedBox(height: responsive.hp(2)),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        LabelText(
-                          txtValor: 'Seleccione un rango',
-                          fontSize: responsive.dp(1.8),
-                          colorText: Colors.black54,
-                        ),
-                        DropdownButton<int>(
-                          hint: Text(
-                            'Ordenar por',
-                            style: TextStyle(color: ColorTheme.thetextColor),
-                          ),
-                          style: TextStyle(color: ColorTheme.thetextColor),
-                          items: opcionOrden
-                              .map(
-                                (descripcion, value) {
-                                  return MapEntry(
-                                    descripcion,
-                                    DropdownMenuItem<int>(
-                                      value: value,
-                                      child: Text(descripcion),
-                                    ),
-                                  );
-                                },
-                              )
-                              .values
-                              .toList(),
-                          value: ordens,
-                          onChanged: (int? value) {
-                            ordens = value!;
-                            switch (ordens) {
-                              case 1:
-                                setState(
-                                  () {
-                                    final loginProvider =
-                                        Provider.of<LoginProvider>(context,
-                                            listen: false);
-                                    _detalleMap = CatService().getMapDetail(
-                                        context,
-                                        loginProvider.loginPerfil.token,
-                                        widget.nsut,
-                                        widget.etiqueta,
-                                        1);
-                                  },
-                                );
-                                break;
-                              case 2:
-                                setState(
-                                  () {
-                                    final loginProvider =
-                                        Provider.of<LoginProvider>(context,
-                                            listen: false);
-                                    _detalleMap = CatService().getMapDetail(
-                                        context,
-                                        loginProvider.loginPerfil.token,
-                                        widget.nsut,
-                                        widget.etiqueta,
-                                        7);
-                                  },
-                                );
-                                break;
-                              case 3:
-                                setState(
-                                  () {
-                                    final loginProvider =
-                                        Provider.of<LoginProvider>(context,
-                                            listen: false);
-                                    _detalleMap = CatService().getMapDetail(
-                                        context,
-                                        loginProvider.loginPerfil.token,
-                                        widget.nsut,
-                                        widget.etiqueta,
-                                        31);
-                                  },
-                                );
-                                break;
-                              default:
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
+      body: Container(
+        decoration: ImageBackground.imagebackground(opacity: 0.1),
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: responsive.dp(20),
+                  child: Ubicacion(
+                      minZoom: 5,
+                      maxZoom: 20,
+                      latitud: widget.latitud,
+                      longitud: widget.longitud),
                 ),
-              ),
-              _detalleMap != null
-                  ? SingleChildScrollView(
-                      child: SizedBox(
-                        height: responsive.hp(54),
-                        width: responsive.wp(97),
-                        child: FutureBuilder<List<MapDetail>?>(
-                          future: _detalleMap,
-                          builder: (context,
-                              AsyncSnapshot<List<MapDetail>?> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              emptyArray
-                                  ? {
-                                      listaDetalleMap = snapshot.data,
-                                    }
-                                  : {
-                                      listaDetalleMap = listaDetalleMap!
-                                          .where((element) => element.modelo!
-                                              .toLowerCase()
-                                              .contains(
-                                                  itemSelected!.toLowerCase()))
-                                          .toList(),
-                                    };
-                              return SlideInLeft(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            verDialogo(
-                                                context, responsive, index);
-                                          },
-                                          child: Card(
-                                            elevation: 5,
-                                            color: Colors.grey.shade100,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                ListTile(
-                                                  //leading: const Icon(Icons.abc),
-                                                  title: Row(
-                                                    // mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        'Fecha: ${listaDetalleMap![index].fecha!}',
-                                                        style: TextStyle(
-                                                            fontSize: responsive
-                                                                .dp(1.5)),
-                                                      ),
-                                                      const Spacer(),
-                                                      IconButton(
-                                                        onPressed: () {
-                                                          verDialogo(
-                                                              context,
-                                                              responsive,
-                                                              index);
-                                                        },
-                                                        icon: const Icon(
-                                                            Icons.info_outline,
-                                                            color: Colors.blue),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  subtitle: Row(
-                                                    children: [
-                                                      Text(
-                                                        'Gasto: ${listaDetalleMap![index].gasto!}',
-                                                        style: TextStyle(
-                                                            fontSize: responsive
-                                                                .dp(1.2)),
-                                                      ),
-                                                      const Spacer(),
-                                                      Text(
-                                                        'Volumen: ${listaDetalleMap![index].vol!}',
-                                                        style: TextStyle(
-                                                            fontSize: responsive
-                                                                .dp(1.2)),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                SizedBox(height: responsive.hp(2)),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          LabelText(
+                            txtValor: 'Seleccione un rango',
+                            fontSize: responsive.dp(1.8),
+                            colorText: Colors.black54,
+                          ),
+                          DropdownButton<int>(
+                            hint: Text(
+                              'Seleccionar',
+                              style: TextStyle(color: ColorTheme.thetextColor),
+                            ),
+                            style: TextStyle(color: ColorTheme.thetextColor),
+                            items: opcionOrden
+                                .map(
+                                  (descripcion, value) {
+                                    return MapEntry(
+                                      descripcion,
+                                      DropdownMenuItem<int>(
+                                        value: value,
+                                        child: Text(descripcion),
+                                      ),
                                     );
                                   },
-                                  itemCount: listaDetalleMap!.length,
-                                ),
-                              );
-                            }
-                          },
+                                )
+                                .values
+                                .toList(),
+                            value: ordens,
+                            onChanged: (int? value) {
+                              ordens = value!;
+                              setState(() {
+                                print(ordens);
+
+                                final loginProvider =
+                                    Provider.of<LoginProvider>(context,
+                                        listen: false);
+
+                                _detalleMap = CatService().getMapDetail(
+                                    context,
+                                    loginProvider.token,
+                                    widget.nsut,
+                                    widget.etiqueta,
+                                    ordens!);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                _detalleMap != null
+                    ? SingleChildScrollView(
+                        child: SizedBox(
+                          height: responsive.hp(54),
+                          width: responsive.wp(97),
+                          child: FutureBuilder<List<MapDetail>?>(
+                            future: _detalleMap,
+                            builder: (context,
+                                AsyncSnapshot<List<MapDetail>?> snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                emptyArray
+                                    ? {
+                                        listaDetalleMap = snapshot.data,
+                                      }
+                                    : {
+                                        listaDetalleMap = listaDetalleMap!
+                                            .where((element) => element.modelo!
+                                                .toLowerCase()
+                                                .contains(itemSelected!
+                                                    .toLowerCase()))
+                                            .toList(),
+                                      };
+                                return SlideInLeft(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              verDialogo(
+                                                  context, responsive, index);
+                                            },
+                                            child: Card(
+                                              elevation: 5,
+                                              color: Colors.grey.shade100,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  ListTile(
+                                                    //leading: const Icon(Icons.abc),
+                                                    title: Row(
+                                                      // mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        Text(
+                                                          'Fecha: ${listaDetalleMap![index].fecha!}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .dp(1.5)),
+                                                        ),
+                                                        const Spacer(),
+                                                        IconButton(
+                                                          onPressed: () {
+                                                            verDialogo(
+                                                                context,
+                                                                responsive,
+                                                                index);
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons
+                                                                  .info_outline,
+                                                              color:
+                                                                  Colors.blue),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    subtitle: Row(
+                                                      children: [
+                                                        Text(
+                                                          'Gasto: ${listaDetalleMap![index].gasto!}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .dp(1.2)),
+                                                        ),
+                                                        const Spacer(),
+                                                        Text(
+                                                          'Volumen: ${listaDetalleMap![index].vol!}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .dp(1.2)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    itemCount: listaDetalleMap!.length,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          'Sin Archivos',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: ColorTheme.fontFamily,
+                              fontSize: 14),
                         ),
                       ),
-                    )
-                  : Center(
-                      child: Text(
-                        'Sin Archivos',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: ColorTheme.fontFamily,
-                            fontSize: 14),
-                      ),
-                    ),
-              SizedBox(height: Responsive(context).wp(0.1)),
-            ],
+                SizedBox(height: Responsive(context).wp(0.1)),
+              ],
+            ),
           ),
         ),
       ),

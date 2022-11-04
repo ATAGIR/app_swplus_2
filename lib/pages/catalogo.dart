@@ -6,6 +6,7 @@ import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
+import 'package:telemetria/utils/image_background.dart';
 import 'package:telemetria/utils/message.dart';
 import 'package:telemetria/utils/responsive.dart';
 import 'package:telemetria/utils/secure_storage.dart';
@@ -324,7 +325,7 @@ class _CatalogoState extends State<Catalogo> {
                                 elevation: 5,
                                 color: Colors.grey.shade100,
                                 child: Column(
-                                  mainAxisSize: MainAxisSize.min,
+                                  //mainAxisSize: MainAxisSize.min,
                                   children: [
                                     ListTile(
                                       //leading: const Icon(Icons.abc),
@@ -334,7 +335,7 @@ class _CatalogoState extends State<Catalogo> {
                                           Text(
                                             'NSUT: ${logActual!.logs![index].nsut}',
                                             style: TextStyle(
-                                                fontSize: responsive.dp(1.5)),
+                                                fontSize: responsive.dp(1.6)),
                                           ),
                                           const Spacer(),
                                           IconButton(
@@ -364,26 +365,27 @@ class _CatalogoState extends State<Catalogo> {
                                               }
                                             },
                                             icon: const Icon(Icons.location_on,
-                                                color: Colors.blue),
+                                                size: 40, color: Colors.blue),
                                           ),
                                         ],
                                       ),
 
                                       subtitle: Row(
                                         children: [
-                                          Text(
-                                            'Modelo: ${logActual!.logs![index].modelo}',
-                                            style: TextStyle(
-                                              fontSize: responsive.dp(1.2),
+                                          SizedBox(
+                                            height: 30,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'Modelo: ${logActual!.logs![index].modelo}\nEtiqueta: ${logActual!.logs![index].etiqueta!.trim()}',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        responsive.dp(1.2),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            'Etiqueta: ${logActual!.logs![index].etiqueta}',
-                                            style: TextStyle(
-                                              fontSize: responsive.dp(1.2),
-                                            ),
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ),
