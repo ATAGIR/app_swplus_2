@@ -68,6 +68,7 @@ class AutService {
       final loginPerfil = jsonDecode(response.data);
 
       SecureStorage().writeSecureData('token', loginPerfil['token']);
+
       return loginPerfil['token'];
     } catch (e) {
       print(e.toString());
