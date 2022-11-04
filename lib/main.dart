@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
               latitud: 0,
               longitud: 0,
               nsut: '0',
+              token: '',
             )),
       },
     );

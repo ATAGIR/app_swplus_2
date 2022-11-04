@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/pages/auth_screen.dart';
+import 'package:telemetria/pages/login.dart';
 import 'package:telemetria/pages/page_mapa.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
@@ -75,7 +76,7 @@ class _CatalogoState extends State<Catalogo> {
               SecureStorage().deleteSecureData('username');
               SecureStorage().deleteSecureData('password');
               Navigator.pushNamedAndRemoveUntil(
-                  context, AuthScreen.routeName, (route) => false);
+                  context, Login.routeName, (route) => false);
             },
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
@@ -346,18 +347,17 @@ class _CatalogoState extends State<Catalogo> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         PageMapa(
-                                                            latitud: logActual!
-                                                                .logs![index]
-                                                                .lat!,
-                                                            longitud: logActual!
-                                                                .logs![index]
-                                                                .long!,
-                                                            nsut: logActual!
-                                                                .logs![index]
-                                                                .nsut!,
-                                                            etiqueta: logActual!
-                                                                .logs![index]
-                                                                .etiqueta!),
+                                                      latitud: logActual!
+                                                          .logs![index].lat!,
+                                                      longitud: logActual!
+                                                          .logs![index].long!,
+                                                      nsut: logActual!
+                                                          .logs![index].nsut!,
+                                                      etiqueta: logActual!
+                                                          .logs![index]
+                                                          .etiqueta!,
+                                                      token: widget.token,
+                                                    ),
                                                   ),
                                                 );
                                               } catch (e) {

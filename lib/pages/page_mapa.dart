@@ -36,11 +36,13 @@ class PageMapa extends StatefulWidget {
       required this.longitud,
       required this.nsut,
       required this.etiqueta,
+      required this.token,
       super.key});
   final double latitud;
   final double longitud;
   final String nsut;
   final String etiqueta;
+  final String token;
   @override
   State<PageMapa> createState() => _PageMapaState();
 }
@@ -55,8 +57,8 @@ class _PageMapaState extends State<PageMapa> {
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 
-    _detalleMap = CatService().getMapDetail(
-        context, loginProvider.token, widget.nsut, widget.etiqueta, 1);
+    _detalleMap = CatService()
+        .getMapDetail(context, widget.token, widget.nsut, widget.etiqueta, 1);
   }
 
   @override
@@ -152,7 +154,7 @@ class _PageMapaState extends State<PageMapa> {
 
                                 _detalleMap = CatService().getMapDetail(
                                     context,
-                                    loginProvider.token,
+                                    widget.token,
                                     widget.nsut,
                                     widget.etiqueta,
                                     ordens!);

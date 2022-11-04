@@ -45,24 +45,21 @@ class AuthScreen extends StatelessWidget {
                         //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
                       });
                 } else {
-                  tokenCatalogo = snapshot.data;
-                  //loginProvider.loginPerfil.token = snapshot.data!;
+                  Future.microtask(() => {
+                        Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (
+                                  _,
+                                  __,
+                                  ___,
+                                ) =>
+                                    Catalogo(
+                                      token: loginProvider.token,
+                                    ),
+                                transitionDuration: const Duration(seconds: 0)))
+                      });
                 }
-                Future.microtask(() => {
-                      Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (
-                                _,
-                                __,
-                                ___,
-                              ) =>
-                                  Catalogo(
-                                    token: tokenCatalogo!,
-                                  ),
-                              transitionDuration: const Duration(seconds: 0)))
-                      //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
-                    });
               }
               return Container();
             }),

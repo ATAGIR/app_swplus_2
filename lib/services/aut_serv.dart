@@ -35,14 +35,15 @@ class AutService {
 
       if (response.statusCode == 200) {
         final LoginPerfil loginPerfil = LoginPerfil.fromJson(response.data);
-
+        loginperfil.loginPerfil = loginPerfil;
+        loginPerfil.token = loginPerfil.token;
         if (saveSession) {
           SecureStorage().writeSecureData('token', loginPerfil.token);
           SecureStorage().writeSecureData('username', email);
           SecureStorage().writeSecureData('password', password);
         }
         Message.dissmiss(context);
-        loginperfil.loginPerfil = loginPerfil;
+        //loginperfil.loginPerfil = loginPerfil;
         return loginPerfil;
       } else {
         return null;
