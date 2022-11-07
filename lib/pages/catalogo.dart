@@ -181,7 +181,7 @@ class _CatalogoState extends State<Catalogo> {
                 ],
               ),
               
-              Text('Total Logs : ${logActual?.psi}',
+              Text('${logActual?.psi} > ${logActual?.concesion} > ${logActual?.rfc}',
               style: 
               TextStyle(color: Colors.black54, fontSize: responsive.dp(1.8)),
               ),
@@ -419,12 +419,17 @@ class _CatalogoState extends State<Catalogo> {
                         ],
                       ),
                     )
-                  : Column(
-                      children: [
-                        SizedBox(height: responsive.hp(10),),
-                        const Center(child: Text('Sin Archivos')),
-                      ],
-                    ),
+                  : Container(
+                    width: responsive.wp(100),
+                    height: responsive.hp(55),
+                    decoration: ImageBackground.imagebackground(opacity: 0.1),
+                    child: Column(
+                        children: [
+                          SizedBox(height: responsive.hp(10),),
+                          const Center(child: Text('Sin Archivos')),
+                        ],
+                      ),
+                  ),
               SizedBox(height: Responsive(context).wp(0.1)),
             ],
           ),
