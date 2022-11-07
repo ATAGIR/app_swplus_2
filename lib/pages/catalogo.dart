@@ -180,229 +180,248 @@ class _CatalogoState extends State<Catalogo> {
                   ),
                 ],
               ),
-              //Text('Total Logs : ${logActual?.logs?.length ?? 0}'),
-              SlideInLeft(
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Center(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.black54),
-                                        height: responsive.hp(20),
-                                        width: responsive.wp(92),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: responsive.hp(2),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Table(
-                                                border: const TableBorder(
-                                                  verticalInside: BorderSide(
-                                                      width: 1.2,
-                                                      color: Colors.blue,
-                                                      style: BorderStyle.solid),
-                                                ),
+              
+              Text('Total Logs : ${logActual?.psi}'),
+              logActual?.logs?.length != 0
+                  ? SlideInLeft(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Center(
+                                            child: Container(
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.black54),
+                                              height: responsive.hp(20),
+                                              width: responsive.wp(92),
+                                              child: Column(
                                                 children: [
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'Etiqueta: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].etiqueta}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
+                                                  SizedBox(
+                                                    height: responsive.hp(2),
                                                   ),
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'NSUT: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: Table(
+                                                      border: const TableBorder(
+                                                        verticalInside:
+                                                            BorderSide(
+                                                                width: 1.2,
+                                                                color:
+                                                                    Colors.blue,
+                                                                style:
+                                                                    BorderStyle
+                                                                        .solid),
                                                       ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].nsut}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
-                                                  ),
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'Fecha de último Registro: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].fecha}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
-                                                  ),
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'Modelo: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].modelo}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
-                                                  ),
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'NSM: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].nsm}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
-                                                  ),
-                                                  TableRow(
-                                                    children: [
-                                                      const Text(
-                                                        'NSUE: ',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        '  ${logActual!.logs![index].nsue}',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ) //
-                                                    ],
+                                                      children: [
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'Etiqueta: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].etiqueta}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        ),
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'NSUT: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].nsut}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        ),
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'Fecha de último Registro: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].fecha}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        ),
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'Modelo: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].modelo}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        ),
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'NSM: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].nsm}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        ),
+                                                        TableRow(
+                                                          children: [
+                                                            const Text(
+                                                              'NSUE: ',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              '  ${logActual!.logs![index].nsue}',
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ) //
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
                                                   )
                                                 ],
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Card(
-                                elevation: 5,
-                                color: Colors.grey.shade100,
-                                child: Column(
-                                  //mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ListTile(
-                                      //leading: const Icon(Icons.abc),
-                                      title: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.end,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Card(
+                                      elevation: 5,
+                                      color: Colors.grey.shade100,
+                                      child: Column(
+                                        //mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(
-                                            'NSUT: ${logActual!.logs![index].nsut}',
-                                            style: TextStyle(
-                                                fontSize: responsive.dp(1.6)),
-                                          ),
-                                          const Spacer(),
-                                          IconButton(
-                                            onPressed: () {
-                                              try {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PageMapa(
-                                                      latitud: logActual!
-                                                          .logs![index].lat!,
-                                                      longitud: logActual!
-                                                          .logs![index].long!,
-                                                      nsut: logActual!
-                                                          .logs![index].nsut!,
-                                                      etiqueta: logActual!
-                                                          .logs![index]
-                                                          .etiqueta!,
-                                                      token: widget.token,
-                                                    ),
-                                                  ),
-                                                );
-                                              } catch (e) {
-                                                throw e;
-                                              }
-                                            },
-                                            icon: const Icon(Icons.location_on,
-                                                size: 40, color: Colors.blue),
-                                          ),
-                                        ],
-                                      ),
-
-                                      subtitle: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 30,
-                                            child: Column(
+                                          ListTile(
+                                            //leading: const Icon(Icons.abc),
+                                            title: Row(
+                                              // mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  'Modelo: ${logActual!.logs![index].modelo}\nEtiqueta: ${logActual!.logs![index].etiqueta!.trim()}',
+                                                  'NSUT: ${logActual!.logs![index].nsut}',
                                                   style: TextStyle(
-                                                    fontSize:
-                                                        responsive.dp(1.2),
-                                                  ),
+                                                      fontSize:
+                                                          responsive.dp(1.6)),
+                                                ),
+                                                const Spacer(),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    try {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PageMapa(
+                                                            latitud: logActual!
+                                                                .logs![index]
+                                                                .lat!,
+                                                            longitud: logActual!
+                                                                .logs![index]
+                                                                .long!,
+                                                            nsut: logActual!
+                                                                .logs![index]
+                                                                .nsut!,
+                                                            etiqueta: logActual!
+                                                                .logs![index]
+                                                                .etiqueta!,
+                                                            token: widget.token,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } catch (e) {
+                                                      throw e;
+                                                    }
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.location_on,
+                                                      size: 40,
+                                                      color: Colors.blue),
                                                 ),
                                               ],
                                             ),
-                                          )
+
+                                            subtitle: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 30,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        'Modelo: ${logActual!.logs![index].modelo}\nEtiqueta: ${logActual!.logs![index].etiqueta!.trim()}',
+                                                        style: TextStyle(
+                                                          fontSize: responsive
+                                                              .dp(1.2),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                      itemCount: logActual?.logs?.length ?? 0,
+                                  ),
+                                ],
+                              );
+                            },
+                            itemCount: logActual?.logs?.length ?? 0,
+                          ),
+                        ],
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        SizedBox(height: responsive.hp(10),),
+                        const Center(child: Text('Sin Archivos')),
+                      ],
                     ),
-                  ],
-                ),
-              ),
               SizedBox(height: Responsive(context).wp(0.1)),
             ],
           ),
