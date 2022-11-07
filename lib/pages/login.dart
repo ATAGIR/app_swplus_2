@@ -63,9 +63,8 @@ class _LoginState extends State<Login> {
                     SizedBox(height: Responsive(context).wp(7)),
                     _passwordTextField(),
                     SizedBox(height: Responsive(context).wp(2)),
-                    loginProvider.saveSession == false
-                        ? btnRecuerdame(context)
-                        : SizedBox(height: Responsive(context).wp(2)),
+                    _bottonRecordarme(context, loginProvider),
+                    SizedBox(height: Responsive(context).wp(2)),
                     _bottonLogin(context, loginProvider),
                     SizedBox(height: Responsive(context).wp(2)),
                     _bottonRegistrarse(),
@@ -143,21 +142,21 @@ class _LoginState extends State<Login> {
     });
   }
 
-  SwitchListTile btnRecuerdame(BuildContext context) {
-    return SwitchListTile(
-        title: const Text(
+   Widget _bottonRecordarme(BuildContext context, LoginProvider loginProvider) {
+    loginProvider.saveSession == false;
+    return SwitchListTile.adaptive(
+        title: Text(
           'Recordarme',
-          style: TextStyle(fontSize: 15, color: Colors.blue),
+          style: TextStyle(
+              fontSize: Responsive.of(context).dp(2), color: Colors.black54),
         ),
-        activeColor: Colors.blue,
-        contentPadding: const EdgeInsets.only(left: 100, right: 100),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: Responsive(context).wp(10)),
         value: _saveSession,
         onChanged: (bool? value) {
-          setState(
-            () {
-              _saveSession = value!;
-            },
-          );
+          setState(() {
+            _saveSession = value!;
+          });
           print(value);
         });
   }
