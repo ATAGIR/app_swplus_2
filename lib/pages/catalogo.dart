@@ -180,10 +180,13 @@ class _CatalogoState extends State<Catalogo> {
                   ),
                 ],
               ),
-              
-              Text('${logActual?.psi} > ${logActual?.concesion} > ${logActual?.rfc}',
-              style: 
-              TextStyle(color: Colors.black54, fontSize: responsive.dp(1.8)),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Text(
+                  '${logActual?.psi} > ${logActual?.concesion} > ${logActual?.rfc}',
+                  style: TextStyle(
+                      color: Colors.black54, fontSize: responsive.dp(1.8)),
+                ),
               ),
               logActual?.logs?.length != 0
                   ? SlideInLeft(
@@ -338,12 +341,9 @@ class _CatalogoState extends State<Catalogo> {
                                       elevation: 5,
                                       color: Colors.grey.shade100,
                                       child: Column(
-                                        //mainAxisSize: MainAxisSize.min,
                                         children: [
                                           ListTile(
-                                            //leading: const Icon(Icons.abc),
                                             title: Row(
-                                              // mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 Text(
                                                   'NSUT: ${logActual!.logs![index].nsut}',
@@ -387,7 +387,6 @@ class _CatalogoState extends State<Catalogo> {
                                                 ),
                                               ],
                                             ),
-
                                             subtitle: Row(
                                               children: [
                                                 SizedBox(
@@ -420,16 +419,18 @@ class _CatalogoState extends State<Catalogo> {
                       ),
                     )
                   : Container(
-                    width: responsive.wp(100),
-                    height: responsive.hp(55),
-                    decoration: ImageBackground.imagebackground(opacity: 0.1),
-                    child: Column(
+                      width: responsive.wp(100),
+                      height: responsive.hp(55),
+                      decoration: ImageBackground.imagebackground(opacity: 0.1),
+                      child: Column(
                         children: [
-                          SizedBox(height: responsive.hp(10),),
+                          SizedBox(
+                            height: responsive.hp(10),
+                          ),
                           const Center(child: Text('Sin Archivos')),
                         ],
                       ),
-                  ),
+                    ),
               SizedBox(height: Responsive(context).wp(0.1)),
             ],
           ),
@@ -450,6 +451,9 @@ class _CatalogoState extends State<Catalogo> {
           },
           child: Column(
             children: [
+              SizedBox(
+                height: responsive.hp(3.5),
+              ),
               Container(
                 width: responsive.wp(100), //500.0,
                 height: responsive.hp(20),

@@ -36,8 +36,11 @@ class Ubicacion extends StatelessWidget {
           markers: [
             Marker(
               point: LatLng(latitud, longitud),
-              builder: (context) =>
-                  const Icon(Icons.pin_drop, color: Colors.redAccent),
+              builder: (context) => const Icon(
+                Icons.location_on,
+                color: Colors.blue,
+                size: 40.0,
+              ),
             ),
           ],
         ),

@@ -19,7 +19,7 @@ class ConfigureApi {
   );
 
   static const String mapBoxUrl =
-      "https://api.mapbox.com/styles/v1/swplus-tecnologias/cl97725qz001t14qlh4h5el6d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic3dwbHVzLXRlY25vbG9naWFzIiwiYSI6ImNsOGtheXV3aDBhbW80MHBpbWdncHFjM2YifQ.G3Yg7SECTj4nvAAoK4DuaA";
+      "https://api.mapbox.com/styles/v1/israel1993/cla7d3dvj000914pqucdgrhfg/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaXNyYWVsMTk5MyIsImEiOiJjbDhrZHI1MWowNzlqM3h0b3h5amF5MndzIn0.8P03IKbKUQh6wSeu6Dz_Ig";
   static const String mapBoxAccessToken = 'TOKEN';
   static const String mapBoxStyleId = 'ID';
 }
