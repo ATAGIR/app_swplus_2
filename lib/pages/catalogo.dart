@@ -181,7 +181,10 @@ class _CatalogoState extends State<Catalogo> {
                 ],
               ),
               
-              Text('Total Logs : ${logActual?.psi}'),
+              Text('Total Logs : ${logActual?.psi}',
+              style: 
+              TextStyle(color: Colors.black54, fontSize: responsive.dp(1.8)),
+              ),
               logActual?.logs?.length != 0
                   ? SlideInLeft(
                       child: Column(

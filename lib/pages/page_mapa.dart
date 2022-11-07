@@ -298,19 +298,17 @@ class _PageMapaState extends State<PageMapa> {
       builder: (context) {
         return Center(
           child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue, width: 1.2),
-              borderRadius: BorderRadius.circular(10),
+            decoration: const BoxDecoration(
+              color: Colors.black54
             ),
-            child: SizedBox(
-              height: responsive.hp(20),
-              width: responsive.wp(95),
+            height: responsive.hp(20),
+            width: responsive.wp(92),
               child: Column(
                 children: [
                   Column(
                     children: [
                       SizedBox(
-                        height: responsive.hp(1),
+                        height: responsive.hp(2),
                       ),
                       Table(
                         columnWidths: {
@@ -449,7 +447,6 @@ class _PageMapaState extends State<PageMapa> {
                 ],
               ),
             ),
-          ),
         );
       },
     );
