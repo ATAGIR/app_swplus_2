@@ -101,6 +101,7 @@ class LoginProvider extends ChangeNotifier {
       saveSession = true;
       email = _email;
       password = _password;
+      token = _token;
 
       AutService().updateToken(email, password).then((value) {
         token = value!;

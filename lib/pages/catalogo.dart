@@ -54,6 +54,8 @@ class _CatalogoState extends State<Catalogo> {
   MedidorUser? logActual;
   @override
   void initState() {
+    // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    // loginProvider.readToken();
     super.initState();
     _medidorUser = CatService().getLast(context, widget.token);
   }
