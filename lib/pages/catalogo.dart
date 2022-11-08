@@ -211,7 +211,7 @@ class _CatalogoState extends State<Catalogo> {
                                             child: Container(
                                               decoration: const BoxDecoration(
                                                   color: Colors.black54),
-                                              height: responsive.hp(25),
+                                              height: responsive.hp(33),
                                               width: responsive.wp(92),
                                               child: Column(
                                                 children: [

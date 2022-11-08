@@ -28,7 +28,7 @@ class ListTileTelemetria {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: ColorTheme.thetextBackgroundColor),
-            height: responsive.hp(10),
+            height: responsive.hp(12),
             alignment: Alignment.centerLeft,
             child: ListTile(
               title: Row(
