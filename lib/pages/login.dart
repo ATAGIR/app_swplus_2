@@ -84,7 +84,7 @@ class _LoginState extends State<Login> {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
-          initialValue: 'ielizalde@swplus.com.m',
+          //initialValue: 'ielizalde@swplus.com.m',
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
             border: OutlineInputBorder(
@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
-          initialValue: 'toke',
+         // initialValue: 'toke',
           keyboardType: TextInputType.emailAddress,
           obscureText: passwordVisible,
           decoration: InputDecoration(
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
         title: Text(
           'Recordarme',
           style: TextStyle(
-              fontSize: Responsive.of(context).dp(2), color: Colors.black54),
+              fontSize: Responsive.of(context).dp(2), color: Colors.black),
         ),
         contentPadding:
             EdgeInsets.symmetric(horizontal: Responsive(context).wp(10)),
@@ -167,6 +167,20 @@ class _LoginState extends State<Login> {
           ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
       onPressed: () {
         FocusScope.of(context).unfocus();
+         if (email.isEmpty) {
+          Message.showMessage(
+              context: context,
+              message: 'El correo no es valido',
+              color: const Color(0xffBF4045));
+          return;
+        }
+        if (password.isEmpty) {
+          Message.showMessage(
+              context: context,
+              message: 'La contraseña debe de ser minimo 5 caracteres',
+              color: const Color(0xffBF4045));
+          return;
+        }
         if (loginProvider.formKey.currentState!.validate()) {
           AutService()
               .emailLogin(context, email, password, _saveSession)
@@ -174,14 +188,12 @@ class _LoginState extends State<Login> {
             print(value);
             if (value!.isActive == true) {
               String token = loginProvider.loginPerfil.token;
-              Navigator.push(
+              Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => Catalogo(token:token)));
             } else {
               Message.msgNotActive;
             }
           });
-        } else {
-          print('Mensage toast , llene los campos solicitados');
         }
       },
       child: SizedBox(
