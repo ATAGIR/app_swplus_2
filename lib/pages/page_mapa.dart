@@ -201,7 +201,7 @@ class _PageMapaState extends State<PageMapa> {
                                       DateTime? now =
                                           listaDetalleMap?[index].fecha;
                                       String formattedDate =
-                                          DateFormat(' yyyy-MM-dd – kk:mm')
+                                          DateFormat(' dd-MM-yyyy – kk:mm')
                                               .format(now!);
                                       return Column(
                                         children: [
@@ -300,10 +300,11 @@ class _PageMapaState extends State<PageMapa> {
   Future<dynamic> verDialogo(
       BuildContext context, Responsive responsive, int index) {
     return showDialog(
+      barrierColor: Colors.black,
       context: context,
       builder: (context) {
         DateTime? now = listaDetalleMap?[index].fecha;
-        String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now!);
+        String formattedDate = DateFormat('dd-MM-yyyy – kk:mm').format(now!);
         return Center(
           child: Container(
             decoration: const BoxDecoration(color: Colors.black54),

@@ -206,17 +206,18 @@ class _CatalogoState extends State<Catalogo> {
                                   GestureDetector(
                                     onTap: () {
                                       showDialog(
+                                        barrierColor: Colors.black,
                                         context: context,
                                         builder: (context) {
                                           DateTime? now =
                                               logActual!.logs![index].fecha;
                                           String formattedDate =
-                                              DateFormat(' yyyy-MM-dd – kk:mm')
+                                              DateFormat(' dd-MM-yyyy – kk:mm')
                                                   .format(now!);
                                           return Center(
                                             child: Container(
                                               decoration: const BoxDecoration(
-                                                  color: Colors.black54),
+                                                  color: Colors.black),
                                               height: responsive.hp(33),
                                               width: responsive.wp(92),
                                               child: Column(
