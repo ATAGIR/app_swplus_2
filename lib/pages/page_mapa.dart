@@ -2,6 +2,7 @@
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/map_detail.dart';
 import 'package:telemetria/providers/login_prov.dart';
@@ -197,6 +198,11 @@ class _PageMapaState extends State<PageMapa> {
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
+                                      DateTime? now =
+                                          listaDetalleMap?[index].fecha;
+                                      String formattedDate =
+                                          DateFormat(' yyyy-MM-dd – kk:mm')
+                                              .format(now!);
                                       return Column(
                                         children: [
                                           GestureDetector(
@@ -216,11 +222,11 @@ class _PageMapaState extends State<PageMapa> {
                                                       // mainAxisAlignment: MainAxisAlignment.end,
                                                       children: [
                                                         Text(
-                                                          'Fecha: ${listaDetalleMap![index].fecha!}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  responsive
-                                                                      .dp(1.5)),
+                                                          'Fecha: $formattedDate',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                         const Spacer(),
                                                         IconButton(
@@ -296,157 +302,151 @@ class _PageMapaState extends State<PageMapa> {
     return showDialog(
       context: context,
       builder: (context) {
+        DateTime? now = listaDetalleMap?[index].fecha;
+        String formattedDate = DateFormat(' yyyy-MM-dd – kk:mm').format(now!);
         return Center(
           child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black54
-            ),
+            decoration: const BoxDecoration(color: Colors.black54),
             height: responsive.hp(25),
             width: responsive.wp(92),
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: responsive.hp(2),
-                      ),
-                      Table(
-                        columnWidths: {
-                          0: FixedColumnWidth(
-                            responsive.wp(3),
-                          ),
-                          1: FixedColumnWidth(
-                            responsive.wp(31),
-                          )
-                        },
-                        children: [
-                          //0
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'Fecha: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].fecha}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //1
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'Modelo: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].modelo}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //2
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'Sistema: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].sistema}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //3
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'RFC: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].rfc}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //4
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'NSM: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].nsm}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //5
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'Norma: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].nsue}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //6
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'IMEI: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].imei}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                          //7
-                          TableRow(
-                            children: [
-                              SizedBox(
-                                width: responsive.wp(2),
-                              ),
-                              const Text(
-                                'CCID: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text('${listaDetalleMap?[index].ccid}',
-                                  style:
-                                      const TextStyle(color: Colors.white)) //
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: responsive.hp(2),
+                    ),
+                    Table(
+                      columnWidths: {
+                        0: FixedColumnWidth(
+                          responsive.wp(3),
+                        ),
+                        1: FixedColumnWidth(
+                          responsive.wp(31),
+                        )
+                      },
+                      children: [
+                        //0
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'Fecha: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              formattedDate,
+                              style: const TextStyle(color: Colors.white),
+                            ) //
+                          ],
+                        ),
+                        //1
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'Modelo: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].modelo}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //2
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'Sistema: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].sistema}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //3
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'RFC: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].rfc}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //4
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'NSM: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].nsm}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //5
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'Norma: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].nsue}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //6
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'IMEI: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].imei}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                        //7
+                        TableRow(
+                          children: [
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            const Text(
+                              'CCID: ',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text('${listaDetalleMap?[index].ccid}',
+                                style: const TextStyle(color: Colors.white)) //
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
             ),
+          ),
         );
       },
     );

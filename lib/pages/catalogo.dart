@@ -17,6 +17,7 @@ import 'package:telemetria/widget/label_text.dart';
 import 'package:telemetria/widget/listtile_telemetria.dart';
 import 'package:telemetria/widget/searchtextform.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:intl/intl.dart';
 
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
@@ -207,6 +208,11 @@ class _CatalogoState extends State<Catalogo> {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
+                                          DateTime? now =
+                                              logActual!.logs![index].fecha;
+                                          String formattedDate =
+                                              DateFormat(' yyyy-MM-dd – kk:mm')
+                                                  .format(now!);
                                           return Center(
                                             child: Container(
                                               decoration: const BoxDecoration(
@@ -275,11 +281,11 @@ class _CatalogoState extends State<Catalogo> {
                                                                       .white),
                                                             ),
                                                             Text(
-                                                              '  ${logActual!.logs![index].fecha}',
+                                                              formattedDate,
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .white),
-                                                            ) //
+                                                            )
                                                           ],
                                                         ),
                                                         TableRow(
