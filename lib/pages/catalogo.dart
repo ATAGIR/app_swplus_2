@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
@@ -29,7 +31,8 @@ class Catalogo extends StatefulWidget {
   State<Catalogo> createState() => _CatalogoState();
 }
 
-int? ordens;
+int? orderDrawer;
+int? orderCat;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
 
@@ -38,14 +41,14 @@ List<Log?>? listaDetalleLog;
 
 bool emptyArray = true;
 String? itemSeleccionado;
-String? itemSeleccionado2;
+String? selectItem;
 
-const Map<String, int> itemOrdens = {
+const Map<String, int> consecionOrder = {
   "Conseción, A-Z": 1,
   "Conseción, Z-A": 2,
 };
 
-const Map<String, int> itemOrdens2 = {
+const Map<String, int> modelOrder = {
   "Modelo, A-Z": 1,
   "Modelo, Z-A": 2,
 };
@@ -118,7 +121,7 @@ class _CatalogoState extends State<Catalogo> {
                         emptyArray = true;
                       } else {
                         emptyArray = false;
-                        itemSeleccionado2 = value.trim();
+                        selectItem = value.trim();
                       }
                     },
                   );
@@ -138,7 +141,7 @@ class _CatalogoState extends State<Catalogo> {
                       style: TextStyle(color: ColorTheme.thetextColor),
                     ),
                     style: TextStyle(color: ColorTheme.thetextColor),
-                    items: itemOrdens2
+                    items: modelOrder
                         .map(
                           (descripcion, value) {
                             return MapEntry(
@@ -152,15 +155,15 @@ class _CatalogoState extends State<Catalogo> {
                         )
                         .values
                         .toList(),
-                    value: ordens,
+                    value: orderCat,
                     onChanged: (int? value) {
-                      ordens = value!;
-                      switch (ordens) {
+                      orderCat = value!;
+                      switch (orderCat) {
                         case 1:
                           setState(
                             () {
                               listaDetalleLog!.sort(
-                                (a, b) => a!.modelo!.compareTo(b!.modelo!),
+                                (a, b) => a!.modelo!.compareTo(b!.rfc!),
                               );
                             },
                           );
@@ -169,7 +172,7 @@ class _CatalogoState extends State<Catalogo> {
                           setState(
                             () {
                               listaDetalleLog!.sort(
-                                (a, b) => b!.modelo!.compareTo(a!.modelo!),
+                                (a, b) => b!.modelo!.compareTo(a!.rfc!),
                               );
                             },
                           );
@@ -536,7 +539,7 @@ class _CatalogoState extends State<Catalogo> {
                       style: TextStyle(color: ColorTheme.thetextColor),
                     ),
                     style: TextStyle(color: ColorTheme.thetextColor),
-                    items: itemOrdens
+                    items: consecionOrder
                         .map(
                           (descripcion, value) {
                             return MapEntry(
@@ -550,10 +553,10 @@ class _CatalogoState extends State<Catalogo> {
                         )
                         .values
                         .toList(),
-                    value: ordens,
+                    value: orderDrawer,
                     onChanged: (int? value) {
-                      ordens = value!;
-                      switch (ordens) {
+                      orderDrawer = value!;
+                      switch (orderDrawer) {
                         case 1:
                           setState(
                             () {

@@ -84,7 +84,6 @@ class _LoginState extends State<Login> {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
-          //initialValue: 'ielizalde@swplus.com.m',
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
             border: OutlineInputBorder(
@@ -104,61 +103,62 @@ class _LoginState extends State<Login> {
 
   Widget _passwordTextField() {
     return StreamBuilder(
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
-        child: TextFormField(
-         // initialValue: 'toke',
-          keyboardType: TextInputType.emailAddress,
-          obscureText: passwordVisible,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: Icon(
-                passwordVisible ? Icons.visibility : Icons.visibility_off,
-                color: Colors.blue,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            obscureText: passwordVisible,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: Icon(
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.blue,
+                ),
+                onPressed: () {
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  passwordVisible = !passwordVisible;
-                });
-              },
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              icon: const Icon(Icons.lock_rounded),
+              hintText: 'Contraseña',
+              labelText: 'Contraseña',
             ),
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50))),
-            icon: const Icon(Icons.lock_rounded),
-            hintText: 'Contraseña',
-            labelText: 'Contraseña',
+            onChanged: (value) => password = value.trim(),
+            validator: (value) {
+              if (value != null && value.length >= 5) {
+                return null;
+              } else {
+                return 'Verifique su contraseña';
+              }
+            },
           ),
-          onChanged: (value) => password = value.trim(),
-          validator: (value) {
-            if (value != null && value.length >= 5) {
-              return null;
-            } else {
-              return 'Verifique su contraseña';
-            }
-          },
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
-   Widget _bottonRecordarme(BuildContext context, LoginProvider loginProvider) {
+  Widget _bottonRecordarme(BuildContext context, LoginProvider loginProvider) {
     loginProvider.saveSession == false;
     return SwitchListTile.adaptive(
-        title: Text(
-          'Recordarme',
-          style: TextStyle(
-              fontSize: Responsive.of(context).dp(2), color: Colors.black54),
-        ),
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: Responsive(context).wp(10)),
-        value: _saveSession,
-        onChanged: (bool? value) {
-          setState(() {
-            _saveSession = value!;
-          });
-          print(value);
+      title: Text(
+        'Recordarme',
+        style: TextStyle(
+            fontSize: Responsive.of(context).dp(2), color: Colors.black54),
+      ),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: Responsive(context).wp(10)),
+      value: _saveSession,
+      onChanged: (bool? value) {
+        setState(() {
+          _saveSession = value!;
         });
+        print(value);
+      },
+    );
   }
 
   Widget _bottonLogin(BuildContext context, LoginProvider loginProvider) {
@@ -167,7 +167,7 @@ class _LoginState extends State<Login> {
           ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue)),
       onPressed: () {
         FocusScope.of(context).unfocus();
-         if (email.isEmpty) {
+        if (email.isEmpty) {
           Message.showMessage(
               context: context,
               message: 'El correo no es valido',
@@ -182,18 +182,20 @@ class _LoginState extends State<Login> {
           return;
         }
         if (loginProvider.formKey.currentState!.validate()) {
-          AutService()
-              .emailLogin(context, email, password, _saveSession)
-              .then((value) {
-            print(value);
-            if (value!.isActive == true) {
-              String token = loginProvider.loginPerfil.token;
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Catalogo(token:token)));
-            } else {
-              Message.msgNotActive;
-            }
-          });
+          AutService().emailLogin(context, email, password, _saveSession).then(
+            (value) {
+              print(value);
+              if (value!.isActive == true) {
+                String token = loginProvider.loginPerfil.token;
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Catalogo(token: token)));
+              } else {
+                Message.msgNotActive;
+              }
+            },
+          );
         }
       },
       child: SizedBox(
