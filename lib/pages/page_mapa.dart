@@ -102,7 +102,7 @@ class _PageMapaState extends State<PageMapa> {
             child: Column(
               children: [
                 SizedBox(
-                  height: responsive.dp(20),
+                  height: responsive.dp(18.8),
                   child: Ubicacion(
                       minZoom: 5,
                       maxZoom: 20,
@@ -301,7 +301,7 @@ class _PageMapaState extends State<PageMapa> {
             decoration: const BoxDecoration(
               color: Colors.black54
             ),
-            height: responsive.hp(20),
+            height: responsive.hp(25),
             width: responsive.wp(92),
               child: Column(
                 children: [
