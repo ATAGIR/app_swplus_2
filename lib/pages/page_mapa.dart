@@ -303,7 +303,7 @@ class _PageMapaState extends State<PageMapa> {
       context: context,
       builder: (context) {
         DateTime? now = listaDetalleMap?[index].fecha;
-        String formattedDate = DateFormat(' yyyy-MM-dd – kk:mm').format(now!);
+        String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now!);
         return Center(
           child: Container(
             decoration: const BoxDecoration(color: Colors.black54),
@@ -333,7 +333,7 @@ class _PageMapaState extends State<PageMapa> {
                               width: responsive.wp(2),
                             ),
                             const Text(
-                              'Fecha: ',
+                              'Fecha:',
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
