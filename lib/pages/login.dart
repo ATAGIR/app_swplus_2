@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
         title: Text(
           'Recordarme',
           style: TextStyle(
-              fontSize: Responsive.of(context).dp(2), color: Colors.black),
+              fontSize: Responsive.of(context).dp(2), color: Colors.black54),
         ),
         contentPadding:
             EdgeInsets.symmetric(horizontal: Responsive(context).wp(10)),
