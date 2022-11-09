@@ -41,6 +41,7 @@ bool emptyArray = true;
 bool arrayVacio = true;
 String? itemSeleccionado;
 String? selectItem;
+List<Log>? logList;
 
 const Map<String, int> consecionOrder = {
   "Conseción, A-Z": 1,
@@ -54,13 +55,16 @@ const Map<String, int> modelOrder = {
 
 class _CatalogoState extends State<Catalogo> {
   MedidorUser? logActual;
-  List<Log?>? logList;
+
   @override
   void initState() {
     // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     // loginProvider.readToken();
     super.initState();
     _medidorUser = CatService().getLast(context, widget.token);
+    
+
+    logList = [];
   }
 
   @override
@@ -189,6 +193,7 @@ class _CatalogoState extends State<Catalogo> {
                         height: responsive.hp(50),
                         width: responsive.wp(97),
                         child: FutureBuilder<List<Log>?>(
+                          //Todo
                           future: _logsUser,
                           builder:
                               (context, AsyncSnapshot<List<Log>?> snapshot) {
@@ -204,7 +209,7 @@ class _CatalogoState extends State<Catalogo> {
                                   : {
                                       logList = logList!
                                           .where(
-                                            (element) => element!.nsut!
+                                            (element) => element.nsut!
                                                 .toLowerCase()
                                                 .contains(
                                                   selectItem!.toLowerCase(),
@@ -231,7 +236,7 @@ class _CatalogoState extends State<Catalogo> {
                                                   context: context,
                                                   builder: (context) {
                                                     DateTime? now =
-                                                        logList![index]!.fecha;
+                                                        logList![index].fecha;
                                                     String formattedDate =
                                                         DateFormat(
                                                                 ' dd-MM-yyyy – kk:mm')
@@ -278,7 +283,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logList![index]!.etiqueta}',
+                                                                        '  ${logList![index].etiqueta}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -294,7 +299,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logList![index]!.nsut}',
+                                                                        '  ${logList![index].nsut}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -326,7 +331,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logList![index]!.modelo}',
+                                                                        '  ${logList![index].modelo}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -342,7 +347,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logList![index]!.nsm}',
+                                                                        '  ${logList![index].nsm}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -358,7 +363,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logList![index]!.nsue}',
+                                                                        '  ${logList![index].nsue}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -384,7 +389,7 @@ class _CatalogoState extends State<Catalogo> {
                                                       title: Row(
                                                         children: [
                                                           Text(
-                                                            'NSUT: ${logList![index]!.nsut}',
+                                                            'NSUT: ${logList![index].nsut}',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     responsive
@@ -401,16 +406,16 @@ class _CatalogoState extends State<Catalogo> {
                                                                         (context) =>
                                                                             PageMapa(
                                                                       latitud: logList![
-                                                                              index]!
+                                                                              index]
                                                                           .lat!,
                                                                       longitud:
-                                                                          logList![index]!
+                                                                          logList![index]
                                                                               .long!,
                                                                       nsut: logList![
-                                                                              index]!
+                                                                              index]
                                                                           .nsut!,
                                                                       etiqueta:
-                                                                          logList![index]!
+                                                                          logList![index]
                                                                               .etiqueta!,
                                                                       token: widget
                                                                           .token,
@@ -437,7 +442,7 @@ class _CatalogoState extends State<Catalogo> {
                                                             child: Column(
                                                               children: [
                                                                 Text(
-                                                                  'Modelo: ${logList![index]!.modelo}\nEtiqueta: ${logList![index]!.etiqueta!.trim()}',
+                                                                  'Modelo: ${logList![index].modelo}\nEtiqueta: ${logList![index].etiqueta!.trim()}',
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -676,6 +681,7 @@ class _CatalogoState extends State<Catalogo> {
                                               logList =
                                                   listaMedidoresUser![index]
                                                       .logs;
+                                                      
                                               Navigator.pop(context);
                                             },
                                             nameMedidor:
