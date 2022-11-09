@@ -109,26 +109,21 @@ class _CatalogoState extends State<Catalogo> {
               SizedBox(
                 height: responsive.hp(2),
               ),
-              SearchTextForm(
-                width: responsive.wp(60),
-                height: responsive.hp(5),
-                borderColor: ColorTheme.iconsColor,
-                backgroundColor: ColorTheme.thetextBackgroundColor,
-                labelText: 'Buscar',
-                onPressed: () {},
-                iconSize: responsive.dp(2.1),
-                onChanged: (value) {
-                  setState(
-                    () {
-                      if (value.isEmpty) {
-                        arrayVacio = true;
-                      } else {
-                        arrayVacio = false;
-                        selectItem = value.trim();
-                      }
-                    },
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: TextEditingController(),
+                  decoration: const InputDecoration(
+                    labelText: "Search",
+                    hintText: "Search",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -164,12 +159,18 @@ class _CatalogoState extends State<Catalogo> {
                       switch (orderCat) {
                         case 1:
                           setState(
-                            () {},
+                            () {
+                              logList!
+                                  .sort(((a, b) => a.nsut!.compareTo(b.nsut!)));
+                            },
                           );
                           break;
                         case 2:
                           setState(
-                            () {},
+                            () {
+                              logList!
+                                  .sort(((a, b) => b.nsut!.compareTo(a.nsut!)));
+                            },
                           );
                           break;
                         default:
@@ -189,287 +190,235 @@ class _CatalogoState extends State<Catalogo> {
               logList!.length != 0
                   ? SingleChildScrollView(
                       child: SizedBox(
-                        height: responsive.hp(50),
-                        width: responsive.wp(97),
-                        child: FutureBuilder<List<MedidorUser>?>(
-                          //Todo
-                          future: _medidorUser,
-                          builder: (context,
-                              AsyncSnapshot<List<MedidorUser>?> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              arrayVacio
-                                  ? {
-                                      logList = snapshot.data,
-                                    }
-                                  : {
-                                      logList = logList!
-                                          .where(
-                                            (element) => element.nsut!
-                                                .toLowerCase()
-                                                .contains(
-                                                  selectItem!.toLowerCase(),
-                                                ),
-                                          )
-                                          .toList()
-                                    };
-                              return SlideInLeft(
-                                child: Column(
-                                  children: [
-                                    ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: logList!.length,
-                                      itemBuilder: (context, index) {
-                                        return Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                showDialog(
-                                                  barrierColor: Colors.black,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    DateTime? now =
-                                                        logList![index].fecha;
-                                                    String formattedDate =
-                                                        DateFormat(
-                                                                ' dd-MM-yyyy – kk:mm')
-                                                            .format(now!);
-                                                    return Center(
-                                                      child: Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                color: Colors
-                                                                    .black),
-                                                        height:
-                                                            responsive.hp(33),
-                                                        width:
-                                                            responsive.wp(92),
-                                                        child: Column(
-                                                          children: [
-                                                            SizedBox(
-                                                              height: responsive
-                                                                  .hp(2),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .all(
-                                                                      10.0),
-                                                              child: Table(
-                                                                border:
-                                                                    const TableBorder(
-                                                                  verticalInside: BorderSide(
-                                                                      width:
-                                                                          1.2,
-                                                                      color: Colors
-                                                                          .blue,
-                                                                      style: BorderStyle
-                                                                          .solid),
-                                                                ),
+                          height: responsive.hp(90),
+                          width: responsive.wp(97),
+                          child: SlideInLeft(
+                            child: Column(
+                              children: [
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: logList!.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              barrierColor: Colors.black87,
+                                              context: context,
+                                              builder: (context) {
+                                                DateTime? now =
+                                                    logList![index].fecha;
+                                                String formattedDate = DateFormat(
+                                                        ' dd-MM-yyyy – kk:mm')
+                                                    .format(now!);
+                                                return Center(
+                                                  child: SizedBox(
+                                                    height: responsive.hp(33),
+                                                    width: responsive.wp(92),
+                                                    child: Column(
+                                                      children: [
+                                                        SizedBox(
+                                                          height:
+                                                              responsive.hp(2),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Table(
+                                                            children: [
+                                                              TableRow(
                                                                 children: [
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'Etiqueta: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        '  ${logList![index].etiqueta}',
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ) //
-                                                                    ],
+                                                                  const Text(
+                                                                    'Etiqueta: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
                                                                   ),
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'NSUT: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        '  ${logList![index].nsut}',
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ) //
-                                                                    ],
+                                                                  Text(
+                                                                    '  ${logList![index].etiqueta}',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ) //
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                children: [
+                                                                  const Text(
+                                                                    'NSUT: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
                                                                   ),
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'Fecha de último Registro: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        formattedDate,
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      )
-                                                                    ],
+                                                                  Text(
+                                                                    '  ${logList![index].nsut}',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ) //
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                children: [
+                                                                  const Text(
+                                                                    'Fecha de último Registro: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
                                                                   ),
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'Modelo: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        '  ${logList![index].modelo}',
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ) //
-                                                                    ],
-                                                                  ),
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'NSM: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        '  ${logList![index].nsm}',
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ) //
-                                                                    ],
-                                                                  ),
-                                                                  TableRow(
-                                                                    children: [
-                                                                      const Text(
-                                                                        'NSUE: ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ),
-                                                                      Text(
-                                                                        '  ${logList![index].nsue}',
-                                                                        style: const TextStyle(
-                                                                            color:
-                                                                                Colors.white),
-                                                                      ) //
-                                                                    ],
+                                                                  Text(
+                                                                    formattedDate,
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
                                                                   )
                                                                 ],
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
+                                                              TableRow(
+                                                                children: [
+                                                                  const Text(
+                                                                    'Modelo: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                  Text(
+                                                                    '  ${logList![index].modelo}',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ) //
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                children: [
+                                                                  const Text(
+                                                                    'NSM: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                  Text(
+                                                                    '  ${logList![index].nsm}',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ) //
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                children: [
+                                                                  const Text(
+                                                                    'NSUE: ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                  Text(
+                                                                    '  ${logList![index].nsue}',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ) //
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
                                                 );
                                               },
-                                              child: Card(
-                                                elevation: 5,
-                                                color: Colors.grey.shade100,
-                                                child: Column(
-                                                  children: [
-                                                    ListTile(
-                                                      title: Row(
-                                                        children: [
-                                                          Text(
-                                                            'NSUT: ${logList![index].nsut}',
-                                                            style: TextStyle(
+                                            );
+                                          },
+                                          child: Card(
+                                            elevation: 5,
+                                            color: Colors.grey.shade100,
+                                            child: Column(
+                                              children: [
+                                                ListTile(
+                                                  title: Row(
+                                                    children: [
+                                                      Text(
+                                                        'NSUT: ${logList![index].nsut}',
+                                                        style: TextStyle(
+                                                            fontSize: responsive
+                                                                .dp(1.6)),
+                                                      ),
+                                                      const Spacer(),
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          try {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        PageMapa(
+                                                                  latitud: logList![
+                                                                          index]
+                                                                      .lat!,
+                                                                  longitud: logList![
+                                                                          index]
+                                                                      .long!,
+                                                                  nsut: logList![
+                                                                          index]
+                                                                      .nsut!,
+                                                                  etiqueta: logList![
+                                                                          index]
+                                                                      .etiqueta!,
+                                                                  token: widget
+                                                                      .token,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          } catch (e) {
+                                                            rethrow;
+                                                          }
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.location_on,
+                                                            size: 40,
+                                                            color: Colors.blue),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  subtitle: Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 30,
+                                                        child: Column(
+                                                          children: [
+                                                            Text(
+                                                              'Modelo: ${logList![index].modelo}\nEtiqueta: ${logList![index].etiqueta!.trim()}',
+                                                              style: TextStyle(
                                                                 fontSize:
                                                                     responsive
-                                                                        .dp(1.6)),
-                                                          ),
-                                                          const Spacer(),
-                                                          IconButton(
-                                                            onPressed: () {
-                                                              try {
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            PageMapa(
-                                                                      latitud: logList![
-                                                                              index]
-                                                                          .lat!,
-                                                                      longitud:
-                                                                          logList![index]
-                                                                              .long!,
-                                                                      nsut: logList![
-                                                                              index]
-                                                                          .nsut!,
-                                                                      etiqueta:
-                                                                          logList![index]
-                                                                              .etiqueta!,
-                                                                      token: widget
-                                                                          .token,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              } catch (e) {
-                                                                rethrow;
-                                                              }
-                                                            },
-                                                            icon: const Icon(
-                                                                Icons
-                                                                    .location_on,
-                                                                size: 40,
-                                                                color: Colors
-                                                                    .blue),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      subtitle: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            height: 30,
-                                                            child: Column(
-                                                              children: [
-                                                                Text(
-                                                                  'Modelo: ${logList![index].modelo}\nEtiqueta: ${logList![index].etiqueta!.trim()}',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        responsive
-                                                                            .dp(1.2),
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                                        .dp(1.2),
+                                                              ),
                                                             ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
+                              ],
+                            ),
+                          )),
                     )
                   : Container(
                       width: responsive.wp(100),
@@ -680,6 +629,7 @@ class _CatalogoState extends State<Catalogo> {
                                               logList =
                                                   listaMedidoresUser![index]
                                                       .logs;
+
                                               Navigator.pop(context);
                                             },
                                             nameMedidor:
