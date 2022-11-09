@@ -62,7 +62,6 @@ class _CatalogoState extends State<Catalogo> {
     // loginProvider.readToken();
     super.initState();
     _medidorUser = CatService().getLast(context, widget.token);
-    
 
     logList = [];
   }
@@ -192,11 +191,11 @@ class _CatalogoState extends State<Catalogo> {
                       child: SizedBox(
                         height: responsive.hp(50),
                         width: responsive.wp(97),
-                        child: FutureBuilder<List<Log>?>(
+                        child: FutureBuilder<List<MedidorUser>?>(
                           //Todo
-                          future: _logsUser,
-                          builder:
-                              (context, AsyncSnapshot<List<Log>?> snapshot) {
+                          future: _medidorUser,
+                          builder: (context,
+                              AsyncSnapshot<List<MedidorUser>?> snapshot) {
                             if (!snapshot.hasData) {
                               return const Center(
                                 child: CircularProgressIndicator(),
@@ -681,7 +680,6 @@ class _CatalogoState extends State<Catalogo> {
                                               logList =
                                                   listaMedidoresUser![index]
                                                       .logs;
-                                                      
                                               Navigator.pop(context);
                                             },
                                             nameMedidor:
