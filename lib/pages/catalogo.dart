@@ -37,7 +37,7 @@ int? orderCat;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
 
-Future<List<MedidorUser>?>? _logsUser;
+Future<List<Log>?>? _logsUser;
 List<MedidorUser>? listaLogsUser;
 
 bool emptyArray = true;
@@ -57,6 +57,7 @@ const Map<String, int> modelOrder = {
 
 class _CatalogoState extends State<Catalogo> {
   MedidorUser? logActual;
+  List<Log?>? logList;
   @override
   void initState() {
     // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
@@ -185,15 +186,15 @@ class _CatalogoState extends State<Catalogo> {
                       color: Colors.black54, fontSize: responsive.dp(1.8)),
                 ),
               ),
-              logActual?.logs?.length != null
+              logList!.length != 0
                   ? SingleChildScrollView(
                       child: SizedBox(
                         height: responsive.hp(50),
                         width: responsive.wp(97),
-                        child: FutureBuilder<List<MedidorUser>?>(
+                        child: FutureBuilder<List<Log>?>(
                           future: _logsUser,
                           builder: (context,
-                              AsyncSnapshot<List<MedidorUser>?> snapshot) {
+                              AsyncSnapshot<List<Log>?> snapshot) {
                             if (!snapshot.hasData) {
                               return const Center(
                                 child: CircularProgressIndicator(),
@@ -201,12 +202,12 @@ class _CatalogoState extends State<Catalogo> {
                             } else {
                               arrayVacio
                                   ? {
-                                      listaLogsUser = snapshot.data,
+                                      logList = snapshot.data,
                                     }
                                   : {
-                                      listaLogsUser = listaLogsUser!
+                                      logList = logList!
                                           .where(
-                                            (element) => element.psi!
+                                            (element) => element!.nsut!
                                                 .toLowerCase()
                                                 .contains(
                                                   selectItem!.toLowerCase(),
@@ -222,7 +223,7 @@ class _CatalogoState extends State<Catalogo> {
                                           const NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
-                                      itemCount: logActual?.logs?.length ?? 0,
+                                      itemCount: logList!.length,
                                       itemBuilder: (context, index) {
                                         return Column(
                                           children: [
@@ -232,8 +233,7 @@ class _CatalogoState extends State<Catalogo> {
                                                   barrierColor: Colors.black,
                                                   context: context,
                                                   builder: (context) {
-                                                    DateTime? now = logActual!
-                                                        .logs![index].fecha;
+                                                    DateTime? now = logList![index]!.fecha;
                                                     String formattedDate =
                                                         DateFormat(
                                                                 ' dd-MM-yyyy – kk:mm')
@@ -679,6 +679,8 @@ class _CatalogoState extends State<Catalogo> {
                                             onPressarrowButton: () {
                                               logActual =
                                                   listaMedidoresUser![index];
+                                              logList =
+                                                  listaMedidoresUser![index].logs;
                                               Navigator.pop(context);
                                             },
                                             nameMedidor:
