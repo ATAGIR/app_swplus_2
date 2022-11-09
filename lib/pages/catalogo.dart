@@ -36,10 +36,7 @@ int? orderDrawer;
 int? orderCat;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
-
 Future<List<Log>?>? _logsUser;
-List<MedidorUser>? listaLogsUser;
-
 bool emptyArray = true;
 bool arrayVacio = true;
 String? itemSeleccionado;
@@ -193,8 +190,8 @@ class _CatalogoState extends State<Catalogo> {
                         width: responsive.wp(97),
                         child: FutureBuilder<List<Log>?>(
                           future: _logsUser,
-                          builder: (context,
-                              AsyncSnapshot<List<Log>?> snapshot) {
+                          builder:
+                              (context, AsyncSnapshot<List<Log>?> snapshot) {
                             if (!snapshot.hasData) {
                               return const Center(
                                 child: CircularProgressIndicator(),
@@ -233,7 +230,8 @@ class _CatalogoState extends State<Catalogo> {
                                                   barrierColor: Colors.black,
                                                   context: context,
                                                   builder: (context) {
-                                                    DateTime? now = logList![index]!.fecha;
+                                                    DateTime? now =
+                                                        logList![index]!.fecha;
                                                     String formattedDate =
                                                         DateFormat(
                                                                 ' dd-MM-yyyy – kk:mm')
@@ -280,7 +278,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logActual!.logs![index].etiqueta}',
+                                                                        '  ${logList![index]!.etiqueta}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -296,7 +294,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logActual!.logs![index].nsut}',
+                                                                        '  ${logList![index]!.nsut}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -328,7 +326,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logActual!.logs![index].modelo}',
+                                                                        '  ${logList![index]!.modelo}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -344,7 +342,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logActual!.logs![index].nsm}',
+                                                                        '  ${logList![index]!.nsm}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -360,7 +358,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                                 Colors.white),
                                                                       ),
                                                                       Text(
-                                                                        '  ${logActual!.logs![index].nsue}',
+                                                                        '  ${logList![index]!.nsue}',
                                                                         style: const TextStyle(
                                                                             color:
                                                                                 Colors.white),
@@ -386,7 +384,7 @@ class _CatalogoState extends State<Catalogo> {
                                                       title: Row(
                                                         children: [
                                                           Text(
-                                                            'NSUT: ${logActual!.logs![index].nsut}',
+                                                            'NSUT: ${logList![index]!.nsut}',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     responsive
@@ -402,29 +400,25 @@ class _CatalogoState extends State<Catalogo> {
                                                                     builder:
                                                                         (context) =>
                                                                             PageMapa(
-                                                                      latitud: logActual!
-                                                                          .logs![
-                                                                              index]
+                                                                      latitud: logList![
+                                                                              index]!
                                                                           .lat!,
-                                                                      longitud: logActual!
-                                                                          .logs![
-                                                                              index]
-                                                                          .long!,
-                                                                      nsut: logActual!
-                                                                          .logs![
-                                                                              index]
+                                                                      longitud:
+                                                                          logList![index]!
+                                                                              .long!,
+                                                                      nsut: logList![
+                                                                              index]!
                                                                           .nsut!,
-                                                                      etiqueta: logActual!
-                                                                          .logs![
-                                                                              index]
-                                                                          .etiqueta!,
+                                                                      etiqueta:
+                                                                          logList![index]!
+                                                                              .etiqueta!,
                                                                       token: widget
                                                                           .token,
                                                                     ),
                                                                   ),
                                                                 );
                                                               } catch (e) {
-                                                                throw e;
+                                                                rethrow;
                                                               }
                                                             },
                                                             icon: const Icon(
@@ -443,7 +437,7 @@ class _CatalogoState extends State<Catalogo> {
                                                             child: Column(
                                                               children: [
                                                                 Text(
-                                                                  'Modelo: ${logActual!.logs![index].modelo}\nEtiqueta: ${logActual!.logs![index].etiqueta!.trim()}',
+                                                                  'Modelo: ${logList![index]!.modelo}\nEtiqueta: ${logList![index]!.etiqueta!.trim()}',
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -680,7 +674,8 @@ class _CatalogoState extends State<Catalogo> {
                                               logActual =
                                                   listaMedidoresUser![index];
                                               logList =
-                                                  listaMedidoresUser![index].logs;
+                                                  listaMedidoresUser![index]
+                                                      .logs;
                                               Navigator.pop(context);
                                             },
                                             nameMedidor:

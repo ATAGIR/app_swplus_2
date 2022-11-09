@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/catalogo.dart';
 import 'package:telemetria/pages/login.dart';
-import 'package:telemetria/services/aut_serv.dart';
-import 'package:telemetria/utils/secure_storage.dart';
 import '../providers/login_prov.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -15,8 +13,6 @@ class AuthScreen extends StatelessWidget {
     // ignore: unused_local_variable
     GlobalKey<FormState> frmKeyAuth = GlobalKey<FormState>();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    String? tokenCatalogo = '';
-
     return Scaffold(
       body: Center(
         child: FutureBuilder(
@@ -47,7 +43,6 @@ class AuthScreen extends StatelessWidget {
                         //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
                       });
                 } else {
-                  
                   Future.microtask(() => {
                         Navigator.pushReplacement(
                             context,
