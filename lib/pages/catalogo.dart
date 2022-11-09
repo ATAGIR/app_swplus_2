@@ -37,9 +37,6 @@ int? orderCat;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
 
-Future<List<Log>?>? detalleLog;
-List<Log?>? listaDetalleLog;
-
 bool emptyArray = true;
 String? itemSeleccionado;
 String? selectItem;
@@ -158,24 +155,21 @@ class _CatalogoState extends State<Catalogo> {
                         .toList(),
                     value: orderCat,
                     onChanged: (int? value) {
+                      for (int i = 0; i <= logActual!.logs!.length; i++) {
+                        logActual!.logs![i].modelo;
+                        
+                      }
                       orderCat = value!;
                       switch (orderCat) {
                         case 1:
                           setState(
                             () {
-                              listaDetalleLog!.sort(
-                                (a, b) => a!.modelo!.compareTo(b!.rfc!),
-                              );
                             },
                           );
                           break;
                         case 2:
                           setState(
-                            () {
-                              listaDetalleLog!.sort(
-                                (a, b) => b!.modelo!.compareTo(a!.rfc!),
-                              );
-                            },
+                            () {},
                           );
                           break;
                         default:
