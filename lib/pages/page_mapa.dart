@@ -300,14 +300,14 @@ class _PageMapaState extends State<PageMapa> {
   Future<dynamic> verDialogo(
       BuildContext context, Responsive responsive, int index) {
     return showDialog(
-      barrierColor: Colors.black,
+      barrierColor: Colors.black87,
       context: context,
       builder: (context) {
         DateTime? now = listaDetalleMap?[index].fecha;
         String formattedDate = DateFormat('dd-MM-yyyy – kk:mm').format(now!);
         return Center(
-          child: Container(
-            decoration: const BoxDecoration(color: Colors.black54),
+          child: SizedBox(
+           
             height: responsive.hp(25),
             width: responsive.wp(92),
             child: Column(

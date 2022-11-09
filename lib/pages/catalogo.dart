@@ -109,36 +109,36 @@ class _CatalogoState extends State<Catalogo> {
               SizedBox(
                 height: responsive.hp(2),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SearchTextForm(
-                  width: responsive.wp(60),
-                  height: responsive.hp(5),
-                  borderColor: ColorTheme.iconsColor,
-                  backgroundColor: ColorTheme.thetextBackgroundColor,
-                  labelText: 'Buscar',
-                  onPressed: () {},
-                  iconSize: responsive.dp(2.1),
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        if (value.isEmpty) {
-                          arrayVacio = true;
-                          selectItem = value.trim();
-                        } else {
-                          arrayVacio = false;
-                          selectItem = value.trim();
-                        }
-                      },
-                    );
-                  },
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: SearchTextForm(
+              //     width: responsive.wp(60),
+              //     height: responsive.hp(5),
+              //     borderColor: ColorTheme.iconsColor,
+              //     backgroundColor: ColorTheme.thetextBackgroundColor,
+              //     labelText: 'Buscar',
+              //     onPressed: () {},
+              //     iconSize: responsive.dp(2.1),
+              //     onChanged: (value) {
+              //       setState(
+              //         () {
+              //           if (value.isEmpty) {
+              //             arrayVacio = true;
+              //             selectItem = value.trim();
+              //           } else {
+              //             arrayVacio = false;
+              //             selectItem = value.trim();
+              //           }
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   LabelText(
-                    txtValor: 'Modelo',
+                    txtValor: 'NSUT',
                     fontSize: responsive.dp(1.8),
                     colorText: Colors.black54,
                   ),
@@ -190,29 +190,36 @@ class _CatalogoState extends State<Catalogo> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5, bottom: 5),
-                child: Text(
-                  '${logActual?.psi} > ${logActual?.concesion} > ${logActual?.rfc}',
-                  style: TextStyle(
-                      color: Colors.black54, fontSize: responsive.dp(1.8)),
-                ),
+                child: logActual?.psi == null
+                    ? Text(
+                        'Seleccione un PSI',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: responsive.dp(1.8)),
+                      )
+                    : Text(
+                        '${logActual?.psi} > ${logActual?.concesion} > ${logActual?.rfc}',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: responsive.dp(1.8)),
+                      ),
               ),
               logList!.length != 0
-                  ? FutureBuilder<List<Log>?>(
-                      builder: (context, AsyncSnapshot<List<Log>?> snapshot) {
-                      arrayVacio
-                          ? logList = logList
-                          : logList = logList!
-                              .where(
-                                (element) =>
-                                    element.nsut!.toLowerCase().contains(
-                                          selectItem!.toLowerCase(),
-                                        ),
-                              )
-                              .toList();
-                      return SingleChildScrollView(
-                        child: SizedBox(
-                          height: responsive.hp(90),
-                          width: responsive.wp(97),
+                  ? SizedBox(
+                      height: responsive.hp(75),
+                      child: FutureBuilder<List<Log>?>(builder:
+                          (context, AsyncSnapshot<List<Log>?> snapshot) {
+                        arrayVacio
+                            ? logList = logList
+                            : logList = logList!
+                                .where(
+                                  (element) =>
+                                      element.nsut!.toLowerCase().contains(
+                                            selectItem!.toLowerCase(),
+                                          ),
+                                )
+                                .toList();
+                        return SingleChildScrollView(
                           child: SlideInLeft(
                             child: Column(
                               children: [
@@ -440,9 +447,9 @@ class _CatalogoState extends State<Catalogo> {
                               ],
                             ),
                           ),
-                        ),
-                      );
-                    })
+                        );
+                      }),
+                    )
                   : Container(
                       width: responsive.wp(100),
                       height: responsive.hp(55),
@@ -452,7 +459,13 @@ class _CatalogoState extends State<Catalogo> {
                           SizedBox(
                             height: responsive.hp(10),
                           ),
-                          const Center(child: Text('Sin Archivos')),
+                          Center(
+                              child: Text(
+                            'Sin Archivos',
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: responsive.dp(1.8)),
+                          )),
                         ],
                       ),
                     ),
