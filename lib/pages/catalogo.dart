@@ -105,24 +105,33 @@ class _CatalogoState extends State<Catalogo> {
         //diseño pagina
         child: SingleChildScrollView(
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: responsive.hp(2),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: TextEditingController(),
-                  decoration: const InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25.0),
-                      ),
-                    ),
-                  ),
+                child: SearchTextForm(
+                  width: responsive.wp(60),
+                  height: responsive.hp(5),
+                  borderColor: ColorTheme.iconsColor,
+                  backgroundColor: ColorTheme.thetextBackgroundColor,
+                  labelText: 'Buscar',
+                  onPressed: () {},
+                  iconSize: responsive.dp(2.1),
+                  onChanged: (value) {
+                    setState(
+                      () {
+                        if (value.isEmpty) {
+                          arrayVacio = true;
+                          selectItem = value.trim();
+                        } else {
+                          arrayVacio = false;
+                          selectItem = value.trim();
+                        }
+                      },
+                    );
+                  },
                 ),
               ),
               Row(
@@ -188,8 +197,20 @@ class _CatalogoState extends State<Catalogo> {
                 ),
               ),
               logList!.length != 0
-                  ? SingleChildScrollView(
-                      child: SizedBox(
+                  ? FutureBuilder<List<Log>?>(
+                      builder: (context, AsyncSnapshot<List<Log>?> snapshot) {
+                      arrayVacio
+                          ? logList = logList
+                          : logList = logList!
+                              .where(
+                                (element) =>
+                                    element.nsut!.toLowerCase().contains(
+                                          selectItem!.toLowerCase(),
+                                        ),
+                              )
+                              .toList();
+                      return SingleChildScrollView(
+                        child: SizedBox(
                           height: responsive.hp(90),
                           width: responsive.wp(97),
                           child: SlideInLeft(
@@ -418,8 +439,10 @@ class _CatalogoState extends State<Catalogo> {
                                 ),
                               ],
                             ),
-                          )),
-                    )
+                          ),
+                        ),
+                      );
+                    })
                   : Container(
                       width: responsive.wp(100),
                       height: responsive.hp(55),
@@ -755,4 +778,6 @@ class _CatalogoState extends State<Catalogo> {
       ),
     );
   }
+
+  thelist() {}
 }
