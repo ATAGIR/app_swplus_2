@@ -187,10 +187,18 @@ class _LoginState extends State<Login> {
               print(value);
               if (value!.isActive == true) {
                 String token = loginProvider.loginPerfil.token;
+                String username = loginProvider.loginPerfil.username;
+                String rol = loginProvider.loginPerfil.role;
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Catalogo(token: token)));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Catalogo(
+                      token: token,
+                      role: rol,
+                      username: username,
+                    ),
+                  ),
+                );
               } else {
                 Message.msgNotActive;
               }

@@ -21,13 +21,15 @@ import 'package:intl/intl.dart';
 
 class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
-
   const Catalogo({
     super.key,
     required this.token,
+    required this.username,
+    required this.role,
   });
   final String token;
-
+  final String role;
+  final String username;
   @override
   State<Catalogo> createState() => _CatalogoState();
 }
@@ -36,7 +38,6 @@ int? orderDrawer;
 int? orderCat;
 Future<List<MedidorUser>?>? _medidorUser;
 List<MedidorUser>? listaMedidoresUser;
-Future<List<Log>?>? _logsUser;
 bool emptyArray = true;
 bool arrayVacio = true;
 String? itemSeleccionado;
@@ -55,14 +56,10 @@ const Map<String, int> modelOrder = {
 
 class _CatalogoState extends State<Catalogo> {
   MedidorUser? logActual;
-
   @override
   void initState() {
-    // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    // loginProvider.readToken();
     super.initState();
     _medidorUser = CatService().getLast(context, widget.token);
-
     logList = [];
   }
 
@@ -78,6 +75,32 @@ class _CatalogoState extends State<Catalogo> {
       },
       appBar: AppBar(
         actions: [
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: SearchTextForm(
+          //     width: responsive.wp(60),
+          //     height: responsive.hp(5),
+          //     borderColor: ColorTheme.iconsColor,
+          //     backgroundColor: ColorTheme.thetextBackgroundColor,
+          //     labelText: 'Buscar',
+          //     onPressed: () {},
+          //     iconSize: responsive.dp(2.1),
+          //     onChanged: (value) {
+          //       setState(
+          //         () {
+          //           if (value.isEmpty) {
+          //             arrayVacio = true;
+          //             selectItem = value.trim();
+          //           } else {
+          //             arrayVacio = false;
+          //             selectItem = value.trim();
+          //           }
+          //         },
+          //       );
+          //     },
+          //   ),
+          // ),
+          SizedBox(width: responsive.wp(6)),
           IconButton(
             onPressed: () {
               SecureStorage().deleteSecureData('token');
@@ -109,31 +132,6 @@ class _CatalogoState extends State<Catalogo> {
               SizedBox(
                 height: responsive.hp(2),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: SearchTextForm(
-              //     width: responsive.wp(60),
-              //     height: responsive.hp(5),
-              //     borderColor: ColorTheme.iconsColor,
-              //     backgroundColor: ColorTheme.thetextBackgroundColor,
-              //     labelText: 'Buscar',
-              //     onPressed: () {},
-              //     iconSize: responsive.dp(2.1),
-              //     onChanged: (value) {
-              //       setState(
-              //         () {
-              //           if (value.isEmpty) {
-              //             arrayVacio = true;
-              //             selectItem = value.trim();
-              //           } else {
-              //             arrayVacio = false;
-              //             selectItem = value.trim();
-              //           }
-              //         },
-              //       );
-              //     },
-              //   ),
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -539,6 +537,17 @@ class _CatalogoState extends State<Catalogo> {
               SizedBox(
                 height: responsive.hp(2),
               ),
+              Text(
+                'Usuario: ${widget.username.trim()}\nRol: ${widget.role.trim()}',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: responsive.dp(1.7),
+                  color: Colors.blue.shade400,
+                ),
+              ),
+              SizedBox(
+                height: responsive.hp(2),
+              ),
               SearchTextForm(
                 width: responsive.wp(60),
                 height: responsive.hp(5),
@@ -616,7 +625,6 @@ class _CatalogoState extends State<Catalogo> {
                   ),
                 ],
               ),
-              //Drawer
               _medidorUser != null
                   ? SingleChildScrollView(
                       child: SizedBox(
@@ -648,36 +656,46 @@ class _CatalogoState extends State<Catalogo> {
                                           .toList(),
                                     };
                               return SlideInLeft(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return ListTileTelemetria
-                                        .listTileTELEMETRIA(
-                                            buttonText: true,
-                                            circleColor:
-                                                ColorTheme.indicatorColor,
-                                            iconButton2:
-                                                Icons.arrow_forward_ios,
-                                            onPressarrowButton: () {
-                                              logActual =
-                                                  listaMedidoresUser![index];
-                                              logList =
-                                                  listaMedidoresUser![index]
-                                                      .logs;
-
-                                              Navigator.pop(context);
-                                            },
-                                            nameMedidor:
-                                                listaMedidoresUser?[index].psi,
-                                            //listaMedidoresUser![index].rfc!,
-                                            subtitle:
-                                                '${listaMedidoresUser?[index].concesion} - ${listaMedidoresUser?[index].rfc}',
-                                            responsive: responsive,
-                                            iconButton1: Icons.abc,
-                                            textButton: 'Ver');
+                                child: RefreshIndicator(
+                                  edgeOffset: 1.0,
+                                  displacement: 40.0,
+                                  onRefresh: () {
+                                    setState(
+                                      () {},
+                                    );
+                                    return _medidorUser = CatService()
+                                        .getLast(context, widget.token);
                                   },
-                                  itemCount: listaMedidoresUser!.length,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return ListTileTelemetria
+                                          .listTileTELEMETRIA(
+                                              buttonText: true,
+                                              circleColor:
+                                                  ColorTheme.indicatorColor,
+                                              iconButton2:
+                                                  Icons.arrow_forward_ios,
+                                              onPressarrowButton: () {
+                                                logActual =
+                                                    listaMedidoresUser![index];
+                                                logList =
+                                                    listaMedidoresUser![index]
+                                                        .logs;
+                                                Navigator.pop(context);
+                                              },
+                                              nameMedidor:
+                                                  listaMedidoresUser?[index]
+                                                      .psi,
+                                              subtitle:
+                                                  '${listaMedidoresUser?[index].concesion} - ${listaMedidoresUser?[index].rfc}',
+                                              responsive: responsive,
+                                              iconButton1: Icons.abc,
+                                              textButton: 'Ver');
+                                    },
+                                    itemCount: listaMedidoresUser!.length,
+                                  ),
                                 ),
                               );
                             }
@@ -694,8 +712,9 @@ class _CatalogoState extends State<Catalogo> {
                             fontSize: 14),
                       ),
                     ),
-              SizedBox(height: Responsive(context).wp(0.1)),
-
+              SizedBox(
+                height: Responsive(context).wp(0.1),
+              ),
               TextButton.icon(
                   onPressed: () {
                     showModalBottomSheet(
@@ -791,6 +810,4 @@ class _CatalogoState extends State<Catalogo> {
       ),
     );
   }
-
-  thelist() {}
 }

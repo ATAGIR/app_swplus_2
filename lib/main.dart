@@ -7,16 +7,20 @@ import 'package:telemetria/providers/login_prov.dart';
 import 'pages/login.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(
-      create: (context) => LoginProvider(),
-    )
-  ], child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LoginProvider(),
+        )
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -35,6 +39,8 @@ class _MyAppState extends State<MyApp> {
         Login.routeName: ((context) => const Login()),
         Catalogo.routeName: ((context) => const Catalogo(
               token: '',
+              role: '',
+              username: '',
             )),
         AuthScreen.routeName: ((context) => const AuthScreen()),
         PageMapa.routeName: ((context) => const PageMapa(

@@ -10,57 +10,62 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    GlobalKey<FormState> frmKeyAuth = GlobalKey<FormState>();
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       body: Center(
         child: FutureBuilder(
-            future: loginProvider.readToken(),
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (!snapshot.hasData) {
-                // ignore: sized_box_for_whitespace
-
-                return SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Image.asset('assets/imagenes/logo.jpeg'),
+          future: loginProvider.readToken(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (!snapshot.hasData) {
+              return SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Image.asset('assets/imagenes/logo.jpeg'),
+              );
+            } else {
+              if (snapshot.data == '') {
+                Future.microtask(
+                  () => {
+                    Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (
+                          _,
+                          __,
+                          ___,
+                        ) =>
+                            const Login(),
+                        transitionDuration: const Duration(seconds: 1),
+                      ),
+                    ),
+                  },
                 );
               } else {
-                if (snapshot.data == '') {
-                  Future.microtask(() => {
-                        Navigator.pushReplacement(
-                            context,
-                            PageRouteBuilder(
-                                pageBuilder: (
-                                  _,
-                                  __,
-                                  ___,
-                                ) =>
-                                    const Login(),
-                                //const ServicesScreen(),
-                                transitionDuration: const Duration(seconds: 1)))
-                        //Navigator.of(context).pushReplacementNamed(HomePage.routeName)
-                      });
-                } else {
-                  Future.microtask(() => {
-                        Navigator.pushReplacement(
-                            context,
-                            PageRouteBuilder(
-                                pageBuilder: (
-                                  _,
-                                  __,
-                                  ___,
-                                ) =>
-                                    Catalogo(
-                                      token: loginProvider.token,
-                                    ),
-                                transitionDuration: const Duration(seconds: 0)))
-                      });
-                }
+                Future.microtask(
+                  () => {
+                    Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (
+                          _,
+                          __,
+                          ___,
+                        ) =>
+                            Catalogo(
+                          token: loginProvider.token,
+                          username: loginProvider.loginPerfil.username,
+                          role: loginProvider.loginPerfil.role,
+                        ),
+                        transitionDuration: const Duration(seconds: 1),
+                      ),
+                    ),
+                  },
+                );
               }
-              return Container();
-            }),
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
