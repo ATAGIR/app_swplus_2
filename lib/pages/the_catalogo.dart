@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/medidor_user.dart';
-import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/login.dart';
 import 'package:telemetria/pages/rfc_page.dart';
 import 'package:telemetria/providers/login_prov.dart';
@@ -176,9 +175,15 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                       'Cuenta eliminada con éxito',
                                                   color:
                                                       const Color(0xff69C073));
+                                              SecureStorage()
+                                                  .deleteSecureData('token');
+                                              SecureStorage()
+                                                  .deleteSecureData('username');
+                                              SecureStorage()
+                                                  .deleteSecureData('password');
                                               Navigator.pushNamedAndRemoveUntil(
                                                   context,
-                                                  AuthScreen.routeName,
+                                                  Login.routeName,
                                                   (route) => false);
                                             });
                                           },
@@ -239,6 +244,7 @@ class _TheCatalogoState extends State<TheCatalogo> {
               style: TextStyle(
                   color: Colors.black54, fontSize: responsive.dp(1.8)),
             ),
+            
             _medidorUser != null
                 ? SingleChildScrollView(
                     child: SizedBox(
@@ -306,7 +312,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                 listaMedidoresUser![index]
                                                     .logs!
                                                     .isEmpty) {
-                                              print('solo');
                                             } else {
                                               Navigator.push(
                                                 context,
@@ -344,7 +349,7 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                                 index]
                                                             .logs!
                                                             .isEmpty
-                                                    ? Color(0xfff7f5bc)
+                                                    ? const Color(0xfff7f5bc)
                                                     : ColorTheme
                                                         .thetextBackgroundColor),
                                             height: responsive.hp(12),
@@ -446,10 +451,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                                 ),
                                                               ),
                                                             );
-                                                            print(
-                                                                listaMedidoresUser![
-                                                                        index]
-                                                                    .concesion);
                                                           },
                                                           icon: const Icon(
                                                             Icons
@@ -495,6 +496,7 @@ class _TheCatalogoState extends State<TheCatalogo> {
                         },
                       ),
                     ),
+                    
                   )
                 : Center(
                     child: Text(
