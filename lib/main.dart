@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/catalogo.dart';
-
 import 'package:telemetria/pages/rfc_page.dart';
 import 'package:telemetria/pages/the_catalogo.dart';
 import 'package:telemetria/providers/login_prov.dart';
@@ -30,6 +30,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',

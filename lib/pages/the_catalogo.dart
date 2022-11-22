@@ -56,9 +56,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
       child: Scaffold(
         drawer: ClipRRect(
           borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(70.0),
-            bottomRight: Radius.circular(70.0)
-          ),
+              topRight: Radius.circular(70.0),
+              bottomRight: Radius.circular(70.0)),
           child: Drawer(
             backgroundColor: Colors.lightBlue.shade900,
             child: Column(
@@ -103,7 +102,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                           SecureStorage().deleteSecureData('password');
                           Navigator.pushNamedAndRemoveUntil(
                               context, Login.routeName, (route) => false);
-        
                         },
                         icon: Icon(Icons.exit_to_app_rounded,
                             color: Colors.grey.shade300),
@@ -141,7 +139,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                         ),
                                       ),
                                     ),
-                                    const SpacerSW(isVertical: true, space: 1.5),
+                                    const SpacerSW(
+                                        isVertical: true, space: 1.5),
                                     Padding(
                                       padding: const EdgeInsets.all(7.0),
                                       child: Padding(
@@ -150,7 +149,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                           'Este será un proceso irreversible, asegúrese de querer llevar a cabo este proceso.',
                                           style: TextStyle(
                                             color: Colors.grey.shade700,
-                                            fontSize: Responsive(context).dp(1.5),
+                                            fontSize:
+                                                Responsive(context).dp(1.5),
                                           ),
                                         ),
                                       ),
@@ -167,14 +167,15 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                     context,
                                                     listen: false);
                                             CatService()
-                                                .delete(
-                                                    context, loginProvider.token)
+                                                .delete(context,
+                                                    loginProvider.token)
                                                 .then((value) {
                                               Message.showMessage(
                                                   context: context,
                                                   message:
                                                       'Cuenta eliminada con éxito',
-                                                  color: const Color(0xff69C073));
+                                                  color:
+                                                      const Color(0xff69C073));
                                               Navigator.pushNamedAndRemoveUntil(
                                                   context,
                                                   AuthScreen.routeName,
@@ -183,7 +184,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                           },
                                           child: const Text(
                                             'Eliminar',
-                                            style: TextStyle(color: Colors.blue),
+                                            style:
+                                                TextStyle(color: Colors.blue),
                                           ),
                                         ),
                                         TextButton(
@@ -192,7 +194,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                           },
                                           child: const Text(
                                             'Cancelar',
-                                            style: TextStyle(color: Colors.blue),
+                                            style:
+                                                TextStyle(color: Colors.blue),
                                           ),
                                         )
                                       ],
@@ -231,7 +234,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
         body: Column(
           children: [
             const SpacerSW(isVertical: true, space: 2),
-           
             Text(
               'Seleccione un PSI',
               style: TextStyle(
@@ -310,9 +312,10 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) => RfcPage(
-                                                    consecion: listaMedidoresUser![
-                                                            index]
-                                                        .concesion,
+                                                    consecion:
+                                                        listaMedidoresUser![
+                                                                index]
+                                                            .concesion,
                                                     token: widget.token!,
                                                     rfc: listaMedidoresUser![
                                                             index]
@@ -409,17 +412,40 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                                   index]
                                                               .logs!
                                                               .isEmpty
-                                                      ?  Icon(
+                                                      ? Icon(
                                                           Icons.arrow_drop_down,
-                                                          color: const Color.fromARGB(
-                                                              255,
-                                                              22,
-                                                              110,
-                                                              243),size:responsive.dp(4)
-                                                        )
-
+                                                          color: const Color
+                                                                  .fromARGB(255,
+                                                              22, 110, 243),
+                                                          size:
+                                                              responsive.dp(4))
                                                       : IconButton(
                                                           onPressed: () {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        RfcPage(
+                                                                  consecion: listaMedidoresUser![
+                                                                          index]
+                                                                      .concesion,
+                                                                  token: widget
+                                                                      .token!,
+                                                                  rfc: listaMedidoresUser![
+                                                                          index]
+                                                                      .rfc,
+                                                                  detalleLog:
+                                                                      listaMedidoresUser![
+                                                                              index]
+                                                                          .logs!,
+                                                                  username: widget
+                                                                      .username,
+                                                                  role: widget
+                                                                      .role,
+                                                                ),
+                                                              ),
+                                                            );
                                                             print(
                                                                 listaMedidoresUser![
                                                                         index]
@@ -438,7 +464,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                         )
                                                 ],
                                               ),
-
                                               subtitle: Text(
                                                 listaMedidoresUser![index]
                                                                 .concesion ==
@@ -451,7 +476,8 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                     : listaMedidoresUser![index]
                                                         .rfc!,
                                                 style: TextStyle(
-                                                    fontSize: responsive.dp(1.5),
+                                                    fontSize:
+                                                        responsive.dp(1.5),
                                                     color: ColorTheme
                                                         .thetextColor),
                                               ),
