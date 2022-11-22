@@ -68,9 +68,14 @@ class _PageMapaState extends State<PageMapa> {
     var index = 0;
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+       // automaticallyImplyLeading: true,
+       leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios)),
+        backgroundColor: Colors.lightBlue.shade900,
+        foregroundColor: Colors.grey.shade300,
         title: Column(
           //mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -79,12 +84,12 @@ class _PageMapaState extends State<PageMapa> {
             Text(
               widget.etiqueta,
               style:
-                  TextStyle(color: Colors.black, fontSize: responsive.dp(1.5)),
+                  TextStyle(color: Colors.grey.shade300, fontSize: responsive.dp(1.5)),
             ),
             Text(
               widget.nsut,
               style:
-                  TextStyle(color: Colors.black, fontSize: responsive.dp(1.5)),
+                  TextStyle(color: Colors.grey.shade300, fontSize: responsive.dp(1.5)),
             ),
           ],
         ),

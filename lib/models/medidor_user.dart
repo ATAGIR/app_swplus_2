@@ -68,8 +68,8 @@ class Log {
   String? rfc;
   String? nsm;
   String? nsue;
-  double? lat;
-  double? long;
+  dynamic? lat;
+  dynamic? long;
   int? modeloId;
   String? modelo;
   String? ccid;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/catalogo.dart';
 import 'package:telemetria/pages/login.dart';
+import 'package:telemetria/pages/the_catalogo.dart';
 import '../providers/login_prov.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -51,7 +52,7 @@ class AuthScreen extends StatelessWidget {
                           __,
                           ___,
                         ) =>
-                            Catalogo(
+                            TheCatalogo(
                           token: loginProvider.token,
                           username: loginProvider.loginPerfil.username,
                           role: loginProvider.loginPerfil.role,

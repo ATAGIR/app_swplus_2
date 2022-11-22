@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/page_registro.dart';
+import 'package:telemetria/pages/the_catalogo.dart';
 import 'package:telemetria/services/aut_serv.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/utils/caracteres.dart';
 import 'package:telemetria/utils/message.dart';
 import 'package:telemetria/utils/responsive.dart';
-import 'catalogo.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, this.passwordVisible = false}) : super(key: key);
@@ -84,6 +84,7 @@ class _LoginState extends State<Login> {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
         child: TextFormField(
+          initialValue: "ielizalde@swplus.com.m",
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
             border: OutlineInputBorder(
@@ -107,6 +108,7 @@ class _LoginState extends State<Login> {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: Responsive(context).hp(4)),
           child: TextFormField(
+            initialValue: "toke",
             keyboardType: TextInputType.emailAddress,
             obscureText: passwordVisible,
             decoration: InputDecoration(
@@ -192,7 +194,7 @@ class _LoginState extends State<Login> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Catalogo(
+                    builder: (context) => TheCatalogo(
                       token: token,
                       role: rol,
                       username: username,
@@ -207,9 +209,12 @@ class _LoginState extends State<Login> {
         }
       },
       child: SizedBox(
-          width: Responsive(context).wp(30),
-          height: Responsive(context).hp(7),
-          child: const Center(child: Text('Iniciar'))),
+        width: Responsive(context).wp(30),
+        height: Responsive(context).hp(7),
+        child: const Center(
+          child: Text('Iniciar'),
+        ),
+      ),
     );
   }
 

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/pages/auth_screen.dart';
 import 'package:telemetria/pages/catalogo.dart';
-import 'package:telemetria/pages/page_mapa.dart';
+
+import 'package:telemetria/pages/rfc_page.dart';
+import 'package:telemetria/pages/the_catalogo.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'pages/login.dart';
 
-void main() {
+main() {
   runApp(
     MultiProvider(
       providers: [
@@ -34,22 +36,13 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: const Login(),
       initialRoute: AuthScreen.routeName,
       routes: {
         Login.routeName: ((context) => const Login()),
-        Catalogo.routeName: ((context) => const Catalogo(
-              token: '',
-              role: '',
-              username: '',
-            )),
-        AuthScreen.routeName: ((context) => const AuthScreen()),
-        PageMapa.routeName: ((context) => const PageMapa(
-              etiqueta: '0',
-              latitud: 0,
-              longitud: 0,
-              nsut: '0',
-              token: '',
-            )),
+        Catalogo.routeName: ((context) => const Catalogo()),
+        TheCatalogo.routeName: ((context) => const TheCatalogo()),
+        RfcPage.routeName: ((context) => const RfcPage()),
       },
     );
   }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemetria/models/models.dart';
 import 'package:telemetria/pages/auth_screen.dart';
-import 'package:telemetria/pages/login.dart';
 import 'package:telemetria/pages/page_mapa.dart';
+import 'package:telemetria/pages/the_catalogo.dart';
 import 'package:telemetria/providers/login_prov.dart';
 import 'package:telemetria/services/cat_service.dart';
 import 'package:telemetria/theme/theme.dart';
@@ -23,13 +23,13 @@ class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
   const Catalogo({
     super.key,
-    required this.token,
-    required this.username,
-    required this.role,
+     this.token,
+     this.username,
+     this.role,
   });
-  final String token;
-  final String role;
-  final String username;
+  final String? token;
+  final String? role;
+  final String? username;
   @override
   State<Catalogo> createState() => _CatalogoState();
 }
@@ -59,7 +59,7 @@ class _CatalogoState extends State<Catalogo> {
   @override
   void initState() {
     super.initState();
-    _medidorUser = CatService().getLast(context, widget.token);
+    _medidorUser = CatService().getLast(context, widget.token!);
     logList = [];
   }
 
@@ -106,8 +106,18 @@ class _CatalogoState extends State<Catalogo> {
               SecureStorage().deleteSecureData('token');
               SecureStorage().deleteSecureData('username');
               SecureStorage().deleteSecureData('password');
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Login.routeName, (route) => false);
+              // Navigator.pushNamedAndRemoveUntil(
+              //     context, Login.routeName, (route) => false);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TheCatalogo(
+                    token: widget.token,
+                    role: widget.role,
+                    username: widget.username,
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
@@ -399,7 +409,7 @@ class _CatalogoState extends State<Catalogo> {
                                                                           index]
                                                                       .etiqueta!,
                                                                   token: widget
-                                                                      .token,
+                                                                      .token!,
                                                                 ),
                                                               ),
                                                             );
@@ -538,7 +548,7 @@ class _CatalogoState extends State<Catalogo> {
                 height: responsive.hp(2),
               ),
               Text(
-                'Usuario: ${widget.username.trim()}\nRol: ${widget.role.trim()}',
+                'Usuario: ${widget.username!.trim()}\nRol: ${widget.role!.trim()}',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: responsive.dp(1.7),
@@ -664,7 +674,7 @@ class _CatalogoState extends State<Catalogo> {
                                       () {},
                                     );
                                     return _medidorUser = CatService()
-                                        .getLast(context, widget.token);
+                                        .getLast(context, widget.token!);
                                   },
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
@@ -672,7 +682,7 @@ class _CatalogoState extends State<Catalogo> {
                                     itemBuilder: (context, index) {
                                       return ListTileTelemetria
                                           .listTileTELEMETRIA(
-                                              buttonText: true,
+                                              buttonText: false,
                                               circleColor:
                                                   ColorTheme.indicatorColor,
                                               iconButton2:
