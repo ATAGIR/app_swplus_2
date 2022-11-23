@@ -104,18 +104,17 @@ class _PageMapaState extends State<PageMapa> {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: Column(
               children: [
                 SizedBox(
-                  height: responsive.dp(16.3),
+                  height: responsive.dp(20),
                   child: Ubicacion(
                       minZoom: 5,
                       maxZoom: 20,
                       latitud: widget.latitud,
                       longitud: widget.longitud),
                 ),
-                SizedBox(height: responsive.hp(2)),
                 Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Column(

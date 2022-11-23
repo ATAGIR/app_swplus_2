@@ -240,7 +240,7 @@ class _TheCatalogoState extends State<TheCatalogo> {
           children: [
             const SpacerSW(isVertical: true, space: 2),
             Text(
-              'Seleccione un PSI',
+              'Seleccione un RFC',
               style: TextStyle(
                   color: Colors.black54, fontSize: responsive.dp(1.8)),
             ),
@@ -329,8 +329,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                         listaMedidoresUser![
                                                                 index]
                                                             .logs!,
-                                                    username: widget.username,
-                                                    role: widget.role,
                                                   ),
                                                 ),
                                               );
@@ -444,10 +442,6 @@ class _TheCatalogoState extends State<TheCatalogo> {
                                                                       listaMedidoresUser![
                                                                               index]
                                                                           .logs!,
-                                                                  username: widget
-                                                                      .username,
-                                                                  role: widget
-                                                                      .role,
                                                                 ),
                                                               ),
                                                             );
