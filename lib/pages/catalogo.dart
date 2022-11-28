@@ -23,9 +23,9 @@ class Catalogo extends StatefulWidget {
   static const routeName = 'Catalogo';
   const Catalogo({
     super.key,
-     this.token,
-     this.username,
-     this.role,
+    this.token,
+    this.username,
+    this.role,
   });
   final String? token;
   final String? role;
